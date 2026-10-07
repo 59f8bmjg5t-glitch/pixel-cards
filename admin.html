@@ -75,7 +75,7 @@ nav a{
 }
 
 .container{
-  width:min(700px,92%);
+  width:min(800px,92%);
   margin:auto;
 }
 
@@ -169,6 +169,67 @@ button.success{
   font-weight:800;
 }
 
+.cards-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-top:25px;
+}
+
+.card-admin{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:16px;
+  background:rgba(255,255,255,.03);
+}
+
+.card-info{
+  flex:1;
+}
+
+.card-number{
+  color:var(--accent);
+  font-weight:1000;
+  margin-right:8px;
+}
+
+.card-name{
+  font-weight:900;
+}
+
+.card-rarity{
+  display:block;
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+}
+
+.card-status{
+  min-width:125px;
+  text-align:center;
+  font-weight:900;
+}
+
+.unlocked{
+  color:var(--success);
+}
+
+.locked{
+  color:var(--danger);
+}
+
+.card-admin button{
+  width:auto;
+  min-width:120px;
+  margin:0;
+  padding:10px 14px;
+  font-size:14px;
+}
+
 .warning{
   color:#ffd45a;
   line-height:1.6;
@@ -181,26 +242,50 @@ footer{
   border-top:1px solid var(--line);
   font-size:13px;
 }
+
+@media(max-width:650px){
+
+  .nav{
+    padding:18px 0;
+    flex-direction:column;
+  }
+
+  .card-admin{
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .card-status{
+    text-align:left;
+  }
+
+  .card-admin button{
+    width:100%;
+  }
+
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="nav">
 
-    <a class="logo" href="index.html">
-      PIXEL <span>CARDS</span>
-    </a>
+<div class="nav">
 
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="booster.html">🎁 Booster</a>
-      <a href="collection.html">Collection</a>
-      <a href="economie.html">🪙 Économie</a>
-    </nav>
+<a class="logo" href="index.html">
+PIXEL <span>CARDS</span>
+</a>
 
-  </div>
+<nav>
+<a href="index.html">Accueil</a>
+<a href="booster.html">🎁 Booster</a>
+<a href="collection.html">Collection</a>
+<a href="economie.html">🪙 Économie</a>
+</nav>
+
+</div>
+
 </header>
 
 
@@ -211,7 +296,7 @@ footer{
 <h1>👑 Administration</h1>
 
 <p class="subtitle">
-  Outils de gestion Pixel Cards
+Outils de gestion Pixel Cards
 </p>
 
 
@@ -226,10 +311,10 @@ footer{
 </div>
 
 <input
-  id="coinsAmount"
-  type="number"
-  min="1"
-  placeholder="Nombre de Pixel Coins"
+id="coinsAmount"
+type="number"
+min="1"
+placeholder="Nombre de Pixel Coins"
 >
 
 <button id="addCoins">
@@ -264,6 +349,8 @@ footer{
 </button>
 
 <div class="status" id="collectionStatus"></div>
+
+<div class="cards-list" id="cardsList"></div>
 
 </div>
 
@@ -308,35 +395,112 @@ const TOTAL_CARDS = 10;
 
 
 /* =========================
+   CARTES
+========================= */
+
+const CARDS = [
+
+{
+id:"1",
+name:"Frosty",
+rarity:"⚪ Commune"
+},
+
+{
+id:"2",
+name:"Lutin 8-Bit",
+rarity:"⚪ Commune"
+},
+
+{
+id:"3",
+name:"Rudolph Pixel",
+rarity:"🟢 Peu commune"
+},
+
+{
+id:"4",
+name:"Golem de Glace",
+rarity:"🔵 Rare"
+},
+
+{
+id:"5",
+name:"Mage Boréal",
+rarity:"🔵 Rare"
+},
+
+{
+id:"6",
+name:"Loup Polaire",
+rarity:"🟣 Épique"
+},
+
+{
+id:"7",
+name:"Draco Givré",
+rarity:"🟣 Épique"
+},
+
+{
+id:"8",
+name:"Reine Boréale",
+rarity:"🟡 Légendaire"
+},
+
+{
+id:"9",
+name:"Gardien du Grand Atelier",
+rarity:"🟡 Légendaire"
+},
+
+{
+id:"10",
+name:"Winter Core",
+rarity:"🌌 Secrète"
+}
+
+];
+
+
+/* =========================
    PIXEL COINS
 ========================= */
 
 function getCoins(){
 
-  const value = parseInt(
-    localStorage.getItem(COINS_KEY) || "0",
-    10
-  );
+const value =
+parseInt(
+localStorage.getItem(COINS_KEY) || "0",
+10
+);
 
-  return Number.isFinite(value) ? value : 0;
+return Number.isFinite(value) ? value : 0;
+
 }
 
 
 function setCoins(amount){
 
-  localStorage.setItem(
-    COINS_KEY,
-    String(Math.max(0, Math.floor(amount)))
-  );
+localStorage.setItem(
+COINS_KEY,
+String(
+Math.max(
+0,
+Math.floor(amount)
+)
+)
+);
 
-  updateBalance();
+updateBalance();
+
 }
 
 
 function updateBalance(){
 
-  document.getElementById("balance").textContent =
-    "🪙 " + getCoins();
+document.getElementById("balance").textContent =
+"🪙 " + getCoins();
 
 }
 
@@ -347,47 +511,176 @@ function updateBalance(){
 
 function getCollection(){
 
-  try{
+try{
 
-    const data =
-      JSON.parse(
-        localStorage.getItem(COLLECTION_KEY) || "[]"
-      );
+const data =
+JSON.parse(
+localStorage.getItem(COLLECTION_KEY) || "[]"
+);
 
-    return Array.isArray(data) ? data : [];
+return Array.isArray(data)
+? data.map(String)
+: [];
 
-  }catch{
+}catch{
 
-    return [];
+return [];
 
-  }
+}
 
 }
 
 
 function setCollection(cards){
 
-  localStorage.setItem(
-    COLLECTION_KEY,
-    JSON.stringify(cards)
-  );
+localStorage.setItem(
+COLLECTION_KEY,
+JSON.stringify(
+[...new Set(cards.map(String))]
+)
+);
 
-  updateCollection();
+updateCollection();
 
 }
 
+
+/* =========================
+   COMPTEUR
+========================= */
 
 function updateCollection(){
 
-  const cards = getCollection();
+const cards =
+getCollection();
 
-  const uniqueCards =
-    [...new Set(cards.map(String))];
+const uniqueCards =
+[...new Set(cards)];
 
-  document.getElementById("collectionCount").textContent =
-    uniqueCards.length + " / " + TOTAL_CARDS + " cartes";
+document.getElementById("collectionCount").textContent =
+uniqueCards.length +
+" / " +
+TOTAL_CARDS +
+" cartes";
+
+renderCards();
 
 }
+
+
+/* =========================
+   AFFICHAGE CARTES
+========================= */
+
+function renderCards(){
+
+const list =
+document.getElementById("cardsList");
+
+const collection =
+getCollection();
+
+list.innerHTML = "";
+
+CARDS.forEach(card => {
+
+const unlocked =
+collection.includes(card.id);
+
+const row =
+document.createElement("div");
+
+row.className = "card-admin";
+
+row.innerHTML = `
+
+<div class="card-info">
+
+<div>
+
+<span class="card-number">
+#${card.id.padStart(3,"0")}
+</span>
+
+<span class="card-name">
+${card.name}
+</span>
+
+</div>
+
+<span class="card-rarity">
+${card.rarity}
+</span>
+
+</div>
+
+<div class="card-status ${unlocked ? "unlocked" : "locked"}">
+
+${unlocked ? "🔓 Débloquée" : "🔒 Bloquée"}
+
+</div>
+
+<button
+class="${unlocked ? "danger" : "success"}"
+data-card-id="${card.id}"
+>
+
+${unlocked ? "🔒 Retirer" : "🔓 Débloquer"}
+
+</button>
+
+`;
+
+list.appendChild(row);
+
+});
+
+}
+
+
+/* =========================
+   GESTION CARTE INDIVIDUELLE
+========================= */
+
+document
+.getElementById("cardsList")
+.addEventListener("click", function(event){
+
+const button =
+event.target.closest("button[data-card-id]");
+
+if(!button) return;
+
+const id =
+button.dataset.cardId;
+
+let collection =
+getCollection();
+
+if(collection.includes(id)){
+
+collection =
+collection.filter(card => card !== id);
+
+document.getElementById("collectionStatus").textContent =
+"🔒 Carte #" +
+id.padStart(3,"0") +
+" retirée.";
+
+}else{
+
+collection.push(id);
+
+document.getElementById("collectionStatus").textContent =
+"🔓 Carte #" +
+id.padStart(3,"0") +
+" débloquée.";
+
+}
+
+setCollection(collection);
+
+});
 
 
 /* =========================
@@ -396,29 +689,33 @@ function updateCollection(){
 
 document
 .getElementById("addCoins")
-.addEventListener("click", function(){
+.addEventListener("click",function(){
 
-  const amount =
-    parseInt(
-      document.getElementById("coinsAmount").value,
-      10
-    );
+const amount =
+parseInt(
+document.getElementById("coinsAmount").value,
+10
+);
 
-  if(!Number.isFinite(amount) || amount <= 0){
+if(!Number.isFinite(amount) || amount <= 0){
 
-    document.getElementById("coinStatus").textContent =
-      "❌ Entre un nombre de coins valide.";
+document.getElementById("coinStatus").textContent =
+"❌ Entre un nombre de coins valide.";
 
-    return;
+return;
 
-  }
+}
 
-  setCoins(getCoins() + amount);
+setCoins(
+getCoins() + amount
+);
 
-  document.getElementById("coinStatus").textContent =
-    "✅ " + amount + " 🪙 ajoutés.";
+document.getElementById("coinStatus").textContent =
+"✅ " +
+amount +
+" 🪙 ajoutés.";
 
-  document.getElementById("coinsAmount").value = "";
+document.getElementById("coinsAmount").value = "";
 
 });
 
@@ -429,81 +726,78 @@ document
 
 document
 .getElementById("removeCoins")
-.addEventListener("click", function(){
+.addEventListener("click",function(){
 
-  const amount =
-    parseInt(
-      document.getElementById("coinsAmount").value,
-      10
-    );
+const amount =
+parseInt(
+document.getElementById("coinsAmount").value,
+10
+);
 
-  if(!Number.isFinite(amount) || amount <= 0){
+if(!Number.isFinite(amount) || amount <= 0){
 
-    document.getElementById("coinStatus").textContent =
-      "❌ Entre un nombre de coins valide.";
+document.getElementById("coinStatus").textContent =
+"❌ Entre un nombre de coins valide.";
 
-    return;
+return;
 
-  }
+}
 
-  setCoins(
-    Math.max(
-      0,
-      getCoins() - amount
-    )
-  );
+setCoins(
+Math.max(
+0,
+getCoins() - amount
+)
+);
 
-  document.getElementById("coinStatus").textContent =
-    "✅ " + amount + " 🪙 retirés.";
+document.getElementById("coinStatus").textContent =
+"✅ " +
+amount +
+" 🪙 retirés.";
 
-  document.getElementById("coinsAmount").value = "";
+document.getElementById("coinsAmount").value = "";
 
 });
 
 
 /* =========================
-   DÉBLOQUER TOUTES LES CARTES
+   DÉBLOQUER TOUTES
 ========================= */
 
 document
 .getElementById("unlockAll")
-.addEventListener("click", function(){
+.addEventListener("click",function(){
 
-  const allCards = [];
+const allCards =
+CARDS.map(card => card.id);
 
-  for(let i = 1; i <= TOTAL_CARDS; i++){
+setCollection(allCards);
 
-    allCards.push(String(i));
-
-  }
-
-  setCollection(allCards);
-
-  document.getElementById("collectionStatus").textContent =
-    "✅ Les 10 cartes sont maintenant débloquées.";
+document.getElementById("collectionStatus").textContent =
+"✅ Les 10 cartes sont débloquées.";
 
 });
 
 
 /* =========================
-   RÉINITIALISER COLLECTION
+   RÉINITIALISER
 ========================= */
 
 document
 .getElementById("resetCollection")
-.addEventListener("click", function(){
+.addEventListener("click",function(){
 
-  const confirmed =
-    confirm(
-      "⚠️ Es-tu sûr de vouloir réinitialiser toute la collection ?"
-    );
+const confirmed =
+confirm(
+"⚠️ Es-tu sûr de vouloir réinitialiser toute la collection ?"
+);
 
-  if(!confirmed) return;
+if(!confirmed) return;
 
-  setCollection([]);
+setCollection([]);
 
-  document.getElementById("collectionStatus").textContent =
-    "🗑️ Collection réinitialisée.";
+document.getElementById("collectionStatus").textContent =
+"🗑️ Collection réinitialisée.";
 
 });
 
