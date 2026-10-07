@@ -3,258 +3,389 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pixel Cards</title>
+<title>Pixel Cards — Winter Pixels</title>
+
+<meta name="description" content="Pixel Cards — jeu de cartes à collectionner. Saison 1 : Winter Pixels.">
 
 <style>
+:root {
+  --bg: #080b14;
+  --panel: #111827;
+  --panel-light: #172033;
+  --text: #f7f9ff;
+  --muted: #aeb8cc;
+  --cyan: #67e8f9;
+  --purple: #a78bfa;
+  --blue: #60a5fa;
+  --border: rgba(255,255,255,0.10);
+}
+
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #080b16;
-  color: white;
-  min-height: 100vh;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(103,232,249,0.13),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(167,139,250,0.16),
+      transparent 30%
+    ),
+    var(--bg);
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.container {
+  width: min(1080px, 92%);
+  margin: auto;
+}
+
+/* NAVIGATION */
+
 header {
-  padding: 20px;
-  text-align: center;
-  background: linear-gradient(135deg, #151b38, #24124d);
-  border-bottom: 1px solid #30375c;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(18px);
+  background: rgba(8,11,20,0.80);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav {
+  min-height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .logo {
-  font-size: 32px;
   font-weight: 900;
-  letter-spacing: 2px;
+  font-size: 20px;
+  letter-spacing: 0.5px;
 }
 
 .logo span {
-  color: #7c5cff;
-}
-
-.coins {
-  margin-top: 10px;
-  font-size: 17px;
-  color: #ffd84d;
+  color: var(--cyan);
 }
 
 nav {
   display: flex;
-  gap: 8px;
-  padding: 12px;
-  background: #0d1120;
-  overflow-x: auto;
-}
-
-nav button {
-  flex: 1;
-  min-width: 100px;
-  padding: 13px 8px;
-  border: 0;
-  border-radius: 12px;
-  background: #191f35;
-  color: white;
-  font-weight: bold;
+  gap: 20px;
+  color: var(--muted);
   font-size: 14px;
 }
 
-nav button.active {
-  background: #7057ff;
+nav a:hover {
+  color: var(--text);
 }
 
-main {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
-}
-
-section {
-  display: none;
-}
-
-section.active {
-  display: block;
-}
+/* HERO */
 
 .hero {
+  padding: 90px 0 75px;
   text-align: center;
-  padding: 30px 10px;
+}
+
+.badge {
+  display: inline-flex;
+  padding: 9px 15px;
+  border: 1px solid rgba(103,232,249,0.35);
+  background: rgba(103,232,249,0.08);
+  border-radius: 999px;
+  color: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
 }
 
 .hero h1 {
-  font-size: 38px;
-  margin-bottom: 12px;
+  font-size: clamp(44px, 10vw, 78px);
+  line-height: 0.95;
+  margin: 24px 0 20px;
+  letter-spacing: -3px;
+}
+
+.gradient {
+  background: linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--blue),
+    var(--purple)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .hero p {
-  color: #aeb5d1;
-  line-height: 1.5;
+  max-width: 680px;
+  margin: auto;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.btn {
+  padding: 14px 21px;
+  border-radius: 14px;
+  font-weight: 800;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  display: inline-block;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn.primary {
+  background: var(--text);
+  color: #080b14;
+}
+
+/* SECTIONS */
+
+section {
+  padding: 65px 0;
+}
+
+.section-title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.section-title h2 {
+  font-size: 34px;
+  margin: 0 0 10px;
+}
+
+.section-title p {
+  color: var(--muted);
+  margin: 0;
+}
+
+/* SEASON */
+
+.season {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 22px;
 }
 
 .panel {
-  background: #11172a;
-  border: 1px solid #292f4b;
-  border-radius: 20px;
-  padding: 20px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(23,32,51,0.95),
+      rgba(12,17,29,0.95)
+    );
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 28px;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.20);
+}
+
+.panel h3 {
+  margin-top: 0;
+  font-size: 27px;
+}
+
+.panel p {
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.season-art {
+  min-height: 310px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(103,232,249,0.20),
+      transparent 32%
+    ),
+    linear-gradient(
+      145deg,
+      #17233b,
+      #0d1321
+    );
+}
+
+.snowflake {
+  font-size: 105px;
+  filter: drop-shadow(
+    0 0 28px rgba(103,232,249,0.55)
+  );
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
   margin-top: 20px;
 }
 
-.booster {
-  margin: 20px auto;
-  width: 190px;
-  height: 270px;
-  border-radius: 20px;
-  background: linear-gradient(145deg, #7c5cff, #e343ff);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  box-shadow: 0 15px 45px rgba(124,92,255,.35);
-  transform: rotate(-2deg);
+.tag {
+  font-size: 12px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.06);
+  color: #d9e2f2;
 }
 
-.booster-content {
-  transform: rotate(2deg);
-}
-
-.booster h2 {
-  font-size: 28px;
-}
-
-.booster p {
-  margin-top: 15px;
-  opacity: .85;
-}
-
-.primary {
-  width: 100%;
-  border: 0;
-  border-radius: 14px;
-  padding: 16px;
-  background: linear-gradient(135deg, #7658ff, #a14cff);
-  color: white;
-  font-size: 17px;
-  font-weight: bold;
-}
-
-.primary:active {
-  transform: scale(.98);
-}
+/* CARDS */
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
-  margin-top: 20px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
 }
 
 .card {
-  min-height: 220px;
-  border-radius: 18px;
-  padding: 12px;
-  background: #171d32;
-  border: 2px solid #383f5e;
+  min-height: 255px;
+  border-radius: 20px;
+  padding: 20px;
   position: relative;
   overflow: hidden;
+  border: 1px solid var(--border);
+  background:
+    linear-gradient(
+      160deg,
+      #1a2942,
+      #0c1321
+    );
+  transition: 0.25s;
 }
 
-.card-image {
-  height: 125px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 52px;
-  background: linear-gradient(135deg, #252c4a, #11162a);
+.card:hover {
+  transform: translateY(-5px);
 }
 
-.card-name {
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
+.card::before {
+  content: "";
+  position: absolute;
+  inset: -50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(103,232,249,0.14),
+      transparent 40%
+    );
+  pointer-events: none;
+}
+
+.card-icon {
+  font-size: 58px;
+  position: relative;
+}
+
+.card h3 {
+  position: relative;
+  margin: 18px 0 7px;
+}
+
+.card p {
+  position: relative;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
 }
 
 .rarity {
-  font-size: 12px;
-  margin-top: 5px;
-  font-weight: bold;
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  font-size: 10px;
+  padding: 6px 8px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  font-weight: 800;
 }
 
-.Commun { border-color: #72798e; }
-.Rare { border-color: #42a5ff; }
-.Epique { border-color: #b45cff; }
-.Legendaire { border-color: #ffc52e; }
-.Mythique {
-  border-color: #ff4d6d;
-  box-shadow: 0 0 18px rgba(255,77,109,.35);
-}
+/* ROADMAP */
 
-.Commun .rarity { color: #aeb5c7; }
-.Rare .rarity { color: #42a5ff; }
-.Epique .rarity { color: #b45cff; }
-.Legendaire .rarity { color: #ffc52e; }
-.Mythique .rarity { color: #ff4d6d; }
-
-.collection-empty {
-  text-align: center;
-  color: #9299b3;
-  padding: 40px 10px;
-}
-
-.stats {
+.roadmap {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-columns: repeat(3,1fr);
+  gap: 17px;
 }
 
-.stat {
-  background: #171d32;
-  padding: 15px 8px;
+.step {
   text-align: center;
-  border-radius: 14px;
 }
 
-.stat strong {
-  display: block;
-  font-size: 22px;
+.step .number {
+  font-size: 30px;
+  font-weight: 900;
+  color: var(--cyan);
 }
 
-.stat span {
-  color: #9098b5;
-  font-size: 12px;
-}
+/* FOOTER */
 
-.message {
+footer {
+  border-top: 1px solid var(--border);
+  padding: 32px 0;
+  color: var(--muted);
+  font-size: 13px;
   text-align: center;
-  margin: 15px 0;
-  color: #ffd84d;
-  min-height: 20px;
 }
 
-@media (max-width: 420px) {
-  main {
-    padding: 15px;
+/* MOBILE */
+
+@media (max-width: 760px) {
+
+  nav {
+    display: none;
   }
 
-  .hero h1 {
-    font-size: 32px;
+  .season {
+    grid-template-columns: 1fr;
   }
 
   .cards {
-    gap: 10px;
+    grid-template-columns: 1fr;
   }
 
-  .card {
-    min-height: 205px;
+  .roadmap {
+    grid-template-columns: 1fr;
   }
 
-  .card-image {
-    height: 110px;
+  .hero {
+    padding-top: 65px;
+  }
+
+  section {
+    padding: 48px 0;
+  }
+
+  .hero h1 {
+    letter-spacing: -2px;
   }
 }
 </style>
@@ -263,259 +394,352 @@ section.active {
 <body>
 
 <header>
-  <div class="logo">PIXEL <span>CARDS</span></div>
-  <div class="coins">🪙 <span id="coins">1000</span> pièces</div>
-</header>
+  <div class="container nav">
 
-<nav>
-  <button class="active" onclick="showSection('accueil', this)">🏠 Accueil</button>
-  <button onclick="showSection('boosters', this)">🎁 Boosters</button>
-  <button onclick="showSection('collection', this)">🃏 Collection</button>
-</nav>
+    <a class="logo" href="#">
+      PIXEL <span>CARDS</span>
+    </a>
+
+    <nav>
+      <a href="#saison">Saison 1</a>
+      <a href="#cartes">Cartes</a>
+      <a href="#avenir">À venir</a>
+    </nav>
+
+  </div>
+</header>
 
 <main>
 
-<section id="accueil" class="active">
-  <div class="hero">
-    <h1>🎮 Pixel Cards</h1>
+<!-- ACCUEIL -->
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="badge">
+      ❄️ SAISON 01 — WINTER PIXELS
+    </div>
+
+    <h1>
+      Bienvenue dans
+      <span class="gradient">
+        Pixel Cards
+      </span>
+    </h1>
+
     <p>
-      Collectionne des cartes inspirées de l'univers du jeu vidéo.
-      Ouvre des boosters, découvre des cartes rares et complète ta collection !
-    </p>
-  </div>
-
-  <div class="panel">
-    <h2>🔥 Bienvenue !</h2>
-
-    <div class="stats">
-      <div class="stat">
-        <strong id="totalCards">0</strong>
-        <span>Cartes</span>
-      </div>
-
-      <div class="stat">
-        <strong>20</strong>
-        <span>Disponibles</span>
-      </div>
-
-      <div class="stat">
-        <strong id="boostersOpened">0</strong>
-        <span>Boosters</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="boosters">
-
-  <div class="hero">
-    <h1>🎁 Boosters</h1>
-    <p>Chaque booster contient 5 cartes aléatoires.</p>
-  </div>
-
-  <div class="panel">
-
-    <div class="booster">
-      <div class="booster-content">
-        <h2>PIXEL</h2>
-        <h2>CARDS</h2>
-        <p>BOOSTER #1</p>
-      </div>
-    </div>
-
-    <p style="text-align:center;margin-bottom:15px;">
-      Prix : <strong style="color:#ffd84d;">100 🪙</strong>
+      Un jeu de cartes à collectionner inspiré
+      de l'univers pixel.
+      Collectionne des héros et des créatures
+      originales au fil des saisons.
     </p>
 
-    <button class="primary" onclick="openBooster()">
-      OUVRIR LE BOOSTER
-    </button>
+    <div class="buttons">
 
-    <div class="message" id="message"></div>
+      <a
+        class="btn primary"
+        href="#saison"
+      >
+        Découvrir la saison
+      </a>
 
-    <div id="newCards" class="cards"></div>
+      <a
+        class="btn"
+        href="#cartes"
+      >
+        Voir les cartes
+      </a>
+
+    </div>
 
   </div>
+
 </section>
 
-<section id="collection">
 
-  <div class="hero">
-    <h1>🃏 Collection</h1>
-    <p>Voici toutes les cartes que tu as découvertes.</p>
+<!-- SAISON -->
+
+<section id="saison">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>
+        🎄 Saison 1 — Winter Pixels
+      </h2>
+
+      <p>
+        Une première saison placée sous
+        le signe de l'hiver.
+      </p>
+
+    </div>
+
+
+    <div class="season">
+
+      <div class="panel">
+
+        <h3>
+          Le royaume des pixels enneigés
+        </h3>
+
+        <p>
+          Découvrez un monde original où les
+          villages enneigés, les ateliers de jouets
+          et les forêts glacées cachent des
+          personnages uniques.
+        </p>
+
+        <p>
+          <strong>
+            Objectif de la saison :
+          </strong>
+          construire ta première collection
+          Pixel Cards.
+        </p>
+
+        <div class="tags">
+
+          <span class="tag">
+            ❄️ Hiver
+          </span>
+
+          <span class="tag">
+            🎁 Noël
+          </span>
+
+          <span class="tag">
+            🧊 Glace
+          </span>
+
+          <span class="tag">
+            🎮 Pixel
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="panel season-art">
+
+        <div>
+
+          <div class="snowflake">
+            ❄️
+          </div>
+
+          <strong>
+            WINTER PIXELS
+          </strong>
+
+          <div
+            style="
+              color:var(--muted);
+              margin-top:7px;
+            "
+          >
+            Saison 01
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div id="collectionCards" class="cards"></div>
+</section>
+
+
+<!-- CARTES -->
+
+<section id="cartes">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>
+        🃏 Premières cartes
+      </h2>
+
+      <p>
+        Des personnages 100 % originaux
+        pour l'univers Pixel Cards.
+      </p>
+
+    </div>
+
+
+    <div class="cards">
+
+      <article class="card">
+
+        <span class="rarity">
+          COMMUNE
+        </span>
+
+        <div class="card-icon">
+          ⛄
+        </div>
+
+        <h3>
+          Frosty
+        </h3>
+
+        <p>
+          Petit gardien de neige qui protège
+          les villages pendant les nuits glacées.
+        </p>
+
+      </article>
+
+
+      <article class="card">
+
+        <span class="rarity">
+          RARE
+        </span>
+
+        <div class="card-icon">
+          🧑‍🎄
+        </div>
+
+        <h3>
+          Lutin 8-Bit
+        </h3>
+
+        <p>
+          Inventeur du Nord capable de transformer
+          les pixels en jouets.
+        </p>
+
+      </article>
+
+
+      <article class="card">
+
+        <span class="rarity">
+          ÉPIQUE
+        </span>
+
+        <div class="card-icon">
+          🐉
+        </div>
+
+        <h3>
+          Draco Givré
+        </h3>
+
+        <p>
+          Une créature ancienne qui dort au sommet
+          de la montagne gelée.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- AVENIR -->
+
+<section id="avenir">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <h2>
+        🚀 La suite de Pixel Cards
+      </h2>
+
+      <p>
+        Le système est pensé pour évoluer
+        avec de nouvelles saisons.
+      </p>
+
+    </div>
+
+
+    <div class="roadmap">
+
+      <div class="panel step">
+
+        <div class="number">
+          01
+        </div>
+
+        <h3>
+          Site V1
+        </h3>
+
+        <p>
+          Accueil, présentation et premières cartes.
+        </p>
+
+      </div>
+
+
+      <div class="panel step">
+
+        <div class="number">
+          02
+        </div>
+
+        <h3>
+          Collection
+        </h3>
+
+        <p>
+          Suivre les cartes obtenues
+          et celles qui manquent.
+        </p>
+
+      </div>
+
+
+      <div class="panel step">
+
+        <div class="number">
+          03
+        </div>
+
+        <h3>
+          Boosters
+        </h3>
+
+        <p>
+          Ouverture de boosters
+          et nouvelles saisons.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
 </main>
 
-<script>
 
-const cards = [
-  {name:"Cyber Ninja", rarity:"Commun", icon:"🥷"},
-  {name:"Pixel Knight", rarity:"Commun", icon:"🛡️"},
-  {name:"Space Pilot", rarity:"Commun", icon:"🚀"},
-  {name:"Dungeon Hero", rarity:"Commun", icon:"⚔️"},
-  {name:"Speed Racer", rarity:"Commun", icon:"🏎️"},
+<footer>
 
-  {name:"Shadow Hunter", rarity:"Rare", icon:"🏹"},
-  {name:"Mecha Warrior", rarity:"Rare", icon:"🤖"},
-  {name:"Fire Mage", rarity:"Rare", icon:"🔥"},
-  {name:"Ice Guardian", rarity:"Rare", icon:"❄️"},
-  {name:"Cyber Hacker", rarity:"Rare", icon:"💻"},
+  © 2026 Pixel Cards —
+  Univers original.
+  Saison 01 : Winter Pixels.
 
-  {name:"Dragon Rider", rarity:"Epique", icon:"🐉"},
-  {name:"Galaxy Warrior", rarity:"Epique", icon:"🌌"},
-  {name:"Demon Slayer", rarity:"Epique", icon:"👹"},
-  {name:"Storm Master", rarity:"Epique", icon:"⚡"},
-
-  {name:"Ultimate Boss", rarity:"Legendaire", icon:"👑"},
-  {name:"Quantum Hero", rarity:"Legendaire", icon:"💠"},
-  {name:"Cosmic Dragon", rarity:"Legendaire", icon:"🐲"},
-
-  {name:"Pixel God", rarity:"Mythique", icon:"🌟"},
-  {name:"Infinity Player", rarity:"Mythique", icon:"♾️"},
-  {name:"The Glitch", rarity:"Mythique", icon:"👾"}
-];
-
-let coins = Number(localStorage.getItem("pixelCoins")) || 1000;
-let collection = JSON.parse(localStorage.getItem("pixelCollection") || "[]");
-let boosters = Number(localStorage.getItem("pixelBoosters")) || 0;
-
-function save() {
-  localStorage.setItem("pixelCoins", coins);
-  localStorage.setItem("pixelCollection", JSON.stringify(collection));
-  localStorage.setItem("pixelBoosters", boosters);
-}
-
-function updateCoins() {
-  document.getElementById("coins").textContent = coins;
-  document.getElementById("totalCards").textContent = collection.length;
-  document.getElementById("boostersOpened").textContent = boosters;
-}
-
-function showSection(id, button) {
-
-  document.querySelectorAll("section").forEach(section => {
-    section.classList.remove("active");
-  });
-
-  document.getElementById(id).classList.add("active");
-
-  document.querySelectorAll("nav button").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  button.classList.add("active");
-
-  if (id === "collection") {
-    displayCollection();
-  }
-
-  window.scrollTo(0,0);
-}
-
-function randomCard() {
-
-  const random = Math.random() * 100;
-
-  let rarity;
-
-  if (random < 0.5) {
-    rarity = "Mythique";
-  } else if (random < 3) {
-    rarity = "Legendaire";
-  } else if (random < 12) {
-    rarity = "Epique";
-  } else if (random < 35) {
-    rarity = "Rare";
-  } else {
-    rarity = "Commun";
-  }
-
-  const possible = cards.filter(card => card.rarity === rarity);
-
-  return possible[Math.floor(Math.random() * possible.length)];
-}
-
-function createCard(card) {
-
-  const div = document.createElement("div");
-
-  div.className = "card " + card.rarity;
-
-  div.innerHTML = `
-    <div class="card-image">${card.icon}</div>
-    <div class="card-name">${card.name}</div>
-    <div class="rarity">${card.rarity}</div>
-  `;
-
-  return div;
-}
-
-function openBooster() {
-
-  if (coins < 100) {
-
-    document.getElementById("message").textContent =
-      "❌ Tu n'as pas assez de pièces.";
-
-    return;
-  }
-
-  coins -= 100;
-  boosters++;
-
-  const newCards = [];
-
-  for (let i = 0; i < 5; i++) {
-
-    const card = randomCard();
-
-    newCards.push(card);
-    collection.push(card);
-  }
-
-  save();
-  updateCoins();
-
-  const container = document.getElementById("newCards");
-
-  container.innerHTML = "";
-
-  newCards.forEach(card => {
-    container.appendChild(createCard(card));
-  });
-
-  document.getElementById("message").textContent =
-    "🎉 Booster ouvert ! Voici tes 5 cartes !";
-
-}
-
-function displayCollection() {
-
-  const container = document.getElementById("collectionCards");
-
-  container.innerHTML = "";
-
-  if (collection.length === 0) {
-
-    container.innerHTML =
-      '<div class="collection-empty">Tu n’as encore aucune carte.<br>Ouvre ton premier booster ! 🎁</div>';
-
-    return;
-  }
-
-  collection.forEach(card => {
-    container.appendChild(createCard(card));
-  });
-}
-
-updateCoins();
-
-</script>
+</footer>
 
 </body>
 </html>
