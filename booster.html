@@ -10,16 +10,14 @@
 :root{
   --bg:#0b0f1d;
   --header:#0a0d16;
+  --panel:#101a2d;
   --text:#f5f7ff;
   --muted:#aeb8cc;
   --accent:#61e6f5;
   --line:rgba(255,255,255,.12);
 }
-
-*{
-  box-sizing:border-box;
-}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
 body{
   margin:0;
   min-height:100vh;
@@ -30,11 +28,7 @@ body{
     radial-gradient(circle at 10% 80%,rgba(90,70,180,.12),transparent 30%),
     var(--bg);
 }
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
+a{color:inherit;text-decoration:none}
 
 header{
   position:sticky;
@@ -60,9 +54,7 @@ header{
   letter-spacing:1px;
 }
 
-.logo span{
-  color:var(--accent);
-}
+.logo span{color:var(--accent)}
 
 nav{
   display:flex;
@@ -76,9 +68,7 @@ nav a{
   font-size:14px;
 }
 
-nav a:hover{
-  color:var(--text);
-}
+nav a:hover{color:var(--text)}
 
 .container{
   width:min(1100px,92%);
@@ -115,7 +105,16 @@ h1{
   font-size:17px;
 }
 
-/* PROBABILITÉS */
+.balance{
+  display:inline-block;
+  margin-top:22px;
+  padding:12px 20px;
+  border:1px solid rgba(97,230,245,.3);
+  border-radius:15px;
+  background:rgba(255,255,255,.05);
+  font-size:20px;
+  font-weight:1000;
+}
 
 .probabilities{
   max-width:760px;
@@ -140,36 +139,19 @@ h1{
   margin-bottom:3px;
 }
 
-.rarity-common{
-  color:#d9e1ee;
-}
-
-.rarity-uncommon{
-  color:#63e6be;
-}
-
-.rarity-rare{
-  color:#61a8ff;
-}
-
-.rarity-epic{
-  color:#b982ff;
-}
-
-.rarity-legendary{
-  color:#ffd45a;
-}
-
+.rarity-common{color:#d9e1ee}
+.rarity-uncommon{color:#63e6be}
+.rarity-rare{color:#61a8ff}
+.rarity-epic{color:#b982ff}
+.rarity-legendary{color:#ffd45a}
 .rarity-secret{
   color:#ff7cff;
   text-shadow:0 0 12px rgba(255,124,255,.7);
 }
 
-/* BOOSTER */
-
 .booster-stage{
   min-height:430px;
-  margin:25px auto 25px;
+  margin:35px auto 25px;
   display:flex;
   align-items:center;
   justify-content:center;
@@ -196,9 +178,7 @@ h1{
   animation:shake .65s ease;
 }
 
-.pack-symbol{
-  font-size:85px;
-}
+.pack-symbol{font-size:85px}
 
 .pack-title{
   font-weight:1000;
@@ -215,36 +195,15 @@ h1{
 }
 
 @keyframes shake{
-  0%,100%{
-    transform:rotate(0) scale(1);
-  }
-
-  20%{
-    transform:rotate(-5deg) scale(1.03);
-  }
-
-  40%{
-    transform:rotate(5deg) scale(1.05);
-  }
-
-  60%{
-    transform:rotate(-4deg) scale(1.04);
-  }
-
-  80%{
-    transform:rotate(3deg) scale(1.02);
-  }
+  0%,100%{transform:rotate(0) scale(1)}
+  20%{transform:rotate(-5deg) scale(1.03)}
+  40%{transform:rotate(5deg) scale(1.05)}
+  60%{transform:rotate(-4deg) scale(1.04)}
+  80%{transform:rotate(3deg) scale(1.02)}
 }
 
-/* RÉSULTAT */
-
-.result{
-  display:none;
-}
-
-.result.show{
-  display:block;
-}
+.result{display:none}
+.result.show{display:block}
 
 .result-card{
   width:min(430px,92vw);
@@ -255,22 +214,10 @@ h1{
   border:1px solid rgba(97,230,245,.25);
 }
 
-.result-card .card{
-  margin:0;
-}
-
 .result-card img{
   max-width:100%;
   border-radius:15px;
 }
-
-.result-card .rarity{
-  margin:10px 0 4px;
-  font-weight:1000;
-  letter-spacing:.5px;
-}
-
-/* BOUTONS */
 
 .button{
   display:inline-flex;
@@ -288,7 +235,7 @@ h1{
 }
 
 .button:disabled{
-  opacity:.55;
+  opacity:.45;
   cursor:not-allowed;
 }
 
@@ -304,6 +251,15 @@ h1{
   color:var(--muted);
 }
 
+.reward{
+  margin-top:15px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(97,230,245,.07);
+  border:1px solid rgba(97,230,245,.2);
+  font-weight:900;
+}
+
 footer{
   text-align:center;
   padding:30px;
@@ -313,16 +269,13 @@ footer{
 }
 
 @media(max-width:800px){
-
   .nav{
     align-items:flex-start;
     padding:16px 0;
     flex-direction:column;
   }
 
-  nav{
-    gap:12px;
-  }
+  nav{gap:12px}
 
   .probabilities{
     grid-template-columns:repeat(3,1fr);
@@ -334,635 +287,568 @@ footer{
 <body>
 
 <header>
+  <div class="nav">
+    <a class="logo" href="index.html">PIXEL <span>CARDS</span></a>
 
-<div class="nav">
-
-<a class="logo" href="index.html">
-PIXEL <span>CARDS</span>
-</a>
-
-<nav>
-<a href="index.html">Accueil</a>
-<a href="saison.html">Saison 1</a>
-<a href="booster.html">🎁 Booster</a>
-<a href="collection.html">Collection</a>
-</nav>
-
-</div>
-
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="saison.html">Saison 1</a>
+      <a href="booster.html">🎁 Booster</a>
+      <a href="collection.html">Collection</a>
+      <a href="economie.html">🪙 Économie</a>
+    </nav>
+  </div>
 </header>
-
 
 <main class="booster-page">
 
-<div class="container">
+  <div class="container">
 
-<div class="badge">
-❄️ SAISON 01 — WINTER PIXELS
-</div>
+    <div class="badge">
+      ❄️ SAISON 01 — WINTER PIXELS
+    </div>
 
-<h1>
-Ouvre ton booster
-</h1>
+    <h1>Ouvre ton booster</h1>
 
-<p class="lead">
-Une carte mystérieuse t'attend. Chaque rareté possède sa propre probabilité.
-Tenteras-tu de trouver la 🌌 Secrète ?
-</p>
+    <p class="lead">
+      Chaque booster coûte 100 🪙.
+      Tente ta chance pour obtenir les cartes les plus rares de Winter Pixels.
+    </p>
 
+    <div class="balance" id="balance">
+      🪙 500
+    </div>
 
-<!-- PROBABILITÉS -->
+    <div class="probabilities">
 
-<div class="probabilities">
+      <div class="prob rarity-common">
+        <strong>50%</strong>
+        ⚪ Commune
+      </div>
 
-<div class="prob rarity-common">
-<strong>50%</strong>
-⚪ Commune
-</div>
+      <div class="prob rarity-uncommon">
+        <strong>25%</strong>
+        🟢 Peu commune
+      </div>
 
-<div class="prob rarity-uncommon">
-<strong>25%</strong>
-🟢 Peu commune
-</div>
+      <div class="prob rarity-rare">
+        <strong>13%</strong>
+        🔵 Rare
+      </div>
 
-<div class="prob rarity-rare">
-<strong>13%</strong>
-🔵 Rare
-</div>
+      <div class="prob rarity-epic">
+        <strong>7%</strong>
+        🟣 Épique
+      </div>
 
-<div class="prob rarity-epic">
-<strong>7%</strong>
-🟣 Épique
-</div>
+      <div class="prob rarity-legendary">
+        <strong>4%</strong>
+        🟡 Légendaire
+      </div>
 
-<div class="prob rarity-legendary">
-<strong>4%</strong>
-🟡 Légendaire
-</div>
+      <div class="prob rarity-secret">
+        <strong>1%</strong>
+        🌌 Secrète
+      </div>
 
-<div class="prob rarity-secret">
-<strong>1%</strong>
-🌌 Secrète
-</div>
+    </div>
 
-</div>
+    <div class="booster-stage">
 
+      <div class="booster-pack" id="boosterPack">
 
-<!-- BOOSTER -->
+        <div class="pack-symbol">🎁</div>
 
-<div class="booster-stage">
+        <div class="pack-title">
+          PIXEL CARDS
+        </div>
 
-<div class="booster-pack" id="boosterPack">
+        <div class="pack-season">
+          WINTER PIXELS
+        </div>
 
-<div class="pack-symbol">
-🎁
-</div>
+      </div>
 
-<div class="pack-title">
-PIXEL CARDS
-</div>
+    </div>
 
-<div class="pack-season">
-WINTER PIXELS
-</div>
+    <button class="button" id="openBooster" type="button">
+      🎁 Ouvrir le booster — 100 🪙
+    </button>
 
-</div>
+    <div class="status" id="status" aria-live="polite"></div>
 
-</div>
+    <section class="result" id="result">
 
+      <div class="result-card" id="resultCard"></div>
 
-<button
-class="button"
-id="openBooster"
-type="button"
-disabled
->
-🎁 Ouvrir le booster
-</button>
+      <div id="reward" class="reward"></div>
 
-<div
-class="status"
-id="status"
-aria-live="polite"
->
-Chargement des cartes…
-</div>
+      <div style="margin-top:18px;">
+        <button class="button" id="openAgain" type="button">
+          🎁 Ouvrir un autre booster
+        </button>
+      </div>
 
+      <a class="button secondary" href="collection.html">
+        📚 Voir ma collection
+      </a>
 
-<!-- RÉSULTAT -->
+    </section>
 
-<section
-class="result"
-id="result"
->
-
-<div
-class="result-card"
-id="resultCard"
->
-</div>
-
-<div style="margin-top:18px">
-
-<button
-class="button"
-id="openAgain"
-type="button"
->
-🎁 Ouvrir un autre booster
-</button>
-
-</div>
-
-<a
-class="button secondary"
-href="collection.html"
->
-📚 Voir ma collection
-</a>
-
-</section>
-
-</div>
+  </div>
 
 </main>
 
-
 <footer>
-© 2026 Pixel Cards — Saison 01 : Winter Pixels.
+  © 2026 Pixel Cards — Saison 01 : Winter Pixels.
 </footer>
-
 
 <script>
 
 (function(){
 
-const STORAGE_KEY = "pixelCardsUnlocked";
+  const COINS_KEY = "pixelCoins";
+  const STORAGE_KEY = "pixelCardsUnlocked";
+  const BOOSTER_PRICE = 100;
 
-const pack =
-document.getElementById("boosterPack");
+  const DUPLICATE_REWARDS = {
+    common:20,
+    uncommon:35,
+    rare:60,
+    epic:100,
+    legendary:200,
+    secret:500
+  };
 
-const openButton =
-document.getElementById("openBooster");
+  const pack = document.getElementById("boosterPack");
+  const openButton = document.getElementById("openBooster");
+  const againButton = document.getElementById("openAgain");
 
-const againButton =
-document.getElementById("openAgain");
+  const result = document.getElementById("result");
+  const resultCard = document.getElementById("resultCard");
 
-const result =
-document.getElementById("result");
+  const status = document.getElementById("status");
+  const balanceElement = document.getElementById("balance");
+  const rewardElement = document.getElementById("reward");
 
-const resultCard =
-document.getElementById("resultCard");
+  let cards = [];
 
-const status =
-document.getElementById("status");
+  const RARITIES = {
 
-let cards = [];
+    common:{
+      name:"Commune",
+      emoji:"⚪",
+      weight:50
+    },
 
+    uncommon:{
+      name:"Peu commune",
+      emoji:"🟢",
+      weight:25
+    },
 
-/* RARETÉS */
+    rare:{
+      name:"Rare",
+      emoji:"🔵",
+      weight:13
+    },
 
-const RARITIES = {
+    epic:{
+      name:"Épique",
+      emoji:"🟣",
+      weight:7
+    },
 
-common:{
-name:"Commune",
-emoji:"⚪",
-weight:50
-},
+    legendary:{
+      name:"Légendaire",
+      emoji:"🟡",
+      weight:4
+    },
 
-uncommon:{
-name:"Peu commune",
-emoji:"🟢",
-weight:25
-},
+    secret:{
+      name:"Secrète",
+      emoji:"🌌",
+      weight:1
+    }
 
-rare:{
-name:"Rare",
-emoji:"🔵",
-weight:13
-},
+  };
 
-epic:{
-name:"Épique",
-emoji:"🟣",
-weight:7
-},
+  const CARD_RARITY = {
 
-legendary:{
-name:"Légendaire",
-emoji:"🟡",
-weight:4
-},
+    "1":"common",
+    "2":"common",
+    "3":"uncommon",
+    "4":"rare",
+    "5":"rare",
+    "6":"epic",
+    "7":"epic",
+    "8":"legendary",
+    "9":"legendary",
+    "10":"secret"
 
-secret:{
-name:"Secrète",
-emoji:"🌌",
-weight:1
-}
+  };
 
-};
+  function getCoins(){
 
+    const value = localStorage.getItem(COINS_KEY);
 
-/* RARETÉ DE CHAQUE CARTE */
+    if(value === null){
+      localStorage.setItem(COINS_KEY,"500");
+      return 500;
+    }
 
-const CARD_RARITY = {
+    const coins = parseInt(value,10);
 
-"1":"common",
-"2":"common",
+    return Number.isFinite(coins) ? coins : 500;
+  }
 
-"3":"uncommon",
+  function setCoins(amount){
 
-"4":"rare",
-"5":"rare",
+    const value = Math.max(0,Math.floor(amount));
 
-"6":"epic",
-"7":"epic",
+    localStorage.setItem(COINS_KEY,String(value));
 
-"8":"legendary",
-"9":"legendary",
+    updateBalance();
 
-"10":"secret"
+  }
 
-};
+  function updateBalance(){
 
+    balanceElement.textContent =
+      "🪙 " + getCoins();
 
-/* CARTES DÉBLOQUÉES */
+  }
 
-function getUnlocked(){
+  function getUnlocked(){
 
-try{
+    try{
 
-const data =
-JSON.parse(
-localStorage.getItem(STORAGE_KEY) || "[]"
-);
+      const data =
+        JSON.parse(
+          localStorage.getItem(STORAGE_KEY) || "[]"
+        );
 
-return Array.isArray(data)
-? [...new Set(data.map(String))]
-: [];
+      return Array.isArray(data)
+        ? [...new Set(data.map(String))]
+        : [];
 
-}catch(e){
+    }catch(e){
 
-return [];
+      return [];
 
-}
+    }
 
-}
+  }
 
+  function saveUnlocked(ids){
 
-/* SAUVEGARDE */
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify([...new Set(ids.map(String))])
+    );
 
-function saveUnlocked(ids){
+  }
 
-localStorage.setItem(
-STORAGE_KEY,
-JSON.stringify(
-[...new Set(ids.map(String))]
-)
-);
+  async function loadCards(){
 
-}
+    try{
 
+      const response =
+        await fetch("collection.html",{cache:"no-store"});
 
-/* CHARGEMENT DES CARTES */
+      if(!response.ok)
+        throw new Error("collection");
 
-async function loadCards(){
+      const html =
+        await response.text();
 
-try{
+      const doc =
+        new DOMParser().parseFromString(
+          html,
+          "text/html"
+        );
 
-const response =
-await fetch(
-"collection.html",
-{
-cache:"no-store"
-}
-);
+      cards =
+        Array.from(
+          doc.querySelectorAll(".card[data-card-id]")
+        );
 
-if(!response.ok)
-throw new Error();
+      cards.forEach((card,index)=>{
 
+        if(!card.dataset.cardId){
 
-const html =
-await response.text();
+          const number =
+            card.querySelector(".card-number");
 
+          const match =
+            number
+              ? number.textContent.match(/\d+/)
+              : null;
 
-const doc =
-new DOMParser()
-.parseFromString(
-html,
-"text/html"
-);
+          card.dataset.cardId =
+            match
+              ? String(parseInt(match[0],10))
+              : String(index+1);
 
+        }
 
-cards =
-Array.from(
-doc.querySelectorAll(
-".card[data-card-id]"
-)
-);
+        card.dataset.rarity =
+          CARD_RARITY[
+            String(card.dataset.cardId)
+          ] || "common";
 
+      });
 
-/* Sécurité si l'ancien fichier n'a pas les IDs */
+      if(!cards.length)
+        throw new Error("no cards");
 
-cards.forEach(
-(card,index)=>{
+      status.textContent =
+        cards.length +
+        " cartes prêtes à être découvertes.";
 
-if(!card.dataset.cardId){
+      openButton.disabled = false;
 
-const number =
-card.querySelector(
-".card-number"
-);
+    }catch(e){
 
-const match =
-number
-? number.textContent.match(/\d+/)
-: null;
+      status.textContent =
+        "Impossible de charger les cartes.";
 
-card.dataset.cardId =
-match
-? String(
-parseInt(match[0],10)
-)
-: String(index+1);
+      openButton.disabled = true;
 
-}
+    }
 
+  }
 
-/* Attribution de la rareté */
+  function getRandomRarity(){
 
-card.dataset.rarity =
-CARD_RARITY[
-String(card.dataset.cardId)
-]
-|| "common";
+    let roll =
+      Math.random() * 100;
 
-});
+    let total = 0;
 
+    for(const key of Object.keys(RARITIES)){
 
-if(!cards.length)
-throw new Error();
+      total +=
+        RARITIES[key].weight;
 
+      if(roll < total)
+        return key;
 
-status.textContent =
-cards.length +
-" cartes prêtes à être découvertes.";
+    }
 
-openButton.disabled = false;
+    return "common";
 
+  }
 
-}catch(e){
+  function reveal(){
 
-status.textContent =
-"Impossible de charger les cartes. Vérifie que collection.html est bien dans le dépôt.";
+    if(!cards.length)
+      return;
 
-openButton.disabled = true;
+    const currentCoins =
+      getCoins();
 
-}
+    if(currentCoins < BOOSTER_PRICE){
 
-}
+      status.textContent =
+        "❌ Tu n'as pas assez de Pixel Coins.";
 
+      rewardElement.textContent =
+        "Il te faut 100 🪙 pour ouvrir un booster.";
 
-/* TIRAGE DE LA RARETÉ */
+      result.classList.remove("show");
 
-function chooseRarity(){
+      return;
 
-let roll =
-Math.random() * 100;
+    }
 
-let total = 0;
+    // Paiement du booster
+    setCoins(
+      currentCoins - BOOSTER_PRICE
+    );
 
+    result.classList.remove("show");
 
-for(
-const key of Object.keys(RARITIES)
-){
+    rewardElement.textContent = "";
 
-total +=
-RARITIES[key].weight;
+    pack.classList.remove("shake");
 
+    void pack.offsetWidth;
 
-if(
-roll < total
-){
+    pack.classList.add("shake");
 
-return key;
+    openButton.disabled = true;
 
-}
+    againButton.disabled = true;
 
-}
+    status.textContent =
+      "Ouverture du booster…";
 
+    setTimeout(()=>{
 
-/* Sécurité */
+      const unlocked =
+        getUnlocked();
 
-return "common";
+      const rarity =
+        getRandomRarity();
 
-}
+      const rarityCards =
+        cards.filter(
+          card =>
+            card.dataset.rarity === rarity
+        );
 
+      const undiscovered =
+        rarityCards.filter(
+          card =>
+            !unlocked.includes(
+              String(card.dataset.cardId)
+            )
+        );
 
-/* OUVERTURE DU BOOSTER */
+      const pool =
+        undiscovered.length
+          ? undiscovered
+          : rarityCards;
 
-function reveal(){
+      const selected =
+        pool[
+          Math.floor(
+            Math.random() * pool.length
+          )
+        ];
 
-if(!cards.length)
-return;
+      if(!selected){
 
+        // Sécurité : remboursement si aucun résultat
+        setCoins(getCoins() + BOOSTER_PRICE);
 
-result.classList.remove("show");
+        status.textContent =
+          "Une erreur est survenue. Ton booster a été remboursé.";
 
-pack.classList.remove("shake");
+        openButton.disabled = false;
+        againButton.disabled = false;
 
-void pack.offsetWidth;
+        return;
 
-pack.classList.add("shake");
+      }
 
+      const id =
+        String(selected.dataset.cardId);
 
-openButton.disabled = true;
+      const wasAlreadyOwned =
+        unlocked.includes(id);
 
-againButton.disabled = true;
+      let reward = 0;
 
-status.textContent =
-"Ouverture du booster…";
+      if(wasAlreadyOwned){
 
+        reward =
+          DUPLICATE_REWARDS[rarity] || 0;
 
-setTimeout(()=>{
+        setCoins(
+          getCoins() + reward
+        );
 
-const unlocked =
-getUnlocked();
+      }else{
 
+        unlocked.push(id);
 
-/* On tire d'abord la rareté */
+        saveUnlocked(unlocked);
 
-const rarity =
-chooseRarity();
+      }
 
+      resultCard.innerHTML = "";
 
-/* On récupère les cartes de cette rareté */
+      const clone =
+        selected.cloneNode(true);
 
-const rarityCards =
-cards.filter(
-card =>
-card.dataset.rarity === rarity
-);
+      clone.classList.remove("locked");
 
+      const overlay =
+        clone.querySelector(
+          ".card-lock-overlay"
+        );
 
-/* Priorité aux cartes non découvertes */
+      if(overlay)
+        overlay.remove();
 
-const undiscovered =
-rarityCards.filter(
-card =>
-!unlocked.includes(
-String(card.dataset.cardId)
-)
-);
+      const info =
+        clone.querySelector(".card-info");
 
+      if(info){
 
-/*
-Si toutes les cartes de cette rareté
-sont déjà découvertes,
-on autorise un doublon.
-*/
+        const badge =
+          document.createElement("div");
 
-const pool =
-undiscovered.length
-? undiscovered
-: rarityCards;
+        badge.className =
+          "rarity booster-rarity rarity-" +
+          rarity;
 
+        badge.style.marginTop =
+          "10px";
 
-const selected =
-pool[
-Math.floor(
-Math.random() * pool.length
-)
-];
+        badge.style.fontWeight =
+          "1000";
 
+        badge.textContent =
+          RARITIES[rarity].emoji +
+          " " +
+          RARITIES[rarity].name.toUpperCase();
 
-const id =
-String(
-selected.dataset.cardId
-);
+        info.appendChild(badge);
 
+      }
 
-const already =
-unlocked.includes(id);
+      resultCard.appendChild(clone);
 
+      if(wasAlreadyOwned){
 
-/* Nouvelle carte */
+        rewardElement.textContent =
+          "🔁 Doublon ! +" +
+          reward +
+          " 🪙";
 
-if(!already){
+        status.textContent =
+          "Tu as obtenu une carte que tu possédais déjà.";
 
-unlocked.push(id);
+      }else{
 
-saveUnlocked(unlocked);
+        rewardElement.textContent =
+          "✨ Nouvelle carte ! Aucun Pixel Coin gagné.";
 
-}
+        status.textContent =
+          "✨ Nouvelle carte découverte !";
 
+      }
 
-/* Affichage */
+      result.classList.add("show");
 
-resultCard.innerHTML = "";
+      updateBalance();
 
+      openButton.disabled =
+        getCoins() < BOOSTER_PRICE;
 
-const clone =
-selected.cloneNode(true);
+      againButton.disabled =
+        getCoins() < BOOSTER_PRICE;
 
+    },700);
 
-clone.classList.remove("locked");
+  }
 
+  openButton.addEventListener(
+    "click",
+    reveal
+  );
 
-const overlay =
-clone.querySelector(
-".card-lock-overlay"
-);
+  againButton.addEventListener(
+    "click",
+    reveal
+  );
 
+  updateBalance();
 
-if(overlay)
-overlay.remove();
-
-
-/* Badge de rareté */
-
-const info =
-clone.querySelector(
-".card-info"
-);
-
-
-if(info){
-
-const old =
-info.querySelector(
-".booster-rarity"
-);
-
-if(old)
-old.remove();
-
-
-const badge =
-document.createElement(
-"div"
-);
-
-badge.className =
-"rarity booster-rarity rarity-" +
-rarity;
-
-badge.textContent =
-RARITIES[rarity].emoji +
-" " +
-RARITIES[rarity].name.toUpperCase();
-
-
-info.appendChild(badge);
-
-}
-
-
-resultCard.appendChild(clone);
-
-
-result.classList.add("show");
-
-
-if(already){
-
-status.textContent =
-"Cette carte était déjà dans ta collection !";
-
-}else{
-
-status.textContent =
-"✨ Nouvelle carte découverte !";
-
-}
-
-
-openButton.disabled = false;
-
-againButton.disabled = false;
-
-
-},700);
-
-}
-
-
-/* BOUTONS */
-
-openButton.addEventListener(
-"click",
-reveal
-);
-
-againButton.addEventListener(
-"click",
-reveal
-);
-
-
-/* DÉMARRAGE */
-
-loadCards();
+  loadCards();
 
 })();
 
