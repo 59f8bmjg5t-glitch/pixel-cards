@@ -13,6 +13,8 @@
   --text:#f5f7ff;
   --muted:#aeb8cc;
   --accent:#61e6f5;
+  --danger:#ff5c6c;
+  --success:#62e6a5;
   --line:rgba(255,255,255,.12);
 }
 
@@ -114,6 +116,13 @@ h1{
   margin:25px 0;
 }
 
+.collection-count{
+  text-align:center;
+  font-size:28px;
+  font-weight:1000;
+  margin:25px 0;
+}
+
 input{
   width:100%;
   padding:15px;
@@ -140,6 +149,16 @@ button{
 
 button:hover{
   opacity:.9;
+}
+
+button.danger{
+  background:var(--danger);
+  color:white;
+}
+
+button.success{
+  background:var(--success);
+  color:#061a12;
 }
 
 .status{
@@ -184,89 +203,135 @@ footer{
   </div>
 </header>
 
+
 <main>
 
-  <div class="container">
+<div class="container">
 
-    <h1>👑 Administration</h1>
+<h1>👑 Administration</h1>
 
-    <p class="subtitle">
-      Outils de gestion Pixel Cards
-    </p>
+<p class="subtitle">
+  Outils de gestion Pixel Cards
+</p>
 
-    <div class="panel">
 
-      <h2>🪙 Pixel Coins</h2>
+<!-- PIXEL COINS -->
 
-      <div class="balance" id="balance">
-        🪙 0
-      </div>
+<div class="panel">
 
-      <input
-        id="coinsAmount"
-        type="number"
-        min="1"
-        placeholder="Nombre de Pixel Coins"
-      >
+<h2>🪙 Pixel Coins</h2>
 
-      <button id="addCoins">
-        ➕ Ajouter des Pixel Coins
-      </button>
+<div class="balance" id="balance">
+🪙 0
+</div>
 
-      <button id="removeCoins">
-        ➖ Retirer des Pixel Coins
-      </button>
+<input
+  id="coinsAmount"
+  type="number"
+  min="1"
+  placeholder="Nombre de Pixel Coins"
+>
 
-      <div class="status" id="status"></div>
+<button id="addCoins">
+➕ Ajouter des Pixel Coins
+</button>
 
-    </div>
+<button id="removeCoins">
+➖ Retirer des Pixel Coins
+</button>
 
-    <div class="panel">
+<div class="status" id="coinStatus"></div>
 
-      <h2>⚠️ Attention</h2>
+</div>
 
-      <p class="warning">
-        Cette page est actuellement un outil de développement.
-        Elle ne doit pas être accessible aux joueurs lorsque
-        Pixel Cards sera officiellement ouvert.
-      </p>
 
-    </div>
+<!-- COLLECTION -->
 
-  </div>
+<div class="panel">
+
+<h2>🃏 Collection</h2>
+
+<div class="collection-count" id="collectionCount">
+0 / 10 cartes
+</div>
+
+<button class="success" id="unlockAll">
+🎁 Débloquer les 10 cartes
+</button>
+
+<button class="danger" id="resetCollection">
+🗑️ Réinitialiser la collection
+</button>
+
+<div class="status" id="collectionStatus"></div>
+
+</div>
+
+
+<!-- AVERTISSEMENT -->
+
+<div class="panel">
+
+<h2>⚠️ Attention</h2>
+
+<p class="warning">
+
+Cette page est actuellement un outil de développement.
+
+Elle utilise le stockage local du navigateur et ne constitue
+pas encore un véritable système d'administration sécurisé.
+
+Elle ne doit pas être accessible aux joueurs lorsque
+Pixel Cards sera officiellement ouvert.
+
+</p>
+
+</div>
+
+</div>
 
 </main>
 
+
 <footer>
-  © 2026 Pixel Cards — Administration
+© 2026 Pixel Cards — Administration
 </footer>
+
 
 <script>
 
 const COINS_KEY = "pixelCoins";
 
+const COLLECTION_KEY = "pixelCardsUnlocked";
+
+const TOTAL_CARDS = 10;
+
+
+/* =========================
+   PIXEL COINS
+========================= */
+
 function getCoins(){
 
-  const value =
-    parseInt(
-      localStorage.getItem(COINS_KEY) || "0",
-      10
-    );
+  const value = parseInt(
+    localStorage.getItem(COINS_KEY) || "0",
+    10
+  );
 
-  return Number.isFinite(value)
-    ? value
-    : 0;
+  return Number.isFinite(value) ? value : 0;
 }
+
 
 function setCoins(amount){
 
   localStorage.setItem(
     COINS_KEY,
-    String(Math.max(0,Math.floor(amount)))
+    String(Math.max(0, Math.floor(amount)))
   );
 
   updateBalance();
 }
+
 
 function updateBalance(){
 
@@ -275,8 +340,63 @@ function updateBalance(){
 
 }
 
-document.getElementById("addCoins")
-.addEventListener("click",function(){
+
+/* =========================
+   COLLECTION
+========================= */
+
+function getCollection(){
+
+  try{
+
+    const data =
+      JSON.parse(
+        localStorage.getItem(COLLECTION_KEY) || "[]"
+      );
+
+    return Array.isArray(data) ? data : [];
+
+  }catch{
+
+    return [];
+
+  }
+
+}
+
+
+function setCollection(cards){
+
+  localStorage.setItem(
+    COLLECTION_KEY,
+    JSON.stringify(cards)
+  );
+
+  updateCollection();
+
+}
+
+
+function updateCollection(){
+
+  const cards = getCollection();
+
+  const uniqueCards =
+    [...new Set(cards.map(String))];
+
+  document.getElementById("collectionCount").textContent =
+    uniqueCards.length + " / " + TOTAL_CARDS + " cartes";
+
+}
+
+
+/* =========================
+   AJOUT COINS
+========================= */
+
+document
+.getElementById("addCoins")
+.addEventListener("click", function(){
 
   const amount =
     parseInt(
@@ -286,25 +406,30 @@ document.getElementById("addCoins")
 
   if(!Number.isFinite(amount) || amount <= 0){
 
-    document.getElementById("status").textContent =
+    document.getElementById("coinStatus").textContent =
       "❌ Entre un nombre de coins valide.";
 
     return;
+
   }
 
-  setCoins(
-    getCoins() + amount
-  );
+  setCoins(getCoins() + amount);
 
-  document.getElementById("status").textContent =
+  document.getElementById("coinStatus").textContent =
     "✅ " + amount + " 🪙 ajoutés.";
 
   document.getElementById("coinsAmount").value = "";
 
 });
 
-document.getElementById("removeCoins")
-.addEventListener("click",function(){
+
+/* =========================
+   RETRAIT COINS
+========================= */
+
+document
+.getElementById("removeCoins")
+.addEventListener("click", function(){
 
   const amount =
     parseInt(
@@ -314,10 +439,11 @@ document.getElementById("removeCoins")
 
   if(!Number.isFinite(amount) || amount <= 0){
 
-    document.getElementById("status").textContent =
+    document.getElementById("coinStatus").textContent =
       "❌ Entre un nombre de coins valide.";
 
     return;
+
   }
 
   setCoins(
@@ -327,14 +453,68 @@ document.getElementById("removeCoins")
     )
   );
 
-  document.getElementById("status").textContent =
+  document.getElementById("coinStatus").textContent =
     "✅ " + amount + " 🪙 retirés.";
 
   document.getElementById("coinsAmount").value = "";
 
 });
 
+
+/* =========================
+   DÉBLOQUER TOUTES LES CARTES
+========================= */
+
+document
+.getElementById("unlockAll")
+.addEventListener("click", function(){
+
+  const allCards = [];
+
+  for(let i = 1; i <= TOTAL_CARDS; i++){
+
+    allCards.push(String(i));
+
+  }
+
+  setCollection(allCards);
+
+  document.getElementById("collectionStatus").textContent =
+    "✅ Les 10 cartes sont maintenant débloquées.";
+
+});
+
+
+/* =========================
+   RÉINITIALISER COLLECTION
+========================= */
+
+document
+.getElementById("resetCollection")
+.addEventListener("click", function(){
+
+  const confirmed =
+    confirm(
+      "⚠️ Es-tu sûr de vouloir réinitialiser toute la collection ?"
+    );
+
+  if(!confirmed) return;
+
+  setCollection([]);
+
+  document.getElementById("collectionStatus").textContent =
+    "🗑️ Collection réinitialisée.";
+
+});
+
+
+/* =========================
+   INITIALISATION
+========================= */
+
 updateBalance();
+
+updateCollection();
 
 </script>
 
