@@ -5,19 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pixel Cards — Booster</title>
 <meta name="description" content="Ouvre un booster Pixel Cards et découvre une carte Winter Pixels.">
+
 <style>
 :root{
   --bg:#0b0f1d;
   --header:#0a0d16;
-  --panel:#101a2d;
-  --panel2:#15233b;
   --text:#f5f7ff;
   --muted:#aeb8cc;
   --accent:#61e6f5;
   --line:rgba(255,255,255,.12);
 }
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
+
+*{
+  box-sizing:border-box;
+}
+
 body{
   margin:0;
   min-height:100vh;
@@ -28,12 +30,20 @@ body{
     radial-gradient(circle at 10% 80%,rgba(90,70,180,.12),transparent 30%),
     var(--bg);
 }
-a{color:inherit;text-decoration:none}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
 header{
-  position:sticky;top:0;z-index:50;
+  position:sticky;
+  top:0;
+  z-index:50;
   background:rgba(8,11,19,.96);
   border-bottom:1px solid var(--line);
 }
+
 .nav{
   min-height:76px;
   width:min(1180px,92%);
@@ -43,25 +53,128 @@ header{
   justify-content:space-between;
   gap:20px;
 }
-.logo{font-size:22px;font-weight:1000;letter-spacing:1px}
-.logo span{color:var(--accent)}
-nav{display:flex;gap:18px;flex-wrap:wrap}
-nav a{color:var(--muted);font-weight:800;font-size:14px}
-nav a:hover{color:var(--text)}
-.container{width:min(1100px,92%);margin:auto}
-.booster-page{text-align:center;padding:55px 0 70px}
-.badge{
-  display:inline-flex;padding:9px 15px;border:1px solid rgba(97,230,245,.32);
-  border-radius:999px;background:rgba(97,230,245,.07);
-  color:var(--accent);font-size:13px;font-weight:950;
+
+.logo{
+  font-size:22px;
+  font-weight:1000;
+  letter-spacing:1px;
 }
-h1{font-size:clamp(42px,9vw,76px);margin:20px 0 12px;letter-spacing:-3px}
-.lead{max-width:680px;margin:0 auto;color:var(--muted);line-height:1.6;font-size:17px}
+
+.logo span{
+  color:var(--accent);
+}
+
+nav{
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+nav a{
+  color:var(--muted);
+  font-weight:800;
+  font-size:14px;
+}
+
+nav a:hover{
+  color:var(--text);
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+.booster-page{
+  text-align:center;
+  padding:55px 0 70px;
+}
+
+.badge{
+  display:inline-flex;
+  padding:9px 15px;
+  border:1px solid rgba(97,230,245,.32);
+  border-radius:999px;
+  background:rgba(97,230,245,.07);
+  color:var(--accent);
+  font-size:13px;
+  font-weight:950;
+}
+
+h1{
+  font-size:clamp(42px,9vw,76px);
+  margin:20px 0 12px;
+  letter-spacing:-3px;
+}
+
+.lead{
+  max-width:680px;
+  margin:0 auto;
+  color:var(--muted);
+  line-height:1.6;
+  font-size:17px;
+}
+
+/* PROBABILITÉS */
+
+.probabilities{
+  max-width:760px;
+  margin:28px auto 0;
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+
+.prob{
+  padding:10px 5px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+  font-size:12px;
+  font-weight:900;
+}
+
+.prob strong{
+  display:block;
+  font-size:18px;
+  margin-bottom:3px;
+}
+
+.rarity-common{
+  color:#d9e1ee;
+}
+
+.rarity-uncommon{
+  color:#63e6be;
+}
+
+.rarity-rare{
+  color:#61a8ff;
+}
+
+.rarity-epic{
+  color:#b982ff;
+}
+
+.rarity-legendary{
+  color:#ffd45a;
+}
+
+.rarity-secret{
+  color:#ff7cff;
+  text-shadow:0 0 12px rgba(255,124,255,.7);
+}
+
+/* BOOSTER */
+
 .booster-stage{
   min-height:430px;
-  margin:35px auto 25px;
-  display:flex;align-items:center;justify-content:center;
+  margin:25px auto 25px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
+
 .booster-pack{
   width:min(290px,78vw);
   aspect-ratio:2/3;
@@ -71,23 +184,68 @@ h1{font-size:clamp(42px,9vw,76px);margin:20px 0 12px;letter-spacing:-3px}
     radial-gradient(circle at 50% 35%,rgba(97,230,245,.22),transparent 34%),
     linear-gradient(145deg,#182a48,#090e1c);
   box-shadow:0 25px 80px rgba(0,0,0,.4);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
   padding:25px;
   transition:transform .25s ease;
 }
-.booster-pack.shake{animation:shake .65s ease}
-.pack-symbol{font-size:85px}
-.pack-title{font-weight:1000;font-size:28px;margin-top:15px}
-.pack-season{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:1px;margin-top:8px}
-@keyframes shake{
-  0%,100%{transform:rotate(0) scale(1)}
-  20%{transform:rotate(-5deg) scale(1.03)}
-  40%{transform:rotate(5deg) scale(1.05)}
-  60%{transform:rotate(-4deg) scale(1.04)}
-  80%{transform:rotate(3deg) scale(1.02)}
+
+.booster-pack.shake{
+  animation:shake .65s ease;
 }
-.result{display:none}
-.result.show{display:block}
+
+.pack-symbol{
+  font-size:85px;
+}
+
+.pack-title{
+  font-weight:1000;
+  font-size:28px;
+  margin-top:15px;
+}
+
+.pack-season{
+  color:var(--accent);
+  font-size:12px;
+  font-weight:900;
+  letter-spacing:1px;
+  margin-top:8px;
+}
+
+@keyframes shake{
+  0%,100%{
+    transform:rotate(0) scale(1);
+  }
+
+  20%{
+    transform:rotate(-5deg) scale(1.03);
+  }
+
+  40%{
+    transform:rotate(5deg) scale(1.05);
+  }
+
+  60%{
+    transform:rotate(-4deg) scale(1.04);
+  }
+
+  80%{
+    transform:rotate(3deg) scale(1.02);
+  }
+}
+
+/* RÉSULTAT */
+
+.result{
+  display:none;
+}
+
+.result.show{
+  display:block;
+}
+
 .result-card{
   width:min(430px,92vw);
   margin:auto;
@@ -96,171 +254,719 @@ h1{font-size:clamp(42px,9vw,76px);margin:20px 0 12px;letter-spacing:-3px}
   background:rgba(255,255,255,.04);
   border:1px solid rgba(97,230,245,.25);
 }
+
 .result-card .card{
   margin:0;
 }
-.result-card img{max-width:100%;border-radius:15px}
+
+.result-card img{
+  max-width:100%;
+  border-radius:15px;
+}
+
+.result-card .rarity{
+  margin:10px 0 4px;
+  font-weight:1000;
+  letter-spacing:.5px;
+}
+
+/* BOUTONS */
+
 .button{
-  display:inline-flex;align-items:center;justify-content:center;
-  min-width:210px;padding:15px 22px;border-radius:15px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:210px;
+  padding:15px 22px;
+  border-radius:15px;
   border:1px solid rgba(97,230,245,.3);
-  background:var(--accent);color:#06121a;font-weight:1000;
-  cursor:pointer;font-size:16px;
+  background:var(--accent);
+  color:#06121a;
+  font-weight:1000;
+  cursor:pointer;
+  font-size:16px;
 }
+
+.button:disabled{
+  opacity:.55;
+  cursor:not-allowed;
+}
+
 .secondary{
-  background:rgba(255,255,255,.05);color:var(--text);margin-top:12px;
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  margin-top:12px;
 }
-.status{min-height:24px;margin-top:15px;color:var(--muted)}
-footer{text-align:center;padding:30px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+
+.status{
+  min-height:24px;
+  margin-top:15px;
+  color:var(--muted);
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--line);
+}
+
 @media(max-width:800px){
-  .nav{align-items:flex-start;padding:16px 0;flex-direction:column}
-  nav{gap:12px}
+
+  .nav{
+    align-items:flex-start;
+    padding:16px 0;
+    flex-direction:column;
+  }
+
+  nav{
+    gap:12px;
+  }
+
+  .probabilities{
+    grid-template-columns:repeat(3,1fr);
+  }
 }
 </style>
 </head>
+
 <body>
+
 <header>
-  <div class="nav">
-    <a class="logo" href="index.html">PIXEL <span>CARDS</span></a>
-    <nav>
-      <a href="index.html">Accueil</a>
-      <a href="saison.html">Saison 1</a>
-      <a href="booster.html">🎁 Booster</a>
-      <a href="collection.html">Collection</a>
-    </nav>
-  </div>
+
+<div class="nav">
+
+<a class="logo" href="index.html">
+PIXEL <span>CARDS</span>
+</a>
+
+<nav>
+<a href="index.html">Accueil</a>
+<a href="saison.html">Saison 1</a>
+<a href="booster.html">🎁 Booster</a>
+<a href="collection.html">Collection</a>
+</nav>
+
+</div>
+
 </header>
 
+
 <main class="booster-page">
-  <div class="container">
-    <div class="badge">❄️ SAISON 01 — WINTER PIXELS</div>
-    <h1>Ouvre ton booster</h1>
-    <p class="lead">
-      Une carte mystérieuse t'attend. Ouvre le booster pour découvrir
-      une nouvelle carte de ta collection.
-    </p>
 
-    <div class="booster-stage" id="boosterStage">
-      <div class="booster-pack" id="boosterPack">
-        <div class="pack-symbol">🎁</div>
-        <div class="pack-title">PIXEL CARDS</div>
-        <div class="pack-season">WINTER PIXELS</div>
-      </div>
-    </div>
+<div class="container">
 
-    <button class="button" id="openBooster" type="button">🎁 Ouvrir le booster</button>
-    <div class="status" id="status" aria-live="polite"></div>
+<div class="badge">
+❄️ SAISON 01 — WINTER PIXELS
+</div>
 
-    <section class="result" id="result">
-      <div class="result-card" id="resultCard"></div>
-      <div style="margin-top:18px;">
-        <button class="button" id="openAgain" type="button">🎁 Ouvrir un autre booster</button>
-      </div>
-      <a class="button secondary" href="collection.html">📚 Voir ma collection</a>
-    </section>
-  </div>
+<h1>
+Ouvre ton booster
+</h1>
+
+<p class="lead">
+Une carte mystérieuse t'attend. Chaque rareté possède sa propre probabilité.
+Tenteras-tu de trouver la 🌌 Secrète ?
+</p>
+
+
+<!-- PROBABILITÉS -->
+
+<div class="probabilities">
+
+<div class="prob rarity-common">
+<strong>50%</strong>
+⚪ Commune
+</div>
+
+<div class="prob rarity-uncommon">
+<strong>25%</strong>
+🟢 Peu commune
+</div>
+
+<div class="prob rarity-rare">
+<strong>13%</strong>
+🔵 Rare
+</div>
+
+<div class="prob rarity-epic">
+<strong>7%</strong>
+🟣 Épique
+</div>
+
+<div class="prob rarity-legendary">
+<strong>4%</strong>
+🟡 Légendaire
+</div>
+
+<div class="prob rarity-secret">
+<strong>1%</strong>
+🌌 Secrète
+</div>
+
+</div>
+
+
+<!-- BOOSTER -->
+
+<div class="booster-stage">
+
+<div class="booster-pack" id="boosterPack">
+
+<div class="pack-symbol">
+🎁
+</div>
+
+<div class="pack-title">
+PIXEL CARDS
+</div>
+
+<div class="pack-season">
+WINTER PIXELS
+</div>
+
+</div>
+
+</div>
+
+
+<button
+class="button"
+id="openBooster"
+type="button"
+disabled
+>
+🎁 Ouvrir le booster
+</button>
+
+<div
+class="status"
+id="status"
+aria-live="polite"
+>
+Chargement des cartes…
+</div>
+
+
+<!-- RÉSULTAT -->
+
+<section
+class="result"
+id="result"
+>
+
+<div
+class="result-card"
+id="resultCard"
+>
+</div>
+
+<div style="margin-top:18px">
+
+<button
+class="button"
+id="openAgain"
+type="button"
+>
+🎁 Ouvrir un autre booster
+</button>
+
+</div>
+
+<a
+class="button secondary"
+href="collection.html"
+>
+📚 Voir ma collection
+</a>
+
+</section>
+
+</div>
+
 </main>
 
-<footer>© 2026 Pixel Cards — Saison 01 : Winter Pixels.</footer>
+
+<footer>
+© 2026 Pixel Cards — Saison 01 : Winter Pixels.
+</footer>
+
 
 <script>
+
 (function(){
-  const STORAGE_KEY = "pixelCardsUnlocked";
-  const pack = document.getElementById("boosterPack");
-  const openButton = document.getElementById("openBooster");
-  const againButton = document.getElementById("openAgain");
-  const result = document.getElementById("result");
-  const resultCard = document.getElementById("resultCard");
-  const status = document.getElementById("status");
 
-  let cards = [];
+const STORAGE_KEY = "pixelCardsUnlocked";
 
-  async function loadCards(){
-    try{
-      const response = await fetch("collection.html", {cache:"no-store"});
-      if(!response.ok) throw new Error("collection");
-      const html = await response.text();
-      const doc = new DOMParser().parseFromString(html, "text/html");
-      cards = Array.from(doc.querySelectorAll(".card[data-card-id]"));
+const pack =
+document.getElementById("boosterPack");
 
-      // Fallback if data-card-id was not parsed in an older copy.
-      cards.forEach((card,index)=>{
-        if(!card.dataset.cardId){
-          const n = card.querySelector(".card-number");
-          const m = n ? n.textContent.match(/\d+/) : null;
-          card.dataset.cardId = m ? String(parseInt(m[0],10)) : String(index+1);
-        }
-      });
+const openButton =
+document.getElementById("openBooster");
 
-      if(!cards.length) throw new Error("no cards");
-      status.textContent = cards.length + " cartes prêtes à être découvertes.";
-      openButton.disabled = false;
-    }catch(e){
-      status.textContent = "Impossible de charger les cartes. Vérifie que collection.html est bien dans le dépôt.";
-      openButton.disabled = true;
-    }
-  }
+const againButton =
+document.getElementById("openAgain");
 
-  function getUnlocked(){
-    try{
-      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      return Array.isArray(data) ? [...new Set(data.map(String))] : [];
-    }catch(e){
-      return [];
-    }
-  }
+const result =
+document.getElementById("result");
 
-  function saveUnlocked(ids){
-    localStorage.setItem(STORAGE_KEY, JSON.stringify([...new Set(ids.map(String))]));
-  }
+const resultCard =
+document.getElementById("resultCard");
 
-  function reveal(){
-    if(!cards.length) return;
+const status =
+document.getElementById("status");
 
-    result.classList.remove("show");
-    pack.classList.remove("shake");
-    void pack.offsetWidth;
-    pack.classList.add("shake");
+let cards = [];
 
-    openButton.disabled = true;
-    againButton.disabled = true;
-    status.textContent = "Ouverture du booster…";
 
-    setTimeout(()=>{
-      const unlocked = getUnlocked();
+/* RARETÉS */
 
-      // Prefer an undiscovered card so each booster progresses the collection.
-      const undiscovered = cards.filter(card => !unlocked.includes(String(card.dataset.cardId)));
-      const pool = undiscovered.length ? undiscovered : cards;
-      const selected = pool[Math.floor(Math.random() * pool.length)];
-      const id = String(selected.dataset.cardId);
-      const wasAlreadyOwned = unlocked.includes(id);
+const RARITIES = {
 
-      if(!wasAlreadyOwned){
-        unlocked.push(id);
-        saveUnlocked(unlocked);
-      }
+common:{
+name:"Commune",
+emoji:"⚪",
+weight:50
+},
 
-      resultCard.innerHTML = "";
-      const clone = selected.cloneNode(true);
-      clone.classList.remove("locked");
-      const overlay = clone.querySelector(".card-lock-overlay");
-      if(overlay) overlay.remove();
-      resultCard.appendChild(clone);
+uncommon:{
+name:"Peu commune",
+emoji:"🟢",
+weight:25
+},
 
-      result.classList.add("show");
-      status.textContent = wasAlreadyOwned
-        ? "Tu as obtenu une carte que tu possédais déjà !"
-        : "✨ Nouvelle carte découverte !";
-      openButton.disabled = false;
-      againButton.disabled = false;
-    },700);
-  }
+rare:{
+name:"Rare",
+emoji:"🔵",
+weight:13
+},
 
-  openButton.addEventListener("click", reveal);
-  againButton.addEventListener("click", reveal);
-  loadCards();
+epic:{
+name:"Épique",
+emoji:"🟣",
+weight:7
+},
+
+legendary:{
+name:"Légendaire",
+emoji:"🟡",
+weight:4
+},
+
+secret:{
+name:"Secrète",
+emoji:"🌌",
+weight:1
+}
+
+};
+
+
+/* RARETÉ DE CHAQUE CARTE */
+
+const CARD_RARITY = {
+
+"1":"common",
+"2":"common",
+
+"3":"uncommon",
+
+"4":"rare",
+"5":"rare",
+
+"6":"epic",
+"7":"epic",
+
+"8":"legendary",
+"9":"legendary",
+
+"10":"secret"
+
+};
+
+
+/* CARTES DÉBLOQUÉES */
+
+function getUnlocked(){
+
+try{
+
+const data =
+JSON.parse(
+localStorage.getItem(STORAGE_KEY) || "[]"
+);
+
+return Array.isArray(data)
+? [...new Set(data.map(String))]
+: [];
+
+}catch(e){
+
+return [];
+
+}
+
+}
+
+
+/* SAUVEGARDE */
+
+function saveUnlocked(ids){
+
+localStorage.setItem(
+STORAGE_KEY,
+JSON.stringify(
+[...new Set(ids.map(String))]
+)
+);
+
+}
+
+
+/* CHARGEMENT DES CARTES */
+
+async function loadCards(){
+
+try{
+
+const response =
+await fetch(
+"collection.html",
+{
+cache:"no-store"
+}
+);
+
+if(!response.ok)
+throw new Error();
+
+
+const html =
+await response.text();
+
+
+const doc =
+new DOMParser()
+.parseFromString(
+html,
+"text/html"
+);
+
+
+cards =
+Array.from(
+doc.querySelectorAll(
+".card[data-card-id]"
+)
+);
+
+
+/* Sécurité si l'ancien fichier n'a pas les IDs */
+
+cards.forEach(
+(card,index)=>{
+
+if(!card.dataset.cardId){
+
+const number =
+card.querySelector(
+".card-number"
+);
+
+const match =
+number
+? number.textContent.match(/\d+/)
+: null;
+
+card.dataset.cardId =
+match
+? String(
+parseInt(match[0],10)
+)
+: String(index+1);
+
+}
+
+
+/* Attribution de la rareté */
+
+card.dataset.rarity =
+CARD_RARITY[
+String(card.dataset.cardId)
+]
+|| "common";
+
+});
+
+
+if(!cards.length)
+throw new Error();
+
+
+status.textContent =
+cards.length +
+" cartes prêtes à être découvertes.";
+
+openButton.disabled = false;
+
+
+}catch(e){
+
+status.textContent =
+"Impossible de charger les cartes. Vérifie que collection.html est bien dans le dépôt.";
+
+openButton.disabled = true;
+
+}
+
+}
+
+
+/* TIRAGE DE LA RARETÉ */
+
+function chooseRarity(){
+
+let roll =
+Math.random() * 100;
+
+let total = 0;
+
+
+for(
+const key of Object.keys(RARITIES)
+){
+
+total +=
+RARITIES[key].weight;
+
+
+if(
+roll < total
+){
+
+return key;
+
+}
+
+}
+
+
+/* Sécurité */
+
+return "common";
+
+}
+
+
+/* OUVERTURE DU BOOSTER */
+
+function reveal(){
+
+if(!cards.length)
+return;
+
+
+result.classList.remove("show");
+
+pack.classList.remove("shake");
+
+void pack.offsetWidth;
+
+pack.classList.add("shake");
+
+
+openButton.disabled = true;
+
+againButton.disabled = true;
+
+status.textContent =
+"Ouverture du booster…";
+
+
+setTimeout(()=>{
+
+const unlocked =
+getUnlocked();
+
+
+/* On tire d'abord la rareté */
+
+const rarity =
+chooseRarity();
+
+
+/* On récupère les cartes de cette rareté */
+
+const rarityCards =
+cards.filter(
+card =>
+card.dataset.rarity === rarity
+);
+
+
+/* Priorité aux cartes non découvertes */
+
+const undiscovered =
+rarityCards.filter(
+card =>
+!unlocked.includes(
+String(card.dataset.cardId)
+)
+);
+
+
+/*
+Si toutes les cartes de cette rareté
+sont déjà découvertes,
+on autorise un doublon.
+*/
+
+const pool =
+undiscovered.length
+? undiscovered
+: rarityCards;
+
+
+const selected =
+pool[
+Math.floor(
+Math.random() * pool.length
+)
+];
+
+
+const id =
+String(
+selected.dataset.cardId
+);
+
+
+const already =
+unlocked.includes(id);
+
+
+/* Nouvelle carte */
+
+if(!already){
+
+unlocked.push(id);
+
+saveUnlocked(unlocked);
+
+}
+
+
+/* Affichage */
+
+resultCard.innerHTML = "";
+
+
+const clone =
+selected.cloneNode(true);
+
+
+clone.classList.remove("locked");
+
+
+const overlay =
+clone.querySelector(
+".card-lock-overlay"
+);
+
+
+if(overlay)
+overlay.remove();
+
+
+/* Badge de rareté */
+
+const info =
+clone.querySelector(
+".card-info"
+);
+
+
+if(info){
+
+const old =
+info.querySelector(
+".booster-rarity"
+);
+
+if(old)
+old.remove();
+
+
+const badge =
+document.createElement(
+"div"
+);
+
+badge.className =
+"rarity booster-rarity rarity-" +
+rarity;
+
+badge.textContent =
+RARITIES[rarity].emoji +
+" " +
+RARITIES[rarity].name.toUpperCase();
+
+
+info.appendChild(badge);
+
+}
+
+
+resultCard.appendChild(clone);
+
+
+result.classList.add("show");
+
+
+if(already){
+
+status.textContent =
+"Cette carte était déjà dans ta collection !";
+
+}else{
+
+status.textContent =
+"✨ Nouvelle carte découverte !";
+
+}
+
+
+openButton.disabled = false;
+
+againButton.disabled = false;
+
+
+},700);
+
+}
+
+
+/* BOUTONS */
+
+openButton.addEventListener(
+"click",
+reveal
+);
+
+againButton.addEventListener(
+"click",
+reveal
+);
+
+
+/* DÉMARRAGE */
+
+loadCards();
+
 })();
+
 </script>
+
 </body>
 </html>
