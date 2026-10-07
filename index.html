@@ -338,7 +338,60 @@ footer{
   .season-preview-card{grid-template-columns:1fr;padding:22px}
   .season-preview-art{min-height:150px}
 }
+.minigames-preview{
+  padding:30px 0 80px;
+}
 
+.minigames-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.minigame-card{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:24px;
+  background:
+    linear-gradient(145deg,rgba(21,35,59,.95),rgba(10,17,31,.98));
+  text-align:center;
+}
+
+.minigame-icon{
+  font-size:48px;
+  margin-bottom:12px;
+}
+
+.minigame-card h3{
+  margin:0 0 10px;
+  font-size:21px;
+}
+
+.minigame-card p{
+  color:var(--muted);
+  line-height:1.5;
+  min-height:48px;
+}
+
+.minigame-card span{
+  display:inline-block;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:900;
+}
+
+@media(max-width:900px){
+  .minigames-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:550px){
+  .minigames-grid{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 
@@ -434,7 +487,48 @@ footer{
     </div>
   </section>
 
-  
+  <section class="minigames-preview">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>🎮 Mini-jeux</h2>
+      <p>Des défis pour gagner des récompenses et tester tes talents.</p>
+    </div>
+
+    <div class="minigames-grid">
+
+      <div class="minigame-card">
+        <div class="minigame-icon">🎯</div>
+        <h3>Défi de rapidité</h3>
+        <p>Teste tes réflexes et sois le plus rapide.</p>
+        <span>🔒 Bientôt disponible</span>
+      </div>
+
+      <div class="minigame-card">
+        <div class="minigame-icon">🧠</div>
+        <h3>Quiz Pixel</h3>
+        <p>Teste tes connaissances sur l'univers Pixel Cards.</p>
+        <span>🔒 Bientôt disponible</span>
+      </div>
+
+      <div class="minigame-card">
+        <div class="minigame-icon">🃏</div>
+        <h3>Défi de cartes</h3>
+        <p>Utilise ta collection pour relever des défis.</p>
+        <span>🔒 Bientôt disponible</span>
+      </div>
+
+      <div class="minigame-card">
+        <div class="minigame-icon">🎰</div>
+        <h3>Machine à récompenses</h3>
+        <p>Tente ta chance pour gagner des Pixel Coins.</p>
+        <span>🔒 Bientôt disponible</span>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 </main>
 
 <footer>
