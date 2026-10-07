@@ -6,488 +6,254 @@
 
 <title>Pixel Cards — Winter Pixels</title>
 
-<meta name="description" content="Pixel Cards — jeu de cartes à collectionner. Saison 1 : Winter Pixels.">
-
 <style>
 
-:root{
-  --bg:#080b14;
-  --panel:#111827;
-  --panel2:#172033;
-  --text:#f7f9ff;
-  --muted:#aeb8cc;
-  --accent:#67e8f9;
-  --accent2:#a78bfa;
-  --line:rgba(255,255,255,.10);
+* {
+    box-sizing: border-box;
 }
 
-*{
-  box-sizing:border-box;
+html {
+    scroll-behavior: smooth;
 }
 
-html{
-  scroll-behavior:smooth;
+body {
+    margin: 0;
+    background:
+        radial-gradient(
+            circle at 20% 0%,
+            #182946 0%,
+            transparent 35%
+        ),
+        #0b0f1d;
+
+    color: #f5f7ff;
+
+    font-family:
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(
-      circle at 20% 0%,
-      rgba(103,232,249,.13),
-      transparent 32%
-    ),
-    radial-gradient(
-      circle at 90% 15%,
-      rgba(167,139,250,.16),
-      transparent 30%
-    ),
-    var(--bg);
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    height: 74px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 5%;
+
+    background: rgba(8, 11, 19, 0.97);
+
+    border-bottom:
+        1px solid rgba(255,255,255,0.10);
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: 0.5px;
 }
 
-.container{
-  width:min(1080px,92%);
-  margin:auto;
+.logo span {
+    color: #61e6f5;
 }
 
-/* =========================
-   NAVIGATION
-========================= */
+/* HERO */
 
-header{
-  position:sticky;
-  top:0;
-  z-index:20;
-  backdrop-filter:blur(18px);
-  background:rgba(8,11,20,.82);
-  border-bottom:1px solid var(--line);
+.hero {
+    text-align: center;
+
+    padding:
+        70px
+        20px
+        55px;
 }
 
-.nav{
-  min-height:68px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
+.badge {
+    display: inline-block;
+
+    padding:
+        9px
+        17px;
+
+    border-radius: 50px;
+
+    border:
+        1px solid
+        rgba(97,230,245,0.35);
+
+    background:
+        rgba(97,230,245,0.07);
+
+    color: #61e6f5;
+
+    font-size: 14px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
 }
 
-.logo{
-  font-weight:900;
-  font-size:20px;
-  letter-spacing:.4px;
+.hero h1 {
+    margin:
+        20px
+        0
+        12px;
+
+    font-size:
+        clamp(48px, 9vw, 80px);
+
+    line-height: 1;
+
+    letter-spacing: -3px;
 }
 
-.logo span{
-  color:var(--accent);
+.hero p {
+    max-width: 760px;
+
+    margin: auto;
+
+    color: #aeb8cc;
+
+    font-size: 20px;
+
+    line-height: 1.6;
 }
 
-nav{
-  display:flex;
-  gap:20px;
-  color:var(--muted);
-  font-size:14px;
+/* COLLECTION */
+
+.collection {
+    width: min(1100px, 92%);
+
+    margin: auto;
+
+    padding-bottom: 80px;
 }
 
-nav a:hover{
-  color:var(--text);
+.section-title {
+    text-align: center;
+
+    margin-bottom: 35px;
 }
 
-/* =========================
-   HERO
-========================= */
+.section-title h2 {
+    margin: 0 0 8px;
 
-.hero{
-  padding:82px 0 65px;
-  text-align:center;
+    font-size:
+        clamp(42px, 7vw, 58px);
 }
 
-.badge{
-  display:inline-flex;
-  padding:8px 13px;
-  border:1px solid rgba(103,232,249,.3);
-  background:rgba(103,232,249,.08);
-  border-radius:999px;
-  color:var(--accent);
-  font-size:13px;
-  font-weight:800;
+.section-title p {
+    margin: 0;
+
+    color: #aeb8cc;
+
+    font-size: 19px;
 }
 
-h1{
-  font-size:clamp(42px,10vw,76px);
-  line-height:.95;
-  margin:20px 0 18px;
-  letter-spacing:-3px;
+/* CARD */
+
+.collection-box {
+    padding: 20px;
+
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #172944,
+            #0d1525
+        );
+
+    border:
+        1px solid
+        rgba(88,114,155,0.35);
+
+    box-shadow:
+        0 20px 70px
+        rgba(0,0,0,0.35);
 }
 
-.hero h1 span{
-  background:linear-gradient(
-    90deg,
-    var(--accent),
-    var(--accent2)
-  );
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+.collection-image {
+    display: block;
+
+    width: 100%;
+
+    height: auto;
+
+    border-radius: 22px;
 }
 
-.hero p{
-  max-width:650px;
-  margin:0 auto;
-  color:var(--muted);
-  font-size:18px;
-  line-height:1.6;
+/* DESCRIPTION */
+
+.collection-description {
+    text-align: center;
+
+    color: #aeb8cc;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+    padding:
+        22px
+        5px
+        5px;
 }
 
-.buttons{
-  display:flex;
-  justify-content:center;
-  gap:12px;
-  flex-wrap:wrap;
-  margin-top:28px;
+/* FOOTER */
+
+footer {
+    border-top:
+        1px solid
+        rgba(255,255,255,0.10);
+
+    padding: 30px;
+
+    text-align: center;
+
+    color: #aeb8cc;
+
+    font-size: 14px;
 }
 
-.btn{
-  padding:13px 20px;
-  border-radius:13px;
-  font-weight:800;
-  border:1px solid var(--line);
-  background:var(--panel);
-  display:inline-block;
-  transition:.2s;
-}
+/* MOBILE */
 
-.btn:hover{
-  transform:translateY(-2px);
-}
+@media (max-width: 700px) {
 
-.btn.primary{
-  background:var(--text);
-  color:#080b14;
-}
+    header {
+        height: 68px;
+    }
 
-/* =========================
-   SECTIONS
-========================= */
+    .logo {
+        font-size: 22px;
+    }
 
-section{
-  padding:60px 0;
-}
+    .hero {
+        padding-top: 50px;
+    }
 
-.section-title{
-  text-align:center;
-  margin-bottom:30px;
-}
+    .hero p {
+        font-size: 17px;
+    }
 
-.section-title h2{
-  font-size:32px;
-  margin:0 0 8px;
-}
+    .collection-box {
+        padding: 12px;
 
-.section-title p{
-  color:var(--muted);
-  margin:0;
-}
+        border-radius: 22px;
+    }
 
-/* =========================
-   SAISON
-========================= */
-
-.season{
-  display:grid;
-  grid-template-columns:1.1fr .9fr;
-  gap:24px;
-}
-
-.panel{
-  background:
-    linear-gradient(
-      145deg,
-      rgba(23,32,51,.94),
-      rgba(12,17,29,.94)
-    );
-  border:1px solid var(--line);
-  border-radius:22px;
-  padding:28px;
-  box-shadow:0 18px 60px rgba(0,0,0,.2);
-}
-
-.panel h3{
-  margin-top:0;
-  font-size:26px;
-}
-
-.panel p{
-  color:var(--muted);
-  line-height:1.65;
-}
-
-.season-art{
-  min-height:300px;
-  display:grid;
-  place-items:center;
-  text-align:center;
-  background:
-    radial-gradient(
-      circle at 50% 30%,
-      rgba(103,232,249,.18),
-      transparent 30%
-    ),
-    linear-gradient(
-      145deg,
-      #17233b,
-      #0d1321
-    );
-}
-
-.snowflake{
-  font-size:100px;
-  filter:drop-shadow(
-    0 0 25px rgba(103,232,249,.5)
-  );
-}
-
-.tags{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:18px;
-}
-
-.tag{
-  font-size:12px;
-  padding:7px 10px;
-  border-radius:999px;
-  background:rgba(255,255,255,.06);
-  color:#d9e2f2;
-}
-
-/* =========================
-   CARTES
-========================= */
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.card{
-  border-radius:22px;
-  padding:12px;
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--line);
-  background:
-    linear-gradient(
-      160deg,
-      #1a2942,
-      #0c1321
-    );
-  box-shadow:0 18px 50px rgba(0,0,0,.20);
-  transition:.25s;
-}
-
-.card:hover{
-  transform:translateY(-6px);
-  border-color:rgba(103,232,249,.45);
-}
-
-/*
-  La planche contient 10 illustrations.
-  Elle est découpée en 5 colonnes x 2 lignes.
-*/
-
-.card-image{
-  width:100%;
-  aspect-ratio:3 / 2;
-  border-radius:16px;
-  overflow:hidden;
-  background:#08111f;
-}
-
-.sprite{
-  width:100%;
-  height:100%;
-  background-image:url("hiver_pixels_cards image.jpg");
-  background-repeat:no-repeat;
-  background-size:500% 200%;
-}
-
-/* Première ligne */
-
-.card-1{
-  background-position:0% 0%;
-}
-
-.card-2{
-  background-position:25% 0%;
-}
-
-.card-3{
-  background-position:50% 0%;
-}
-
-.card-4{
-  background-position:75% 0%;
-}
-
-.card-5{
-  background-position:100% 0%;
-}
-
-/* Deuxième ligne */
-
-.card-6{
-  background-position:0% 100%;
-}
-
-.card-7{
-  background-position:25% 100%;
-}
-
-.card-8{
-  background-position:50% 100%;
-}
-
-.card-9{
-  background-position:75% 100%;
-}
-
-.card-10{
-  background-position:100% 100%;
-}
-
-.card-info{
-  padding:14px 6px 6px;
-}
-
-.card-number{
-  font-size:11px;
-  color:var(--muted);
-  font-weight:800;
-  letter-spacing:.5px;
-}
-
-.card-name{
-  font-size:20px;
-  font-weight:900;
-  margin:5px 0;
-}
-
-.card-type{
-  color:var(--accent);
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.4px;
-}
-
-.card-description{
-  color:var(--muted);
-  font-size:13px;
-  line-height:1.5;
-  margin:9px 0 0;
-}
-
-/* =========================
-   RARETÉS
-========================= */
-
-.rarity-list{
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:12px;
-}
-
-.rarity-box{
-  padding:20px 10px;
-  text-align:center;
-  border-radius:16px;
-  background:var(--panel);
-  border:1px solid var(--line);
-}
-
-.rarity-box strong{
-  display:block;
-  margin-bottom:5px;
-}
-
-.rarity-box span{
-  color:var(--muted);
-  font-size:12px;
-}
-
-/* =========================
-   FUTUR
-========================= */
-
-.roadmap{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-
-.step{
-  text-align:center;
-}
-
-.step .num{
-  font-size:30px;
-  font-weight:900;
-  color:var(--accent);
-}
-
-/* =========================
-   FOOTER
-========================= */
-
-footer{
-  border-top:1px solid var(--line);
-  padding:30px 0;
-  color:var(--muted);
-  font-size:13px;
-  text-align:center;
-}
-
-/* =========================
-   MOBILE
-========================= */
-
-@media(max-width:760px){
-
-  nav{
-    display:none;
-  }
-
-  .season{
-    grid-template-columns:1fr;
-  }
-
-  .cards{
-    grid-template-columns:1fr;
-  }
-
-  .rarity-list{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .roadmap{
-    grid-template-columns:1fr;
-  }
-
-  .hero{
-    padding-top:65px;
-  }
-
-  section{
-    padding:45px 0;
-  }
+    .collection-image {
+        border-radius: 17px;
+    }
 
 }
 
@@ -497,738 +263,90 @@ footer{
 
 <body>
 
-
-<!-- =========================
-     HEADER
-========================= -->
+<!-- HEADER -->
 
 <header>
 
-<div class="container nav">
-
-<a class="logo" href="#">
-PIXEL <span>CARDS</span>
-</a>
-
-<nav>
-<a href="#saison">Saison 1</a>
-<a href="#cartes">Cartes</a>
-<a href="#raretes">Raretés</a>
-<a href="#avenir">À venir</a>
-</nav>
-
-</div>
+    <div class="logo">
+        PIXEL <span>CARDS</span>
+    </div>
 
 </header>
 
 
-<main>
-
-
-<!-- =========================
-     HERO
-========================= -->
+<!-- HERO -->
 
 <section class="hero">
 
-<div class="container">
+    <div class="badge">
+        ❄️ SAISON 01 — WINTER PIXELS
+    </div>
 
-<div class="badge">
-❄️ SAISON 01 — WINTER PIXELS
-</div>
+    <h1>
+        Pixel Cards
+    </h1>
 
-<h1>
-Bienvenue dans
-<span>Pixel Cards</span>
-</h1>
-
-<p>
-Un jeu de cartes à collectionner dans un univers
-pixel entièrement original. Collectionne tes cartes,
-découvre de nouvelles saisons et construis ta collection.
-</p>
-
-<div class="buttons">
-
-<a class="btn primary" href="#cartes">
-Découvrir les cartes
-</a>
-
-<a class="btn" href="#saison">
-Découvrir la saison
-</a>
-
-</div>
-
-</div>
+    <p>
+        Un jeu de cartes à collectionner
+        dans un univers pixel.
+        Découvre les 10 premières cartes
+        de la collection Winter Pixels.
+    </p>
 
 </section>
 
 
-<!-- =========================
-     SAISON
-========================= -->
+<!-- COLLECTION -->
 
-<section id="saison">
+<section class="collection">
 
-<div class="container">
+    <div class="section-title">
 
-<div class="section-title">
+        <h2>
+            Pixels
+        </h2>
 
-<h2>
-🎄 Saison 1 — Winter Pixels
-</h2>
+        <p>
+            Les 10 premières cartes de la collection.
+        </p>
 
-<p>
-Une première saison placée sous le signe de l'hiver.
-</p>
-
-</div>
+    </div>
 
 
-<div class="season">
+    <div class="collection-box">
 
+        <img
+            class="collection-image"
+            src="winter_pixels_cards_image.png"
+            alt="Collection Pixel Cards Winter Pixels"
+        >
 
-<div class="panel">
+        <div class="collection-description">
 
-<h3>
-Le royaume des pixels enneigés
-</h3>
+            ❄️
+            <strong>
+                Winter Pixels — Saison 01
+            </strong>
 
-<p>
-Winter Pixels est la toute première saison
-de Pixel Cards.
-</p>
+            <br>
 
-<p>
-Découvre un monde enneigé rempli de créatures,
-de héros, de magie et de mystères.
-</p>
+            10 cartes originales composent
+            la première collection Pixel Cards.
 
-<p>
-<strong>
-Objectif :
-</strong>
+        </div>
 
-Construire ta première collection
-Pixel Cards.
-</p>
-
-<div class="tags">
-
-<span class="tag">
-❄️ Hiver
-</span>
-
-<span class="tag">
-🎁 Noël
-</span>
-
-<span class="tag">
-🧊 Glace
-</span>
-
-<span class="tag">
-✨ Magie
-</span>
-
-</div>
-
-</div>
-
-
-<div class="panel season-art">
-
-<div>
-
-<div class="snowflake">
-❄️
-</div>
-
-<strong>
-WINTER PIXELS
-</strong>
-
-<div style="color:var(--muted);margin-top:7px">
-Saison 01
-</div>
-
-</div>
-
-</div>
-
-
-</div>
-
-</div>
+    </div>
 
 </section>
 
 
-<!-- =========================
-     CARTES
-========================= -->
-
-<section id="cartes">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-🃏 Les cartes Winter Pixels
-</h2>
-
-<p>
-Les 10 premières cartes de la collection.
-</p>
-
-</div>
-
-
-<div class="cards">
-
-
-<!-- CARTE 001 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-1"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #001
-</div>
-
-<div class="card-name">
-Frosty
-</div>
-
-<div class="card-type">
-❄️ TYPE : GLACE
-</div>
-
-<p class="card-description">
-Petit gardien de neige protégeant les villages
-pendant les nuits glacées.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 002 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-2"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #002
-</div>
-
-<div class="card-name">
-Lutin 8-Bit
-</div>
-
-<div class="card-type">
-🎁 TYPE : ARTISAN
-</div>
-
-<p class="card-description">
-Un inventeur capable de transformer les pixels
-en jouets extraordinaires.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 003 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-3"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #003
-</div>
-
-<div class="card-name">
-Rudolph Pixel
-</div>
-
-<div class="card-type">
-✨ TYPE : LUMIÈRE
-</div>
-
-<p class="card-description">
-Un renne rapide dont le nez illumine
-les chemins perdus dans la neige.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 004 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-4"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #004
-</div>
-
-<div class="card-name">
-Golem de Glace
-</div>
-
-<div class="card-type">
-🧊 TYPE : GLACE
-</div>
-
-<p class="card-description">
-Un immense protecteur créé dans les montagnes
-gelées du Nord.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 005 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-5"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #005
-</div>
-
-<div class="card-name">
-Mage Boréal
-</div>
-
-<div class="card-type">
-🔮 TYPE : MAGIE
-</div>
-
-<p class="card-description">
-Un ancien mage maîtrisant les cristaux
-du ciel hivernal.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 006 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-6"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #006
-</div>
-
-<div class="card-name">
-Loup Polaire
-</div>
-
-<div class="card-type">
-🌙 TYPE : NATURE
-</div>
-
-<p class="card-description">
-Prédateur silencieux traversant les forêts
-enneigées sans laisser de traces.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 007 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-7"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #007
-</div>
-
-<div class="card-name">
-Draco Givré
-</div>
-
-<div class="card-type">
-🐉 TYPE : DRAGON
-</div>
-
-<p class="card-description">
-Une créature ancienne dormant au sommet
-de la montagne gelée.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 008 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-8"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #008
-</div>
-
-<div class="card-name">
-Reine Boréale
-</div>
-
-<div class="card-type">
-🌌 TYPE : COSMIQUE
-</div>
-
-<p class="card-description">
-Gardienne du royaume hivernal et maîtresse
-des aurores polaires.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 009 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-9"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #009
-</div>
-
-<div class="card-name">
-Gardien du Grand Atelier
-</div>
-
-<div class="card-type">
-⚙️ TYPE : MÉCANIQUE
-</div>
-
-<p class="card-description">
-Le mystérieux gardien de l'atelier où sont créés
-les cadeaux du royaume.
-</p>
-
-</div>
-
-</article>
-
-
-<!-- CARTE 010 -->
-
-<article class="card">
-
-<div class="card-image">
-
-<div class="sprite card-10"></div>
-
-</div>
-
-<div class="card-info">
-
-<div class="card-number">
-CARTE #010
-</div>
-
-<div class="card-name">
-Winter Core
-</div>
-
-<div class="card-type">
-💠 TYPE : MYSTÈRE
-</div>
-
-<p class="card-description">
-La mystérieuse source d'énergie cachée
-au cœur du royaume Winter Pixels.
-</p>
-
-</div>
-
-</article>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     RARETES
-========================= -->
-
-<section id="raretes">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-⭐ Les raretés
-</h2>
-
-<p>
-Chaque carte possède son propre niveau de rareté.
-</p>
-
-</div>
-
-
-<div class="rarity-list">
-
-
-<div class="rarity-box">
-
-<strong>
-Commune
-</strong>
-
-<span>
-Fréquente
-</span>
-
-</div>
-
-
-<div class="rarity-box">
-
-<strong>
-Peu commune
-</strong>
-
-<span>
-Moins fréquente
-</span>
-
-</div>
-
-
-<div class="rarity-box">
-
-<strong>
-Rare
-</strong>
-
-<span>
-Difficile à obtenir
-</span>
-
-</div>
-
-
-<div class="rarity-box">
-
-<strong>
-Épique
-</strong>
-
-<span>
-Très rare
-</span>
-
-</div>
-
-
-<div class="rarity-box">
-
-<strong>
-Légendaire
-</strong>
-
-<span>
-Exceptionnelle
-</span>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     ROADMAP
-========================= -->
-
-<section id="avenir">
-
-<div class="container">
-
-<div class="section-title">
-
-<h2>
-🚀 La suite de Pixel Cards
-</h2>
-
-<p>
-Le projet va évoluer progressivement.
-</p>
-
-</div>
-
-
-<div class="roadmap">
-
-
-<div class="panel step">
-
-<div class="num">
-01
-</div>
-
-<h3>
-Collection
-</h3>
-
-<p>
-Une collection personnelle permettant
-de voir les cartes obtenues et les cartes manquantes.
-</p>
-
-</div>
-
-
-<div class="panel step">
-
-<div class="num">
-02
-</div>
-
-<h3>
-Boosters
-</h3>
-
-<p>
-Des boosters contenant plusieurs cartes
-avec différentes probabilités de rareté.
-</p>
-
-</div>
-
-
-<div class="panel step">
-
-<div class="num">
-03
-</div>
-
-<h3>
-Saisons
-</h3>
-
-<p>
-De nouvelles saisons avec de nouveaux
-univers et de nouvelles cartes originales.
-</p>
-
-</div>
-
-
-</div>
-
-</div>
-
-</section>
-
-
-</main>
-
+<!-- FOOTER -->
 
 <footer>
 
-<div class="container">
-
-© 2026 Pixel Cards — Univers original.
-<br>
-Saison 01 : Winter Pixels.
-
-</div>
+    © 2026 Pixel Cards
+    — Univers original.
+    Saison 01 : Winter Pixels.
 
 </footer>
 
