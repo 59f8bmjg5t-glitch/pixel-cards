@@ -15,6 +15,7 @@
   --accent:#61e6f5;
   --danger:#ff5c6c;
   --success:#62e6a5;
+  --warning:#ffd45a;
   --line:rgba(255,255,255,.12);
 }
 
@@ -75,7 +76,7 @@ nav a{
 }
 
 .container{
-  width:min(800px,92%);
+  width:min(1000px,92%);
   margin:auto;
 }
 
@@ -108,18 +109,52 @@ h1{
   margin-top:0;
 }
 
+/* =========================
+   TABLEAU DE BORD
+========================= */
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+  margin-bottom:25px;
+}
+
+.stat{
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:22px;
+  text-align:center;
+}
+
+.stat-icon{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.stat-value{
+  font-size:28px;
+  font-weight:1000;
+  color:var(--accent);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:13px;
+  margin-top:5px;
+  font-weight:800;
+}
+
+/* =========================
+   COINS
+========================= */
+
 .balance{
   text-align:center;
   font-size:32px;
   font-weight:1000;
   color:var(--accent);
-  margin:25px 0;
-}
-
-.collection-count{
-  text-align:center;
-  font-size:28px;
-  font-weight:1000;
   margin:25px 0;
 }
 
@@ -161,12 +196,15 @@ button.success{
   color:#061a12;
 }
 
-.status{
-  min-height:25px;
-  margin-top:18px;
+/* =========================
+   COLLECTION
+========================= */
+
+.collection-count{
   text-align:center;
-  color:var(--muted);
-  font-weight:800;
+  font-size:28px;
+  font-weight:1000;
+  margin:25px 0;
 }
 
 .cards-list{
@@ -230,8 +268,20 @@ button.success{
   font-size:14px;
 }
 
+/* =========================
+   MESSAGES
+========================= */
+
+.status{
+  min-height:25px;
+  margin-top:18px;
+  text-align:center;
+  color:var(--muted);
+  font-weight:800;
+}
+
 .warning{
-  color:#ffd45a;
+  color:var(--warning);
   line-height:1.6;
 }
 
@@ -241,6 +291,18 @@ footer{
   color:var(--muted);
   border-top:1px solid var(--line);
   font-size:13px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:800px){
+
+  .dashboard{
+    grid-template-columns:repeat(2,1fr);
+  }
+
 }
 
 @media(max-width:650px){
@@ -261,6 +323,10 @@ footer{
 
   .card-admin button{
     width:100%;
+  }
+
+  .dashboard{
+    grid-template-columns:1fr 1fr;
   }
 
 }
@@ -296,11 +362,93 @@ PIXEL <span>CARDS</span>
 <h1>👑 Administration</h1>
 
 <p class="subtitle">
-Outils de gestion Pixel Cards
+Centre de gestion Pixel Cards
 </p>
 
 
-<!-- PIXEL COINS -->
+<!-- =========================
+     TABLEAU DE BORD
+========================= -->
+
+<div class="dashboard">
+
+<div class="stat">
+
+<div class="stat-icon">👥</div>
+
+<div
+class="stat-value"
+id="playersStat"
+>
+—
+</div>
+
+<div class="stat-label">
+Joueurs
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">🎁</div>
+
+<div
+class="stat-value"
+id="boostersStat"
+>
+—
+</div>
+
+<div class="stat-label">
+Boosters ouverts
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">🃏</div>
+
+<div
+class="stat-value"
+id="cardsStat"
+>
+0
+</div>
+
+<div class="stat-label">
+Cartes possédées
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div class="stat-icon">🪙</div>
+
+<div
+class="stat-value"
+id="coinsStat"
+>
+0
+</div>
+
+<div class="stat-label">
+Pixel Coins
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================
+     PIXEL COINS
+========================= -->
 
 <div class="panel">
 
@@ -330,7 +478,9 @@ placeholder="Nombre de Pixel Coins"
 </div>
 
 
-<!-- COLLECTION -->
+<!-- =========================
+     COLLECTION
+========================= -->
 
 <div class="panel">
 
@@ -340,22 +490,36 @@ placeholder="Nombre de Pixel Coins"
 0 / 10 cartes
 </div>
 
-<button class="success" id="unlockAll">
+<button
+class="success"
+id="unlockAll"
+>
 🎁 Débloquer les 10 cartes
 </button>
 
-<button class="danger" id="resetCollection">
+<button
+class="danger"
+id="resetCollection"
+>
 🗑️ Réinitialiser la collection
 </button>
 
-<div class="status" id="collectionStatus"></div>
+<div
+class="status"
+id="collectionStatus"
+></div>
 
-<div class="cards-list" id="cardsList"></div>
+<div
+class="cards-list"
+id="cardsList"
+></div>
 
 </div>
 
 
-<!-- AVERTISSEMENT -->
+<!-- =========================
+     AVERTISSEMENT
+========================= -->
 
 <div class="panel">
 
@@ -368,8 +532,8 @@ Cette page est actuellement un outil de développement.
 Elle utilise le stockage local du navigateur et ne constitue
 pas encore un véritable système d'administration sécurisé.
 
-Elle ne doit pas être accessible aux joueurs lorsque
-Pixel Cards sera officiellement ouvert.
+Les statistiques joueurs et boosters resteront indisponibles
+jusqu'à la mise en place des comptes et de la base de données.
 
 </p>
 
@@ -387,11 +551,14 @@ Pixel Cards sera officiellement ouvert.
 
 <script>
 
-const COINS_KEY = "pixelCoins";
+const COINS_KEY =
+"pixelCoins";
 
-const COLLECTION_KEY = "pixelCardsUnlocked";
+const COLLECTION_KEY =
+"pixelCardsUnlocked";
 
-const TOTAL_CARDS = 10;
+const TOTAL_CARDS =
+10;
 
 
 /* =========================
@@ -464,7 +631,7 @@ rarity:"🌌 Secrète"
 
 
 /* =========================
-   PIXEL COINS
+   COINS
 ========================= */
 
 function getCoins(){
@@ -475,7 +642,9 @@ localStorage.getItem(COINS_KEY) || "0",
 10
 );
 
-return Number.isFinite(value) ? value : 0;
+return Number.isFinite(value)
+? value
+: 0;
 
 }
 
@@ -494,13 +663,20 @@ Math.floor(amount)
 
 updateBalance();
 
+updateDashboard();
+
 }
 
 
 function updateBalance(){
 
-document.getElementById("balance").textContent =
-"🪙 " + getCoins();
+const coins =
+getCoins();
+
+document.getElementById(
+"balance"
+).textContent =
+"🪙 " + coins;
 
 }
 
@@ -515,7 +691,9 @@ try{
 
 const data =
 JSON.parse(
-localStorage.getItem(COLLECTION_KEY) || "[]"
+localStorage.getItem(
+COLLECTION_KEY
+) || "[]"
 );
 
 return Array.isArray(data)
@@ -542,22 +720,26 @@ JSON.stringify(
 
 updateCollection();
 
+updateDashboard();
+
 }
 
 
 /* =========================
-   COMPTEUR
+   COLLECTION AFFICHAGE
 ========================= */
 
 function updateCollection(){
 
-const cards =
+const collection =
 getCollection();
 
 const uniqueCards =
-[...new Set(cards)];
+[...new Set(collection)];
 
-document.getElementById("collectionCount").textContent =
+document.getElementById(
+"collectionCount"
+).textContent =
 uniqueCards.length +
 " / " +
 TOTAL_CARDS +
@@ -569,13 +751,15 @@ renderCards();
 
 
 /* =========================
-   AFFICHAGE CARTES
+   CARTES ADMIN
 ========================= */
 
 function renderCards(){
 
 const list =
-document.getElementById("cardsList");
+document.getElementById(
+"cardsList"
+);
 
 const collection =
 getCollection();
@@ -588,9 +772,12 @@ const unlocked =
 collection.includes(card.id);
 
 const row =
-document.createElement("div");
+document.createElement(
+"div"
+);
 
-row.className = "card-admin";
+row.className =
+"card-admin";
 
 row.innerHTML = `
 
@@ -614,18 +801,34 @@ ${card.rarity}
 
 </div>
 
-<div class="card-status ${unlocked ? "unlocked" : "locked"}">
+<div class="card-status ${
+unlocked
+? "unlocked"
+: "locked"
+}">
 
-${unlocked ? "🔓 Débloquée" : "🔒 Bloquée"}
+${
+unlocked
+? "🔓 Débloquée"
+: "🔒 Bloquée"
+}
 
 </div>
 
 <button
-class="${unlocked ? "danger" : "success"}"
+class="${
+unlocked
+? "danger"
+: "success"
+}"
 data-card-id="${card.id}"
 >
 
-${unlocked ? "🔒 Retirer" : "🔓 Débloquer"}
+${
+unlocked
+? "🔒 Retirer"
+: "🔓 Débloquer"
+}
 
 </button>
 
@@ -639,15 +842,54 @@ list.appendChild(row);
 
 
 /* =========================
-   GESTION CARTE INDIVIDUELLE
+   TABLEAU DE BORD
+========================= */
+
+function updateDashboard(){
+
+const coins =
+getCoins();
+
+const collection =
+[...new Set(getCollection())];
+
+document.getElementById(
+"playersStat"
+).textContent =
+"—";
+
+document.getElementById(
+"boostersStat"
+).textContent =
+"—";
+
+document.getElementById(
+"cardsStat"
+).textContent =
+collection.length;
+
+document.getElementById(
+"coinsStat"
+).textContent =
+coins;
+
+}
+
+
+/* =========================
+   CARTE INDIVIDUELLE
 ========================= */
 
 document
 .getElementById("cardsList")
-.addEventListener("click", function(event){
+.addEventListener(
+"click",
+function(event){
 
 const button =
-event.target.closest("button[data-card-id]");
+event.target.closest(
+"button[data-card-id]"
+);
 
 if(!button) return;
 
@@ -660,9 +902,13 @@ getCollection();
 if(collection.includes(id)){
 
 collection =
-collection.filter(card => card !== id);
+collection.filter(
+card => card !== id
+);
 
-document.getElementById("collectionStatus").textContent =
+document.getElementById(
+"collectionStatus"
+).textContent =
 "🔒 Carte #" +
 id.padStart(3,"0") +
 " retirée.";
@@ -671,7 +917,9 @@ id.padStart(3,"0") +
 
 collection.push(id);
 
-document.getElementById("collectionStatus").textContent =
+document.getElementById(
+"collectionStatus"
+).textContent =
 "🔓 Carte #" +
 id.padStart(3,"0") +
 " débloquée.";
@@ -680,7 +928,8 @@ id.padStart(3,"0") +
 
 setCollection(collection);
 
-});
+}
+);
 
 
 /* =========================
@@ -689,17 +938,27 @@ setCollection(collection);
 
 document
 .getElementById("addCoins")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
 const amount =
 parseInt(
-document.getElementById("coinsAmount").value,
+document.getElementById(
+"coinsAmount"
+).value,
 10
 );
 
-if(!Number.isFinite(amount) || amount <= 0){
+if(
+!Number.isFinite(amount)
+||
+amount <= 0
+){
 
-document.getElementById("coinStatus").textContent =
+document.getElementById(
+"coinStatus"
+).textContent =
 "❌ Entre un nombre de coins valide.";
 
 return;
@@ -710,14 +969,20 @@ setCoins(
 getCoins() + amount
 );
 
-document.getElementById("coinStatus").textContent =
+document.getElementById(
+"coinStatus"
+).textContent =
 "✅ " +
 amount +
 " 🪙 ajoutés.";
 
-document.getElementById("coinsAmount").value = "";
+document.getElementById(
+"coinsAmount"
+).value =
+"";
 
-});
+}
+);
 
 
 /* =========================
@@ -726,17 +991,27 @@ document.getElementById("coinsAmount").value = "";
 
 document
 .getElementById("removeCoins")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
 const amount =
 parseInt(
-document.getElementById("coinsAmount").value,
+document.getElementById(
+"coinsAmount"
+).value,
 10
 );
 
-if(!Number.isFinite(amount) || amount <= 0){
+if(
+!Number.isFinite(amount)
+||
+amount <= 0
+){
 
-document.getElementById("coinStatus").textContent =
+document.getElementById(
+"coinStatus"
+).textContent =
 "❌ Entre un nombre de coins valide.";
 
 return;
@@ -750,14 +1025,20 @@ getCoins() - amount
 )
 );
 
-document.getElementById("coinStatus").textContent =
+document.getElementById(
+"coinStatus"
+).textContent =
 "✅ " +
 amount +
 " 🪙 retirés.";
 
-document.getElementById("coinsAmount").value = "";
+document.getElementById(
+"coinsAmount"
+).value =
+"";
 
-});
+}
+);
 
 
 /* =========================
@@ -766,26 +1047,37 @@ document.getElementById("coinsAmount").value = "";
 
 document
 .getElementById("unlockAll")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
 const allCards =
-CARDS.map(card => card.id);
+CARDS.map(
+card => card.id
+);
 
-setCollection(allCards);
+setCollection(
+allCards
+);
 
-document.getElementById("collectionStatus").textContent =
+document.getElementById(
+"collectionStatus"
+).textContent =
 "✅ Les 10 cartes sont débloquées.";
 
-});
+}
+);
 
 
 /* =========================
-   RÉINITIALISER
+   RESET
 ========================= */
 
 document
 .getElementById("resetCollection")
-.addEventListener("click",function(){
+.addEventListener(
+"click",
+function(){
 
 const confirmed =
 confirm(
@@ -796,10 +1088,13 @@ if(!confirmed) return;
 
 setCollection([]);
 
-document.getElementById("collectionStatus").textContent =
+document.getElementById(
+"collectionStatus"
+).textContent =
 "🗑️ Collection réinitialisée.";
 
-});
+}
+);
 
 
 /* =========================
@@ -809,6 +1104,8 @@ document.getElementById("collectionStatus").textContent =
 updateBalance();
 
 updateCollection();
+
+updateDashboard();
 
 </script>
 
