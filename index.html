@@ -6,436 +6,421 @@
 
 <title>Pixel Cards — Winter Pixels</title>
 
-<meta name="description"
-content="Pixel Cards — jeu de cartes à collectionner. Saison 1 : Winter Pixels.">
-
 <style>
-
 :root{
---bg:#070b14;
---panel:#111827;
---panel2:#18243a;
---text:#f8fafc;
---muted:#aeb8cc;
---cyan:#67e8f9;
---blue:#60a5fa;
---purple:#a78bfa;
---border:rgba(255,255,255,.11);
+  --bg:#070b14;
+  --panel:#111827;
+  --panel2:#18243a;
+  --text:#f8fafc;
+  --muted:#aeb8cc;
+  --cyan:#67e8f9;
+  --blue:#60a5fa;
+  --purple:#a78bfa;
+  --border:rgba(255,255,255,.11);
 }
 
-*{
-box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 html{
-scroll-behavior:smooth;
+  scroll-behavior:smooth;
 }
 
 body{
-margin:0;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-color:var(--text);
-background:
-radial-gradient(circle at 15% 0%,rgba(103,232,249,.14),transparent 30%),
-radial-gradient(circle at 90% 10%,rgba(167,139,250,.16),transparent 30%),
-var(--bg);
+  margin:0;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 0%,rgba(103,232,249,.14),transparent 30%),
+    radial-gradient(circle at 90% 10%,rgba(167,139,250,.16),transparent 30%),
+    var(--bg);
 }
 
 a{
-color:inherit;
-text-decoration:none;
+  color:inherit;
+  text-decoration:none;
 }
 
 .container{
-width:min(1100px,92%);
-margin:auto;
+  width:min(1100px,92%);
+  margin:auto;
 }
 
 /* NAVIGATION */
 
 header{
-position:sticky;
-top:0;
-z-index:50;
-background:rgba(7,11,20,.82);
-backdrop-filter:blur(18px);
-border-bottom:1px solid var(--border);
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(7,11,20,.84);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--border);
 }
 
 .nav{
-height:68px;
-display:flex;
-align-items:center;
-justify-content:space-between;
+  height:68px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
 .logo{
-font-size:20px;
-font-weight:900;
-letter-spacing:.5px;
+  font-size:20px;
+  font-weight:900;
+  letter-spacing:.5px;
 }
 
 .logo span{
-color:var(--cyan);
+  color:var(--cyan);
 }
 
 nav{
-display:flex;
-gap:22px;
-font-size:14px;
-color:var(--muted);
+  display:flex;
+  gap:22px;
+  font-size:14px;
+  color:var(--muted);
 }
 
 nav a:hover{
-color:white;
+  color:white;
 }
 
 /* HERO */
 
 .hero{
-text-align:center;
-padding:85px 0 75px;
+  text-align:center;
+  padding:85px 0 75px;
 }
 
 .badge{
-display:inline-block;
-padding:9px 15px;
-border-radius:999px;
-border:1px solid rgba(103,232,249,.35);
-background:rgba(103,232,249,.08);
-color:var(--cyan);
-font-size:13px;
-font-weight:800;
+  display:inline-block;
+  padding:9px 15px;
+  border-radius:999px;
+  border:1px solid rgba(103,232,249,.35);
+  background:rgba(103,232,249,.08);
+  color:var(--cyan);
+  font-size:13px;
+  font-weight:800;
 }
 
 .hero h1{
-font-size:clamp(45px,10vw,78px);
-line-height:.95;
-letter-spacing:-3px;
-margin:25px 0 20px;
+  font-size:clamp(45px,10vw,78px);
+  line-height:.95;
+  letter-spacing:-3px;
+  margin:25px 0 20px;
 }
 
 .gradient{
-background:linear-gradient(
-90deg,
-var(--cyan),
-var(--blue),
-var(--purple)
-);
--webkit-background-clip:text;
-background-clip:text;
-color:transparent;
+  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
 }
 
 .hero p{
-max-width:680px;
-margin:auto;
-color:var(--muted);
-font-size:18px;
-line-height:1.65;
+  max-width:680px;
+  margin:auto;
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.65;
 }
 
 .buttons{
-display:flex;
-justify-content:center;
-gap:12px;
-flex-wrap:wrap;
-margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-top:30px;
 }
 
 .btn{
-padding:14px 21px;
-border-radius:14px;
-border:1px solid var(--border);
-background:var(--panel);
-font-weight:800;
+  padding:14px 21px;
+  border-radius:14px;
+  border:1px solid var(--border);
+  background:var(--panel);
+  font-weight:800;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
 }
 
 .btn.primary{
-background:white;
-color:#070b14;
+  background:white;
+  color:#070b14;
 }
 
 /* SECTIONS */
 
 section{
-padding:65px 0;
+  padding:65px 0;
 }
 
 .title{
-text-align:center;
-margin-bottom:32px;
+  text-align:center;
+  margin-bottom:32px;
 }
 
 .title h2{
-font-size:34px;
-margin:0 0 10px;
+  font-size:34px;
+  margin:0 0 10px;
 }
 
 .title p{
-margin:0;
-color:var(--muted);
+  margin:0;
+  color:var(--muted);
 }
 
 /* SAISON */
 
 .season{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
 }
 
 .panel{
-border:1px solid var(--border);
-border-radius:22px;
-padding:28px;
-background:
-linear-gradient(
-145deg,
-rgba(24,36,58,.96),
-rgba(12,17,29,.96)
-);
-box-shadow:0 20px 60px rgba(0,0,0,.2);
+  border:1px solid var(--border);
+  border-radius:22px;
+  padding:28px;
+  background:
+    linear-gradient(145deg,rgba(24,36,58,.96),rgba(12,17,29,.96));
+  box-shadow:0 20px 60px rgba(0,0,0,.2);
 }
 
 .panel h3{
-font-size:27px;
-margin-top:0;
+  font-size:27px;
+  margin-top:0;
 }
 
 .panel p{
-color:var(--muted);
-line-height:1.7;
+  color:var(--muted);
+  line-height:1.7;
 }
 
 .season-art{
-min-height:300px;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
+  min-height:300px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
 }
 
 .snow{
-font-size:100px;
-filter:drop-shadow(0 0 30px rgba(103,232,249,.6));
+  font-size:100px;
+  filter:drop-shadow(0 0 30px rgba(103,232,249,.6));
 }
 
 .tags{
-display:flex;
-gap:8px;
-flex-wrap:wrap;
-margin-top:20px;
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:20px;
 }
 
 .tag{
-padding:7px 11px;
-border-radius:999px;
-background:rgba(255,255,255,.06);
-font-size:12px;
+  padding:7px 11px;
+  border-radius:999px;
+  background:rgba(255,255,255,.06);
+  font-size:12px;
 }
 
 /* CARTES */
 
 .cards{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
 
 .card{
-position:relative;
-overflow:hidden;
-min-height:350px;
-padding:18px;
-border-radius:22px;
-border:1px solid var(--border);
-background:
-linear-gradient(
-160deg,
-#1a2942,
-#0b1220
-);
-transition:.25s;
+  position:relative;
+  overflow:hidden;
+  min-height:430px;
+  padding:14px;
+  border-radius:22px;
+  border:1px solid var(--border);
+  background:
+    linear-gradient(160deg,#1a2942,#0b1220);
+  transition:.25s;
 }
 
 .card:hover{
-transform:translateY(-6px);
-border-color:rgba(103,232,249,.4);
-}
-
-.card-image{
-height:145px;
-border-radius:16px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:75px;
-margin-bottom:17px;
-background:
-radial-gradient(
-circle,
-rgba(103,232,249,.2),
-transparent 60%
-),
-#0d1728;
+  transform:translateY(-6px);
+  border-color:rgba(103,232,249,.45);
 }
 
 .card-number{
-position:absolute;
-top:14px;
-left:14px;
-font-size:11px;
-color:#cbd5e1;
-background:rgba(0,0,0,.3);
-padding:5px 8px;
-border-radius:7px;
+  position:absolute;
+  top:13px;
+  left:13px;
+  z-index:3;
+  font-size:10px;
+  color:#dbeafe;
+  background:rgba(0,0,0,.45);
+  padding:5px 8px;
+  border-radius:7px;
 }
 
 .rarity{
-position:absolute;
-top:14px;
-right:14px;
-font-size:10px;
-font-weight:900;
-padding:6px 8px;
-border-radius:7px;
-background:rgba(255,255,255,.1);
+  position:absolute;
+  top:13px;
+  right:13px;
+  z-index:3;
+  font-size:9px;
+  font-weight:900;
+  padding:6px 8px;
+  border-radius:7px;
+  background:rgba(255,255,255,.12);
+}
+
+.card-art{
+  height:205px;
+  border-radius:16px;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg,#152945,#08111f);
+  margin-bottom:16px;
+}
+
+.card-art svg{
+  width:100%;
+  height:100%;
+  display:block;
 }
 
 .card h3{
-margin:5px 0;
-font-size:21px;
+  margin:5px 0;
+  font-size:21px;
 }
 
 .type{
-font-size:12px;
-color:var(--cyan);
-font-weight:800;
+  font-size:11px;
+  color:var(--cyan);
+  font-weight:900;
+  letter-spacing:.4px;
 }
 
 .card p{
-color:var(--muted);
-font-size:13px;
-line-height:1.5;
+  color:var(--muted);
+  font-size:13px;
+  line-height:1.5;
+  min-height:40px;
 }
 
 .stats{
-display:flex;
-gap:8px;
-margin-top:15px;
+  display:flex;
+  gap:8px;
+  margin-top:15px;
 }
 
 .stat{
-flex:1;
-padding:9px;
-border-radius:10px;
-background:rgba(255,255,255,.055);
-text-align:center;
-font-size:12px;
+  flex:1;
+  padding:9px;
+  border-radius:10px;
+  background:rgba(255,255,255,.055);
+  text-align:center;
+  font-size:11px;
 }
 
 .stat strong{
-display:block;
-font-size:16px;
-color:white;
+  display:block;
+  font-size:16px;
+  color:white;
 }
 
-/* RARETÉS */
+/* RARETES */
 
 .rarity-list{
-display:grid;
-grid-template-columns:repeat(5,1fr);
-gap:12px;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
 }
 
 .rarity-box{
-padding:18px 10px;
-text-align:center;
-border:1px solid var(--border);
-border-radius:16px;
-background:var(--panel);
+  padding:18px 10px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:var(--panel);
 }
 
 .rarity-box strong{
-display:block;
-margin-bottom:5px;
+  display:block;
+  margin-bottom:5px;
 }
 
 .rarity-box span{
-font-size:12px;
-color:var(--muted);
+  font-size:12px;
+  color:var(--muted);
 }
 
 /* FUTUR */
 
 .future{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:18px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
 }
 
 .future .panel{
-text-align:center;
+  text-align:center;
 }
 
 .number{
-font-size:30px;
-font-weight:900;
-color:var(--cyan);
+  font-size:30px;
+  font-weight:900;
+  color:var(--cyan);
 }
 
 /* FOOTER */
 
 footer{
-border-top:1px solid var(--border);
-padding:32px 0;
-text-align:center;
-font-size:13px;
-color:var(--muted);
+  border-top:1px solid var(--border);
+  padding:32px 0;
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
 }
 
 /* MOBILE */
 
 @media(max-width:800px){
 
-nav{
-display:none;
-}
+  nav{
+    display:none;
+  }
 
-.season{
-grid-template-columns:1fr;
-}
+  .season{
+    grid-template-columns:1fr;
+  }
 
-.cards{
-grid-template-columns:1fr;
-}
+  .cards{
+    grid-template-columns:1fr;
+  }
 
-.rarity-list{
-grid-template-columns:repeat(2,1fr);
-}
+  .rarity-list{
+    grid-template-columns:repeat(2,1fr);
+  }
 
-.future{
-grid-template-columns:1fr;
-}
+  .future{
+    grid-template-columns:1fr;
+  }
 
-.hero{
-padding-top:65px;
-}
+  .hero{
+    padding-top:65px;
+  }
 
-section{
-padding:48px 0;
+  section{
+    padding:48px 0;
+  }
 }
-
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-
 <div class="container nav">
 
 <a href="#" class="logo">
@@ -450,7 +435,6 @@ PIXEL <span>CARDS</span>
 </nav>
 
 </div>
-
 </header>
 
 
@@ -468,9 +452,7 @@ PIXEL <span>CARDS</span>
 
 <h1>
 Bienvenue dans
-<span class="gradient">
-Pixel Cards
-</span>
+<span class="gradient">Pixel Cards</span>
 </h1>
 
 <p>
@@ -527,8 +509,8 @@ de héros et de mystères.
 </p>
 
 <p>
-Les cartes de cette saison sont entièrement
-originales et appartiennent à l'univers Pixel Cards.
+Les cartes de cette saison sont entièrement originales
+et appartiennent à l'univers Pixel Cards.
 </p>
 
 <div class="tags">
@@ -547,17 +529,11 @@ originales et appartiennent à l'univers Pixel Cards.
 
 <div>
 
-<div class="snow">
-❄️
-</div>
+<div class="snow">❄️</div>
 
-<h3>
-WINTER PIXELS
-</h3>
+<h3>WINTER PIXELS</h3>
 
-<p>
-SAISON 01
-</p>
+<p>SAISON 01</p>
 
 </div>
 
@@ -591,391 +567,606 @@ la première série.
 <div class="cards">
 
 
-<!-- 001 -->
+<!-- FROSTY -->
 
 <article class="card">
 
 <span class="card-number">#001</span>
 <span class="rarity">COMMUNE</span>
 
-<div class="card-image">
-⛄
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#10233d"/>
+
+<circle cx="240" cy="40" r="24" fill="#dff9ff" opacity=".8"/>
+
+<rect x="0" y="165" width="300" height="40" fill="#dcefff"/>
+
+<!-- corps -->
+<rect x="108" y="105" width="84" height="58" rx="18" fill="#eefbff"/>
+<rect x="120" y="78" width="60" height="55" rx="18" fill="#f7fdff"/>
+
+<!-- tête -->
+<rect x="128" y="48" width="44" height="38" rx="12" fill="#ffffff"/>
+
+<!-- chapeau -->
+<rect x="124" y="42" width="52" height="9" fill="#183b68"/>
+<rect x="133" y="30" width="34" height="14" fill="#183b68"/>
+<rect x="128" y="27" width="44" height="7" fill="#d7f7ff"/>
+
+<!-- yeux -->
+<rect x="139" y="60" width="6" height="6" fill="#172033"/>
+<rect x="157" y="60" width="6" height="6" fill="#172033"/>
+
+<!-- nez -->
+<rect x="148" y="68" width="9" height="5" fill="#f59e0b"/>
+
+<!-- boutons -->
+<rect x="145" y="94" width="6" height="6" fill="#172033"/>
+<rect x="145" y="112" width="6" height="6" fill="#172033"/>
+<rect x="145" y="130" width="6" height="6" fill="#172033"/>
+
+<!-- bras -->
+<rect x="91" y="113" width="25" height="6" fill="#6b432c"/>
+<rect x="184" y="113" width="25" height="6" fill="#6b432c"/>
+
+</svg>
+
 </div>
 
 <h3>Frosty</h3>
 
-<div class="type">
-❄️ TYPE : GLACE
-</div>
+<div class="type">❄️ TYPE : GLACE</div>
 
 <p>
-Petit gardien de neige protégeant les villages
-pendant les nuits glacées.
+Petit gardien de neige protégeant les villages.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>35</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>45</strong>
-</div>
-
+<div class="stat">ATK<strong>35</strong></div>
+<div class="stat">DEF<strong>45</strong></div>
 </div>
 
 </article>
 
 
-<!-- 002 -->
+<!-- LUTIN -->
 
 <article class="card">
 
 <span class="card-number">#002</span>
 <span class="rarity">COMMUNE</span>
 
-<div class="card-image">
-🧑‍🎄
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#162742"/>
+
+<circle cx="50" cy="42" r="18" fill="#d8f7ff" opacity=".7"/>
+
+<!-- corps -->
+<rect x="113" y="108" width="74" height="65" rx="15" fill="#3b82f6"/>
+
+<!-- tête -->
+<rect x="119" y="64" width="62" height="55" rx="18" fill="#f6c7a5"/>
+
+<!-- oreilles -->
+<rect x="111" y="82" width="12" height="20" fill="#f6c7a5"/>
+<rect x="177" y="82" width="12" height="20" fill="#f6c7a5"/>
+
+<!-- bonnet -->
+<polygon points="116,70 150,25 184,70" fill="#ef4444"/>
+<rect x="111" y="66" width="78" height="9" fill="#f8fafc"/>
+<rect x="145" y="20" width="12" height="12" fill="#f8fafc"/>
+
+<!-- yeux -->
+<rect x="133" y="83" width="6" height="6" fill="#172033"/>
+<rect x="161" y="83" width="6" height="6" fill="#172033"/>
+
+<!-- bouche -->
+<rect x="143" y="101" width="15" height="5" fill="#9a3412"/>
+
+<!-- ceinture -->
+<rect x="113" y="139" width="74" height="10" fill="#172033"/>
+<rect x="143" y="138" width="14" height="12" fill="#fbbf24"/>
+
+<!-- outil -->
+<rect x="202" y="100" width="6" height="67" fill="#8b5a35"/>
+<rect x="194" y="95" width="22" height="8" fill="#94a3b8"/>
+
+</svg>
+
 </div>
 
 <h3>Lutin 8-Bit</h3>
 
-<div class="type">
-🎁 TYPE : ARTISAN
-</div>
+<div class="type">🎁 TYPE : ARTISAN</div>
 
 <p>
-Un inventeur capable de transformer les pixels
-en jouets extraordinaires.
+Inventeur du Nord capable de créer des jouets.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>40</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>35</strong>
-</div>
-
+<div class="stat">ATK<strong>40</strong></div>
+<div class="stat">DEF<strong>35</strong></div>
 </div>
 
 </article>
 
 
-<!-- 003 -->
+<!-- RUDOLPH -->
 
 <article class="card">
 
 <span class="card-number">#003</span>
 <span class="rarity">PEU COMMUNE</span>
 
-<div class="card-image">
-🦌
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#10223b"/>
+
+<circle cx="70" cy="48" r="20" fill="#f8fafc" opacity=".65"/>
+
+<rect x="0" y="160" width="300" height="45" fill="#dff7ff"/>
+
+<!-- corps -->
+<rect x="92" y="104" width="116" height="55" rx="25" fill="#9a633f"/>
+
+<!-- cou -->
+<rect x="120" y="70" width="48" height="55" rx="20" fill="#9a633f"/>
+
+<!-- tête -->
+<rect x="135" y="52" width="66" height="48" rx="22" fill="#a96d45"/>
+
+<!-- oreilles -->
+<polygon points="139,61 119,42 126,73" fill="#9a633f"/>
+<polygon points="192,61 216,42 205,75" fill="#9a633f"/>
+
+<!-- bois -->
+<rect x="130" y="43" width="5" height="30" fill="#8b5a35"/>
+<rect x="123" y="48" width="18" height="5" fill="#8b5a35"/>
+<rect x="201" y="43" width="5" height="30" fill="#8b5a35"/>
+<rect x="196" y="48" width="18" height="5" fill="#8b5a35"/>
+
+<!-- yeux -->
+<rect x="153" y="67" width="7" height="7" fill="#172033"/>
+<rect x="181" y="67" width="7" height="7" fill="#172033"/>
+
+<!-- nez lumineux -->
+<rect x="164" y="84" width="18" height="13" rx="5" fill="#ff4d67"/>
+
+<!-- pattes -->
+<rect x="105" y="145" width="13" height="35" fill="#70452e"/>
+<rect x="180" y="145" width="13" height="35" fill="#70452e"/>
+
+</svg>
+
 </div>
 
 <h3>Rudolph Pixel</h3>
 
-<div class="type">
-✨ TYPE : LUMIÈRE
-</div>
+<div class="type">✨ TYPE : LUMIÈRE</div>
 
 <p>
-Un renne rapide dont le nez illumine les chemins
-perdus dans la neige.
+Un renne rapide qui éclaire les chemins enneigés.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>48</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>42</strong>
-</div>
-
+<div class="stat">ATK<strong>48</strong></div>
+<div class="stat">DEF<strong>42</strong></div>
 </div>
 
 </article>
 
 
-<!-- 004 -->
+<!-- GOLEM -->
 
 <article class="card">
 
 <span class="card-number">#004</span>
 <span class="rarity">RARE</span>
 
-<div class="card-image">
-🧊
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#122a46"/>
+
+<polygon points="0,170 65,105 130,170" fill="#203e5e"/>
+<polygon points="130,170 210,85 300,170" fill="#284b6c"/>
+
+<!-- golem -->
+<rect x="93" y="73" width="114" height="94" rx="10" fill="#7dd3fc"/>
+<rect x="108" y="52" width="84" height="65" rx="10" fill="#bae6fd"/>
+
+<!-- fissures -->
+<rect x="130" y="56" width="6" height="40" fill="#2563eb"/>
+<rect x="137" y="90" width="32" height="6" fill="#2563eb"/>
+<rect x="176" y="104" width="7" height="34" fill="#2563eb"/>
+
+<!-- yeux -->
+<rect x="126" y="74" width="15" height="10" fill="#0f172a"/>
+<rect x="164" y="74" width="15" height="10" fill="#0f172a"/>
+
+<!-- bras -->
+<rect x="61" y="92" width="33" height="55" rx="8" fill="#60a5fa"/>
+<rect x="206" y="92" width="33" height="55" rx="8" fill="#60a5fa"/>
+
+<!-- jambes -->
+<rect x="111" y="157" width="29" height="35" fill="#60a5fa"/>
+<rect x="160" y="157" width="29" height="35" fill="#60a5fa"/>
+
+</svg>
+
 </div>
 
 <h3>Golem de Glace</h3>
 
-<div class="type">
-🧊 TYPE : GLACE
-</div>
+<div class="type">🧊 TYPE : GLACE</div>
 
 <p>
-Un immense protecteur créé dans les montagnes
-gelées du Nord.
+Un protecteur créé dans les montagnes gelées.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>65</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>82</strong>
-</div>
-
+<div class="stat">ATK<strong>65</strong></div>
+<div class="stat">DEF<strong>82</strong></div>
 </div>
 
 </article>
 
 
-<!-- 005 -->
+<!-- MAGE -->
 
 <article class="card">
 
 <span class="card-number">#005</span>
 <span class="rarity">RARE</span>
 
-<div class="card-image">
-🧙‍♂️
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#17213e"/>
+
+<circle cx="220" cy="55" r="42" fill="#7c3aed" opacity=".18"/>
+
+<!-- cape -->
+<polygon points="104,188 150,92 196,188" fill="#312e81"/>
+
+<!-- corps -->
+<rect x="124" y="102" width="52" height="70" fill="#4338ca"/>
+
+<!-- tête -->
+<rect x="126" y="62" width="48" height="47" rx="15" fill="#f3c6a8"/>
+
+<!-- hood -->
+<polygon points="120,72 150,35 180,72" fill="#4f46e5"/>
+<rect x="126" y="68" width="48" height="11" fill="#4f46e5"/>
+
+<!-- yeux -->
+<rect x="136" y="80" width="6" height="6" fill="#111827"/>
+<rect x="158" y="80" width="6" height="6" fill="#111827"/>
+
+<!-- staff -->
+<rect x="205" y="57" width="6" height="120" fill="#8b5a35"/>
+<circle cx="208" cy="51" r="13" fill="#67e8f9"/>
+<circle cx="208" cy="51" r="7" fill="#ffffff"/>
+
+<!-- snow -->
+<rect x="55" y="35" width="5" height="5" fill="#ffffff"/>
+<rect x="73" y="82" width="5" height="5" fill="#ffffff"/>
+<rect x="235" y="110" width="5" height="5" fill="#ffffff"/>
+
+</svg>
+
 </div>
 
 <h3>Mage Boréal</h3>
 
-<div class="type">
-🔮 TYPE : MAGIE
-</div>
+<div class="type">🔮 TYPE : MAGIE</div>
 
 <p>
-Un ancien mage maîtrisant les cristaux
-du ciel hivernal.
+Un mage maîtrisant les cristaux du ciel hivernal.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>72</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>55</strong>
-</div>
-
+<div class="stat">ATK<strong>72</strong></div>
+<div class="stat">DEF<strong>55</strong></div>
 </div>
 
 </article>
 
 
-<!-- 006 -->
+<!-- LOUP -->
 
 <article class="card">
 
 <span class="card-number">#006</span>
 <span class="rarity">ÉPIQUE</span>
 
-<div class="card-image">
-🐺
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#0d1b31"/>
+
+<circle cx="235" cy="45" r="28" fill="#e0f2fe" opacity=".8"/>
+
+<rect x="0" y="170" width="300" height="35" fill="#e5f7ff"/>
+
+<!-- corps -->
+<polygon points="92,153 112,98 174,85 218,130 202,164 115,168" fill="#94a3b8"/>
+
+<!-- tête -->
+<polygon points="105,96 115,50 143,73 171,52 187,101 157,125" fill="#cbd5e1"/>
+
+<!-- oreilles -->
+<polygon points="114,62 120,35 140,70" fill="#94a3b8"/>
+<polygon points="164,70 181,35 185,77" fill="#94a3b8"/>
+
+<!-- yeux -->
+<rect x="128" y="80" width="8" height="8" fill="#67e8f9"/>
+<rect x="159" y="80" width="8" height="8" fill="#67e8f9"/>
+
+<!-- museau -->
+<polygon points="137,96 158,96 149,111" fill="#64748b"/>
+<rect x="145" y="99" width="9" height="6" fill="#111827"/>
+
+<!-- pattes -->
+<rect x="110" y="143" width="15" height="35" fill="#64748b"/>
+<rect x="182" y="140" width="15" height="38" fill="#64748b"/>
+
+</svg>
+
 </div>
 
 <h3>Loup Polaire</h3>
 
-<div class="type">
-🌙 TYPE : NATURE
-</div>
+<div class="type">🌙 TYPE : NATURE</div>
 
 <p>
-Prédateur silencieux qui traverse les forêts
-enneigées sans laisser de traces.
+Prédateur silencieux des forêts enneigées.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>88</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>70</strong>
-</div>
-
+<div class="stat">ATK<strong>88</strong></div>
+<div class="stat">DEF<strong>70</strong></div>
 </div>
 
 </article>
 
 
-<!-- 007 -->
+<!-- DRAGON -->
 
 <article class="card">
 
 <span class="card-number">#007</span>
 <span class="rarity">ÉPIQUE</span>
 
-<div class="card-image">
-🐉
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#101d3b"/>
+
+<circle cx="225" cy="42" r="31" fill="#dbeafe"/>
+
+<!-- ailes -->
+<polygon points="135,100 68,52 92,119" fill="#60a5fa"/>
+<polygon points="168,98 237,48 215,122" fill="#818cf8"/>
+
+<!-- corps -->
+<polygon points="105,145 124,91 177,84 203,136 177,168 123,166" fill="#38bdf8"/>
+
+<!-- tête -->
+<polygon points="128,95 140,58 178,62 191,98 164,119" fill="#7dd3fc"/>
+
+<!-- cornes -->
+<polygon points="143,66 133,43 154,62" fill="#e0f2fe"/>
+<polygon points="171,64 184,42 182,73" fill="#e0f2fe"/>
+
+<!-- yeux -->
+<rect x="145" y="76" width="7" height="7" fill="#fef08a"/>
+<rect x="169" y="76" width="7" height="7" fill="#fef08a"/>
+
+<!-- souffle -->
+<rect x="188" y="96" width="35" height="7" fill="#67e8f9"/>
+<rect x="214" y="91" width="17" height="17" fill="#bae6fd"/>
+
+</svg>
+
 </div>
 
 <h3>Draco Givré</h3>
 
-<div class="type">
-🐉 TYPE : DRAGON
-</div>
+<div class="type">🐉 TYPE : DRAGON</div>
 
 <p>
-Une créature ancienne dormant au sommet
-de la montagne gelée.
+Une créature ancienne dormant dans la montagne.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>95</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>86</strong>
-</div>
-
+<div class="stat">ATK<strong>95</strong></div>
+<div class="stat">DEF<strong>86</strong></div>
 </div>
 
 </article>
 
 
-<!-- 008 -->
+<!-- REINE -->
 
 <article class="card">
 
 <span class="card-number">#008</span>
 <span class="rarity">LÉGENDAIRE</span>
 
-<div class="card-image">
-👑
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#171b43"/>
+
+<!-- aurore -->
+<path d="M0 75 Q75 20 150 75 T300 75" fill="none" stroke="#67e8f9" stroke-width="14" opacity=".4"/>
+<path d="M0 95 Q75 40 150 95 T300 95" fill="none" stroke="#a78bfa" stroke-width="9" opacity=".4"/>
+
+<!-- robe -->
+<polygon points="100,190 150,96 200,190" fill="#4338ca"/>
+
+<!-- tête -->
+<rect x="130" y="60" width="40" height="48" rx="16" fill="#f3c6a8"/>
+
+<!-- cheveux -->
+<rect x="122" y="58" width="56" height="55" rx="20" fill="#dbeafe"/>
+
+<!-- couronne -->
+<polygon points="128,59 136,38 149,52 160,35 168,55 176,42 179,64" fill="#facc15"/>
+
+<!-- yeux -->
+<rect x="139" y="76" width="6" height="6" fill="#312e81"/>
+<rect x="158" y="76" width="6" height="6" fill="#312e81"/>
+
+<!-- cristal -->
+<polygon points="150,120 160,136 150,151 140,136" fill="#67e8f9"/>
+
+</svg>
+
 </div>
 
 <h3>Reine Boréale</h3>
 
-<div class="type">
-🌌 TYPE : COSMIQUE
-</div>
+<div class="type">🌌 TYPE : COSMIQUE</div>
 
 <p>
-Gardienne du royaume hivernal et maîtresse
-des aurores polaires.
+Gardienne des aurores et du royaume hivernal.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>110</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>105</strong>
-</div>
-
+<div class="stat">ATK<strong>110</strong></div>
+<div class="stat">DEF<strong>105</strong></div>
 </div>
 
 </article>
 
 
-<!-- 009 -->
+<!-- GARDIEN -->
 
 <article class="card">
 
 <span class="card-number">#009</span>
 <span class="rarity">LÉGENDAIRE</span>
 
-<div class="card-image">
-🎁
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#18243a"/>
+
+<!-- atelier -->
+<rect x="38" y="55" width="224" height="115" rx="8" fill="#334155"/>
+<polygon points="30,60 150,20 270,60" fill="#475569"/>
+
+<!-- gardien -->
+<rect x="104" y="83" width="92" height="82" rx="12" fill="#64748b"/>
+<rect x="119" y="57" width="62" height="48" rx="14" fill="#94a3b8"/>
+
+<!-- casque -->
+<rect x="112" y="50" width="76" height="12" fill="#fbbf24"/>
+<rect x="128" y="38" width="44" height="13" fill="#fbbf24"/>
+
+<!-- yeux -->
+<rect x="130" y="72" width="9" height="9" fill="#67e8f9"/>
+<rect x="161" y="72" width="9" height="9" fill="#67e8f9"/>
+
+<!-- coffre -->
+<rect x="54" y="125" width="38" height="32" fill="#92400e"/>
+<rect x="208" y="125" width="38" height="32" fill="#92400e"/>
+
+<!-- bras -->
+<rect x="77" y="102" width="27" height="12" fill="#94a3b8"/>
+<rect x="196" y="102" width="27" height="12" fill="#94a3b8"/>
+
+</svg>
+
 </div>
 
 <h3>Gardien du Grand Atelier</h3>
 
-<div class="type">
-⚙️ TYPE : MÉCANIQUE
-</div>
+<div class="type">⚙️ TYPE : MÉCANIQUE</div>
 
 <p>
-Le mystérieux gardien de l'atelier où sont créés
-les cadeaux du royaume.
+Le protecteur mystérieux du grand atelier.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>102</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>118</strong>
-</div>
-
+<div class="stat">ATK<strong>102</strong></div>
+<div class="stat">DEF<strong>118</strong></div>
 </div>
 
 </article>
 
 
-<!-- 010 -->
+<!-- WINTER CORE -->
 
 <article class="card">
 
 <span class="card-number">#010</span>
 <span class="rarity">SECRÈTE</span>
 
-<div class="card-image">
-🌌
+<div class="card-art">
+
+<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
+
+<rect width="300" height="205" fill="#080d22"/>
+
+<!-- halo -->
+<circle cx="150" cy="102" r="72" fill="#312e81" opacity=".35"/>
+<circle cx="150" cy="102" r="55" fill="#1d4ed8" opacity=".4"/>
+
+<!-- fragments -->
+<rect x="60" y="62" width="9" height="9" fill="#67e8f9"/>
+<rect x="224" y="73" width="7" height="7" fill="#a78bfa"/>
+<rect x="82" y="142" width="7" height="7" fill="#60a5fa"/>
+<rect x="215" y="148" width="10" height="10" fill="#67e8f9"/>
+
+<!-- core -->
+<polygon
+points="150,42 195,75 184,133 150,166 116,133 105,75"
+fill="#67e8f9"
+opacity=".9"/>
+
+<polygon
+points="150,55 181,78 173,124 150,148 127,124 119,78"
+fill="#e0f2fe"/>
+
+<polygon
+points="150,68 166,82 162,111 150,127 138,111 134,82"
+fill="#a78bfa"/>
+
+<!-- énergie -->
+<rect x="145" y="88" width="10" height="28" fill="#ffffff"/>
+
+</svg>
+
 </div>
 
 <h3>Winter Core</h3>
 
-<div class="type">
-💠 TYPE : MYSTÈRE
-</div>
+<div class="type">💠 TYPE : MYSTÈRE</div>
 
 <p>
-Une mystérieuse source d'énergie cachée au cœur
-du royaume des Winter Pixels.
+La source d'énergie secrète du royaume.
 </p>
 
 <div class="stats">
-
-<div class="stat">
-ATK
-<strong>150</strong>
-</div>
-
-<div class="stat">
-DEF
-<strong>150</strong>
-</div>
-
+<div class="stat">ATK<strong>150</strong></div>
+<div class="stat">DEF<strong>150</strong></div>
 </div>
 
 </article>
@@ -1003,7 +1194,6 @@ Chaque carte possède un niveau de rareté.
 </p>
 
 </div>
-
 
 <div class="rarity-list">
 
@@ -1047,14 +1237,13 @@ Chaque carte possède un niveau de rareté.
 
 <div class="title">
 
-<h2>🚀 La suite</h2>
+<h2>🚀 La suite de Pixel Cards</h2>
 
 <p>
-Pixel Cards va évoluer progressivement.
+Le jeu va évoluer progressivement.
 </p>
 
 </div>
-
 
 <div class="future">
 
@@ -1062,9 +1251,7 @@ Pixel Cards va évoluer progressivement.
 
 <div class="number">01</div>
 
-<h3>
-Collection
-</h3>
+<h3>Collection</h3>
 
 <p>
 Une page pour voir les cartes obtenues
@@ -1078,9 +1265,7 @@ et celles qu'il te manque.
 
 <div class="number">02</div>
 
-<h3>
-Boosters
-</h3>
+<h3>Boosters</h3>
 
 <p>
 Ouverture de boosters avec plusieurs cartes
@@ -1094,9 +1279,7 @@ et différentes probabilités de rareté.
 
 <div class="number">03</div>
 
-<h3>
-Saisons
-</h3>
+<h3>Saisons</h3>
 
 <p>
 De nouvelles saisons avec de nouveaux
