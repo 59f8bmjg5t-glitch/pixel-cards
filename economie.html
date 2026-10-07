@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Cards — Économie</title>
+<style>
+:root{--bg:#0b0f1d;--panel:#101a2d;--text:#f5f7ff;--muted:#aeb8cc;--accent:#61e6f5;--gold:#ffd95a;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at 50% 10%,rgba(97,230,245,.14),transparent 30%),radial-gradient(circle at 10% 80%,rgba(90,70,180,.12),transparent 30%),var(--bg)}
+a{color:inherit;text-decoration:none}header{position:sticky;top:0;z-index:20;background:rgba(8,11,19,.96);border-bottom:1px solid var(--line)}.nav{max-width:1100px;margin:auto;min-height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 20px}.logo{font-weight:1000;font-size:24px;letter-spacing:1px}.logo span{color:var(--accent)}nav{display:flex;gap:20px}nav a{color:var(--muted);font-weight:800}nav a:hover{color:var(--text)}main{max-width:1000px;margin:auto;padding:55px 20px 80px}.badge{display:inline-block;padding:8px 13px;border:1px solid rgba(97,230,245,.35);border-radius:999px;color:var(--accent);font-weight:900;font-size:13px}h1{font-size:52px;margin:18px 0 8px}.lead{color:var(--muted);font-size:18px}.balance{margin:30px 0;padding:28px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,rgba(255,217,90,.10),rgba(97,230,245,.06));text-align:center}.balance-label{color:var(--muted);font-weight:800}.coins{font-size:52px;font-weight:1000;color:var(--gold);margin:8px 0}.button{border:0;border-radius:14px;padding:13px 20px;background:var(--accent);color:#061018;font-weight:1000;cursor:pointer;font-size:15px}.button:disabled{opacity:.45;cursor:not-allowed}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}.box{padding:22px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.04)}.box h2{margin-top:0}.reward{display:flex;justify-content:space-between;gap:15px;padding:13px 0;border-bottom:1px solid var(--line)}.reward:last-child{border-bottom:0}.value{font-weight:1000;color:var(--gold)}#message{min-height:24px;margin-top:15px;color:var(--accent);font-weight:800}.reset{margin-top:30px;color:var(--muted);font-size:13px;cursor:pointer}@media(max-width:700px){nav{display:none}h1{font-size:40px}.cards{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="nav"><a class="logo" href="index.html">PIXEL <span>CARDS</span></a><nav><a href="index.html">Accueil</a><a href="booster.html">🎁 Booster</a><a href="collection.html">Collection</a></nav></div></header>
+<main>
+<div class="badge">💰 ÉCONOMIE — WINTER PIXELS</div>
+<h1>Pixel Coins 🪙</h1>
+<p class="lead">Ta monnaie officielle pour progresser dans Pixel Cards.</p>
+<section class="balance"><div class="balance-label">SOLDE ACTUEL</div><div class="coins">🪙 <span id="balance">500</span></div><button class="button" id="daily">🎁 Récompense quotidienne : +150 🪙</button><div id="message"></div></section>
+<div class="cards">
+<section class="box"><h2>🛒 Dépenser</h2><div class="reward"><span>🎁 Booster</span><span class="value">100 🪙</span></div><p>Chaque booster coûte 100 Pixel Coins.</p><a class="button" href="booster.html">Ouvrir un booster</a></section>
+<section class="box"><h2>💎 Gagner</h2><div class="reward"><span>🎁 Récompense quotidienne</span><span class="value">+150 🪙</span></div><div class="reward"><span>✨ Nouvelle carte</span><span class="value">+10 🪙</span></div><div class="reward"><span>⚪ Doublon commun</span><span class="value">+20 🪙</span></div><div class="reward"><span>🟢 Doublon peu commun</span><span class="value">+35 🪙</span></div><div class="reward"><span>🔵 Doublon rare</span><span class="value">+60 🪙</span></div><div class="reward"><span>🟣 Doublon épique</span><span class="value">+100 🪙</span></div><div class="reward"><span>🟡 Doublon légendaire</span><span class="value">+200 🪙</span></div><div class="reward"><span>🌌 Doublon secret</span><span class="value">+500 🪙</span></div></section>
+</div>
+<p class="reset" id="reset">Réinitialiser l'économie de test</p>
+</main>
+<footer style="text-align:center;padding:30px;color:var(--muted);border-top:1px solid var(--line)">© 2026 Pixel Cards — Saison 01 : Winter Pixels.</footer>
+<script>
+(function(){
+ const KEY='pixelCoins', DAILY='pixelCoinsDaily';
+ const balance=document.getElementById('balance'),daily=document.getElementById('daily'),message=document.getElementById('message');
+ function get(){let n=parseInt(localStorage.getItem(KEY)||'500',10);if(!Number.isFinite(n)||n<0)n=500;localStorage.setItem(KEY,String(n));return n}
+ function set(n){n=Math.max(0,Math.floor(n));localStorage.setItem(KEY,String(n));balance.textContent=n}
+ function refresh(){set(get());const last=parseInt(localStorage.getItem(DAILY)||'0',10);const ready=Date.now()-last>=86400000;daily.disabled=!ready;daily.textContent=ready?'🎁 Récompense quotidienne : +150 🪙':'⏳ Récompense quotidienne déjà récupérée'}
+ daily.addEventListener('click',()=>{const last=parseInt(localStorage.getItem(DAILY)||'0',10);if(Date.now()-last<86400000)return;set(get()+150);localStorage.setItem(DAILY,String(Date.now()));message.textContent='🎉 +150 Pixel Coins !';refresh()});
+ document.getElementById('reset').addEventListener('click',()=>{if(confirm('Réinitialiser tes Pixel Coins à 500 ?')){localStorage.setItem(KEY,'500');localStorage.removeItem(DAILY);message.textContent='Économie réinitialisée.';refresh()}});
+ refresh();
+})();
+</script>
+</body>
+</html>
