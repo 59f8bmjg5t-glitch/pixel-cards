@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pixel Cards — Saison 01</title>
+
+<style>
+:root{
+  --bg:#0b0f1d;
+  --panel:#101a2d;
+  --text:#f5f7ff;
+  --muted:#aeb8cc;
+  --accent:#61e6f5;
+  --line:rgba(255,255,255,.12);
+}
+
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 5%,rgba(64,105,180,.16),transparent 28%),
+    radial-gradient(circle at 90% 30%,rgba(80,70,170,.10),transparent 32%),
+    var(--bg);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+header{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(8,11,19,.96);
+  border-bottom:1px solid var(--line);
+}
+
+.nav{
+  min-height:76px;
+  width:min(1180px,92%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:950;
+  letter-spacing:.5px;
+}
+
+.logo span{
+  color:var(--accent);
+}
+
+nav{
+  display:flex;
+  gap:25px;
+  color:var(--muted);
+  font-size:15px;
+  font-weight:700;
+}
+
+nav a:hover{
+  color:#fff;
+}
+
+.container{
+  width:min(1100px,92%);
+  margin:auto;
+}
+
+.hero{
+  padding:70px 0 40px;
+  text-align:center;
+}
+
+.badge{
+  display:inline-block;
+  padding:9px 16px;
+  border:1px solid rgba(97,230,245,.28);
+  border-radius:999px;
+  color:var(--accent);
+  background:rgba(97,230,245,.07);
+  font-size:14px;
+  font-weight:900;
+}
+
+.hero h1{
+  margin:22px 0 15px;
+  font-size:clamp(45px,9vw,75px);
+  letter-spacing:-3px;
+}
+
+.hero p{
+  max-width:760px;
+  margin:auto;
+  color:var(--muted);
+  font-size:19px;
+  line-height:1.7;
+}
+
+.season{
+  padding:30px 0 80px;
+}
+
+.panel{
+  border:1px solid rgba(97,230,245,.20);
+  border-radius:30px;
+  padding:35px 25px;
+  background:
+    radial-gradient(circle at 20% 10%,rgba(97,230,245,.09),transparent 30%),
+    radial-gradient(circle at 85% 90%,rgba(100,70,200,.10),transparent 35%),
+    linear-gradient(145deg,rgba(21,35,59,.96),rgba(10,17,31,.98));
+  box-shadow:0 25px 80px rgba(0,0,0,.30);
+}
+
+.panel h2{
+  text-align:center;
+  font-size:40px;
+  margin:0 0 35px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.box{
+  padding:25px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:rgba(255,255,255,.035);
+}
+
+.box h3{
+  margin:0 0 12px;
+  font-size:21px;
+}
+
+.box p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.65;
+}
+
+.rarities{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:10px;
+  margin:35px 0;
+}
+
+.rarity{
+  padding:10px 15px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.045);
+  font-size:13px;
+  font-weight:900;
+}
+
+.objective{
+  padding:23px;
+  text-align:center;
+  border-radius:20px;
+  border:1px solid rgba(97,230,245,.22);
+  background:rgba(97,230,245,.05);
+  color:#dce4f5;
+  line-height:1.6;
+}
+
+.back{
+  display:block;
+  width:max-content;
+  margin:30px auto 0;
+  padding:12px 18px;
+  border-radius:999px;
+  border:1px solid rgba(97,230,245,.28);
+  color:var(--accent);
+  font-weight:900;
+}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:35px;
+  text-align:center;
+  color:var(--muted);
+}
+
+@media(max-width:800px){
+
+  .nav{
+    min-height:68px;
+  }
+
+  .logo{
+    font-size:22px;
+  }
+
+  nav{
+    display:none;
+  }
+
+  .hero{
+    padding:55px 0 35px;
+  }
+
+  .hero p{
+    font-size:17px;
+  }
+
+  .grid{
+    grid-template-columns:1fr;
+  }
+
+  .panel{
+    padding:28px 18px;
+    border-radius:25px;
+  }
+
+  .panel h2{
+    font-size:34px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="nav">
+
+    <a class="logo" href="index.html">
+      PIXEL <span>CARDS</span>
+    </a>
+
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="saison.html">Saison 1</a>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<main>
+
+<section class="hero">
+
+  <div class="container">
+
+    <div class="badge">
+      ❄️ SAISON 01 — WINTER PIXELS
+    </div>
+
+    <h1>Winter Pixels</h1>
+
+    <p>
+      Bienvenue dans la toute première saison de Pixel Cards.
+      L'hiver arrive dans l'univers pixel et apporte avec lui
+      une collection exclusive de cartes à découvrir.
+    </p>
+
+  </div>
+
+</section>
+
+
+<section class="season">
+
+  <div class="container">
+
+    <div class="panel">
+
+      <h2>❄️ La saison 01</h2>
+
+
+      <div class="grid">
+
+        <div class="box">
+
+          <h3>🌨️ L'histoire</h3>
+
+          <p>
+            Une mystérieuse tempête de pixels a recouvert
+            le monde de Pixel Cards d'un immense manteau de neige.
+            De nouvelles créatures, personnages et objets
+            apparaissent alors dans cette première saison.
+          </p>
+
+        </div>
+
+
+        <div class="box">
+
+          <h3>🎴 La collection</h3>
+
+          <p>
+            Winter Pixels contient les 10 premières cartes
+            de Pixel Cards. Chaque carte possède son numéro,
+            son illustration et sa propre rareté.
+          </p>
+
+        </div>
+
+
+        <div class="box">
+
+          <h3>✨ Le défi</h3>
+
+          <p>
+            Tente de récupérer toutes les cartes de la saison
+            et découvre les cartes les plus rares de Winter Pixels.
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="rarities">
+
+        <span class="rarity">COMMUNE</span>
+
+        <span class="rarity">RARE</span>
+
+        <span class="rarity">ÉPIQUE</span>
+
+        <span class="rarity">LÉGENDAIRE</span>
+
+        <span class="rarity">MYTHIQUE</span>
+
+      </div>
+
+
+      <div class="objective">
+
+        ❄️ <strong>OBJECTIF DE LA SAISON</strong>
+
+        <br><br>
+
+        Collectionne les 10 cartes de Winter Pixels
+        et complète la toute première collection
+        de Pixel Cards.
+
+      </div>
+
+
+      <a class="back" href="index.html">
+        ← Retour à l'accueil
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  Pixel Cards — Saison 01 : Winter Pixels
+
+</footer>
+
+</body>
+</html>
