@@ -7,6 +7,7 @@
 <title>Pixel Cards — Winter Pixels</title>
 
 <style>
+
 :root{
   --bg:#070b14;
   --panel:#111827;
@@ -16,10 +17,12 @@
   --cyan:#67e8f9;
   --blue:#60a5fa;
   --purple:#a78bfa;
-  --border:rgba(255,255,255,.11);
+  --border:rgba(255,255,255,.12);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 html{
   scroll-behavior:smooth;
@@ -30,8 +33,8 @@ body{
   font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 15% 0%,rgba(103,232,249,.14),transparent 30%),
-    radial-gradient(circle at 90% 10%,rgba(167,139,250,.16),transparent 30%),
+    radial-gradient(circle at 10% 0%,rgba(103,232,249,.12),transparent 30%),
+    radial-gradient(circle at 90% 10%,rgba(167,139,250,.13),transparent 30%),
     var(--bg);
 }
 
@@ -45,13 +48,15 @@ a{
   margin:auto;
 }
 
-/* NAVIGATION */
+/* =========================
+   NAVIGATION
+========================= */
 
 header{
   position:sticky;
   top:0;
-  z-index:50;
-  background:rgba(7,11,20,.84);
+  z-index:100;
+  background:rgba(7,11,20,.86);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
 }
@@ -64,7 +69,7 @@ header{
 }
 
 .logo{
-  font-size:20px;
+  font-size:21px;
   font-weight:900;
   letter-spacing:.5px;
 }
@@ -75,53 +80,61 @@ header{
 
 nav{
   display:flex;
-  gap:22px;
-  font-size:14px;
+  gap:24px;
   color:var(--muted);
+  font-size:14px;
+  font-weight:700;
 }
 
 nav a:hover{
   color:white;
 }
 
-/* HERO */
+/* =========================
+   HERO
+========================= */
 
 .hero{
   text-align:center;
-  padding:85px 0 75px;
+  padding:90px 0 80px;
 }
 
 .badge{
   display:inline-block;
-  padding:9px 15px;
+  padding:10px 16px;
   border-radius:999px;
   border:1px solid rgba(103,232,249,.35);
   background:rgba(103,232,249,.08);
   color:var(--cyan);
   font-size:13px;
-  font-weight:800;
+  font-weight:900;
 }
 
 .hero h1{
-  font-size:clamp(45px,10vw,78px);
+  font-size:clamp(45px,10vw,82px);
   line-height:.95;
-  letter-spacing:-3px;
-  margin:25px 0 20px;
+  letter-spacing:-4px;
+  margin:25px 0;
 }
 
 .gradient{
-  background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));
+  background:linear-gradient(
+    90deg,
+    var(--cyan),
+    var(--blue),
+    var(--purple)
+  );
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
 }
 
 .hero p{
-  max-width:680px;
+  max-width:700px;
   margin:auto;
   color:var(--muted);
   font-size:18px;
-  line-height:1.65;
+  line-height:1.7;
 }
 
 .buttons{
@@ -129,28 +142,25 @@ nav a:hover{
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:30px;
+  margin-top:32px;
 }
 
 .btn{
-  padding:14px 21px;
+  padding:14px 22px;
   border-radius:14px;
-  border:1px solid var(--border);
   background:var(--panel);
+  border:1px solid var(--border);
   font-weight:800;
-  transition:.2s;
-}
-
-.btn:hover{
-  transform:translateY(-2px);
 }
 
 .btn.primary{
-  background:white;
+  background:#fff;
   color:#070b14;
 }
 
-/* SECTIONS */
+/* =========================
+   SECTIONS
+========================= */
 
 section{
   padding:65px 0;
@@ -158,20 +168,22 @@ section{
 
 .title{
   text-align:center;
-  margin-bottom:32px;
+  margin-bottom:38px;
 }
 
 .title h2{
-  font-size:34px;
+  font-size:35px;
   margin:0 0 10px;
 }
 
 .title p{
-  margin:0;
   color:var(--muted);
+  margin:0;
 }
 
-/* SAISON */
+/* =========================
+   SAISON
+========================= */
 
 .season{
   display:grid;
@@ -180,17 +192,20 @@ section{
 }
 
 .panel{
+  padding:30px;
+  border-radius:24px;
   border:1px solid var(--border);
-  border-radius:22px;
-  padding:28px;
   background:
-    linear-gradient(145deg,rgba(24,36,58,.96),rgba(12,17,29,.96));
-  box-shadow:0 20px 60px rgba(0,0,0,.2);
+    linear-gradient(
+      145deg,
+      rgba(24,36,58,.96),
+      rgba(10,15,27,.96)
+    );
 }
 
 .panel h3{
-  font-size:27px;
   margin-top:0;
+  font-size:28px;
 }
 
 .panel p{
@@ -199,137 +214,177 @@ section{
 }
 
 .season-art{
-  min-height:300px;
   display:flex;
   align-items:center;
   justify-content:center;
   text-align:center;
+  min-height:300px;
 }
 
 .snow{
-  font-size:100px;
-  filter:drop-shadow(0 0 30px rgba(103,232,249,.6));
+  font-size:95px;
+  filter:drop-shadow(0 0 35px rgba(103,232,249,.55));
 }
 
 .tags{
   display:flex;
-  gap:8px;
   flex-wrap:wrap;
-  margin-top:20px;
+  gap:8px;
+  margin-top:22px;
 }
 
 .tag{
-  padding:7px 11px;
+  padding:8px 12px;
   border-radius:999px;
   background:rgba(255,255,255,.06);
   font-size:12px;
 }
 
-/* CARTES */
+/* =========================
+   CARTES
+========================= */
 
 .cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:18px;
+  gap:22px;
 }
 
 .card{
   position:relative;
-  overflow:hidden;
-  min-height:430px;
-  padding:14px;
-  border-radius:22px;
+  padding:12px;
+  border-radius:24px;
   border:1px solid var(--border);
   background:
-    linear-gradient(160deg,#1a2942,#0b1220);
+    linear-gradient(
+      145deg,
+      #17243a,
+      #0b1220
+    );
   transition:.25s;
+  box-shadow:0 18px 50px rgba(0,0,0,.18);
 }
 
 .card:hover{
-  transform:translateY(-6px);
+  transform:translateY(-7px);
   border-color:rgba(103,232,249,.45);
 }
 
-.card-number{
-  position:absolute;
-  top:13px;
-  left:13px;
-  z-index:3;
-  font-size:10px;
-  color:#dbeafe;
-  background:rgba(0,0,0,.45);
-  padding:5px 8px;
-  border-radius:7px;
-}
-
-.rarity{
-  position:absolute;
-  top:13px;
-  right:13px;
-  z-index:3;
-  font-size:9px;
-  font-weight:900;
-  padding:6px 8px;
-  border-radius:7px;
-  background:rgba(255,255,255,.12);
-}
-
-.card-art{
-  height:205px;
-  border-radius:16px;
+.card-image{
+  width:100%;
+  aspect-ratio:3 / 2;
+  border-radius:17px;
   overflow:hidden;
-  background:
-    linear-gradient(180deg,#152945,#08111f);
-  margin-bottom:16px;
+  background:#08111f;
 }
 
-.card-art svg{
+.card-image img{
   width:100%;
   height:100%;
   display:block;
+  object-fit:cover;
+  object-position:center;
 }
 
-.card h3{
-  margin:5px 0;
-  font-size:21px;
+/*
+Chaque carte correspond à une zone de la
+planche Winter Pixels.
+
+La planche contient :
+5 cartes sur la première ligne
+5 cartes sur la deuxième ligne.
+*/
+
+.card-image{
+  position:relative;
 }
 
-.type{
+.sprite{
+  width:100%;
+  height:100%;
+  background-image:url("winter_pixels_cards.jpg");
+  background-repeat:no-repeat;
+  background-size:500% 200%;
+}
+
+/* ligne 1 */
+
+.card-1{
+  background-position:0% 0%;
+}
+
+.card-2{
+  background-position:25% 0%;
+}
+
+.card-3{
+  background-position:50% 0%;
+}
+
+.card-4{
+  background-position:75% 0%;
+}
+
+.card-5{
+  background-position:100% 0%;
+}
+
+/* ligne 2 */
+
+.card-6{
+  background-position:0% 100%;
+}
+
+.card-7{
+  background-position:25% 100%;
+}
+
+.card-8{
+  background-position:50% 100%;
+}
+
+.card-9{
+  background-position:75% 100%;
+}
+
+.card-10{
+  background-position:100% 100%;
+}
+
+/* informations sous les illustrations */
+
+.card-info{
+  padding:12px 5px 5px;
+}
+
+.card-number{
+  color:var(--muted);
   font-size:11px;
-  color:var(--cyan);
-  font-weight:900;
-  letter-spacing:.4px;
+  font-weight:800;
 }
 
-.card p{
+.card-name{
+  font-size:20px;
+  font-weight:900;
+  margin:5px 0;
+}
+
+.card-type{
+  color:var(--cyan);
+  font-size:12px;
+  font-weight:900;
+}
+
+.card-description{
   color:var(--muted);
   font-size:13px;
   line-height:1.5;
-  min-height:40px;
+  margin:9px 0 0;
 }
 
-.stats{
-  display:flex;
-  gap:8px;
-  margin-top:15px;
-}
-
-.stat{
-  flex:1;
-  padding:9px;
-  border-radius:10px;
-  background:rgba(255,255,255,.055);
-  text-align:center;
-  font-size:11px;
-}
-
-.stat strong{
-  display:block;
-  font-size:16px;
-  color:white;
-}
-
-/* RARETES */
+/* =========================
+   RARETÉS
+========================= */
 
 .rarity-list{
   display:grid;
@@ -338,11 +393,11 @@ section{
 }
 
 .rarity-box{
-  padding:18px 10px;
+  padding:20px 10px;
   text-align:center;
-  border:1px solid var(--border);
   border-radius:16px;
   background:var(--panel);
+  border:1px solid var(--border);
 }
 
 .rarity-box strong{
@@ -351,16 +406,18 @@ section{
 }
 
 .rarity-box span{
-  font-size:12px;
   color:var(--muted);
+  font-size:12px;
 }
 
-/* FUTUR */
+/* =========================
+   FUTUR
+========================= */
 
 .future{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:18px;
+  gap:20px;
 }
 
 .future .panel{
@@ -368,22 +425,26 @@ section{
 }
 
 .number{
-  font-size:30px;
+  font-size:32px;
   font-weight:900;
   color:var(--cyan);
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-  border-top:1px solid var(--border);
-  padding:32px 0;
+  padding:35px 0;
   text-align:center;
-  font-size:13px;
   color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
 }
 
-/* MOBILE */
+/* =========================
+   MOBILE
+========================= */
 
 @media(max-width:800px){
 
@@ -414,13 +475,21 @@ footer{
   section{
     padding:48px 0;
   }
+
+  .card{
+    padding:10px;
+  }
+
 }
+
 </style>
 </head>
+
 
 <body>
 
 <header>
+
 <div class="container nav">
 
 <a href="#" class="logo">
@@ -435,12 +504,16 @@ PIXEL <span>CARDS</span>
 </nav>
 
 </div>
+
 </header>
 
 
 <main>
 
-<!-- HERO -->
+
+<!-- =========================
+     HERO
+========================= -->
 
 <section class="hero">
 
@@ -457,7 +530,7 @@ Bienvenue dans
 
 <p>
 Un jeu de cartes à collectionner dans un univers
-pixel entièrement original. Collectionne tes cartes,
+pixel entièrement original. Collectionne les cartes,
 découvre de nouvelles saisons et construis ta collection.
 </p>
 
@@ -478,7 +551,9 @@ Découvrir la saison
 </section>
 
 
-<!-- SAISON -->
+<!-- =========================
+     SAISON
+========================= -->
 
 <section id="saison">
 
@@ -489,13 +564,14 @@ Découvrir la saison
 <h2>🎄 Saison 1 — Winter Pixels</h2>
 
 <p>
-Bienvenue dans le royaume des pixels enneigés.
+Une première saison placée sous le signe de l'hiver.
 </p>
 
 </div>
 
 
 <div class="season">
+
 
 <div class="panel">
 
@@ -504,21 +580,21 @@ Le royaume des pixels enneigés
 </h3>
 
 <p>
-Une première saison hivernale remplie de créatures,
-de héros et de mystères.
+Winter Pixels est la toute première saison
+de Pixel Cards.
 </p>
 
 <p>
-Les cartes de cette saison sont entièrement originales
-et appartiennent à l'univers Pixel Cards.
+Explore un monde enneigé rempli de créatures,
+de héros, de magie et de mystères.
 </p>
 
 <div class="tags">
 
 <span class="tag">❄️ Hiver</span>
-<span class="tag">🎁 Noël</span>
+<span class="tag">🎄 Noël</span>
 <span class="tag">🧊 Glace</span>
-<span class="tag">🎮 Pixel</span>
+<span class="tag">✨ Magie</span>
 
 </div>
 
@@ -529,15 +605,22 @@ et appartiennent à l'univers Pixel Cards.
 
 <div>
 
-<div class="snow">❄️</div>
+<div class="snow">
+❄️
+</div>
 
-<h3>WINTER PIXELS</h3>
+<h3>
+WINTER PIXELS
+</h3>
 
-<p>SAISON 01</p>
+<p>
+SAISON 01
+</p>
 
 </div>
 
 </div>
+
 
 </div>
 
@@ -546,7 +629,9 @@ et appartiennent à l'univers Pixel Cards.
 </section>
 
 
-<!-- CARTES -->
+<!-- =========================
+     CARTES
+========================= -->
 
 <section id="cartes">
 
@@ -557,8 +642,7 @@ et appartiennent à l'univers Pixel Cards.
 <h2>🃏 Les cartes Winter Pixels</h2>
 
 <p>
-10 cartes originales composent actuellement
-la première série.
+Les 10 premières cartes de la collection.
 </p>
 
 </div>
@@ -567,606 +651,321 @@ la première série.
 <div class="cards">
 
 
-<!-- FROSTY -->
+<!-- 001 -->
 
 <article class="card">
 
-<span class="card-number">#001</span>
-<span class="rarity">COMMUNE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#10233d"/>
-
-<circle cx="240" cy="40" r="24" fill="#dff9ff" opacity=".8"/>
-
-<rect x="0" y="165" width="300" height="40" fill="#dcefff"/>
-
-<!-- corps -->
-<rect x="108" y="105" width="84" height="58" rx="18" fill="#eefbff"/>
-<rect x="120" y="78" width="60" height="55" rx="18" fill="#f7fdff"/>
-
-<!-- tête -->
-<rect x="128" y="48" width="44" height="38" rx="12" fill="#ffffff"/>
-
-<!-- chapeau -->
-<rect x="124" y="42" width="52" height="9" fill="#183b68"/>
-<rect x="133" y="30" width="34" height="14" fill="#183b68"/>
-<rect x="128" y="27" width="44" height="7" fill="#d7f7ff"/>
-
-<!-- yeux -->
-<rect x="139" y="60" width="6" height="6" fill="#172033"/>
-<rect x="157" y="60" width="6" height="6" fill="#172033"/>
-
-<!-- nez -->
-<rect x="148" y="68" width="9" height="5" fill="#f59e0b"/>
-
-<!-- boutons -->
-<rect x="145" y="94" width="6" height="6" fill="#172033"/>
-<rect x="145" y="112" width="6" height="6" fill="#172033"/>
-<rect x="145" y="130" width="6" height="6" fill="#172033"/>
-
-<!-- bras -->
-<rect x="91" y="113" width="25" height="6" fill="#6b432c"/>
-<rect x="184" y="113" width="25" height="6" fill="#6b432c"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-1"></div>
 </div>
 
-<h3>Frosty</h3>
+<div class="card-info">
 
-<div class="type">❄️ TYPE : GLACE</div>
+<div class="card-number">
+CARTE #001
+</div>
 
-<p>
-Petit gardien de neige protégeant les villages.
+<div class="card-name">
+Frosty
+</div>
+
+<div class="card-type">
+❄️ TYPE : GLACE
+</div>
+
+<p class="card-description">
+Petit gardien de neige protégeant les villages
+pendant les nuits glacées.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>35</strong></div>
-<div class="stat">DEF<strong>45</strong></div>
 </div>
 
 </article>
 
 
-<!-- LUTIN -->
+<!-- 002 -->
 
 <article class="card">
 
-<span class="card-number">#002</span>
-<span class="rarity">COMMUNE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#162742"/>
-
-<circle cx="50" cy="42" r="18" fill="#d8f7ff" opacity=".7"/>
-
-<!-- corps -->
-<rect x="113" y="108" width="74" height="65" rx="15" fill="#3b82f6"/>
-
-<!-- tête -->
-<rect x="119" y="64" width="62" height="55" rx="18" fill="#f6c7a5"/>
-
-<!-- oreilles -->
-<rect x="111" y="82" width="12" height="20" fill="#f6c7a5"/>
-<rect x="177" y="82" width="12" height="20" fill="#f6c7a5"/>
-
-<!-- bonnet -->
-<polygon points="116,70 150,25 184,70" fill="#ef4444"/>
-<rect x="111" y="66" width="78" height="9" fill="#f8fafc"/>
-<rect x="145" y="20" width="12" height="12" fill="#f8fafc"/>
-
-<!-- yeux -->
-<rect x="133" y="83" width="6" height="6" fill="#172033"/>
-<rect x="161" y="83" width="6" height="6" fill="#172033"/>
-
-<!-- bouche -->
-<rect x="143" y="101" width="15" height="5" fill="#9a3412"/>
-
-<!-- ceinture -->
-<rect x="113" y="139" width="74" height="10" fill="#172033"/>
-<rect x="143" y="138" width="14" height="12" fill="#fbbf24"/>
-
-<!-- outil -->
-<rect x="202" y="100" width="6" height="67" fill="#8b5a35"/>
-<rect x="194" y="95" width="22" height="8" fill="#94a3b8"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-2"></div>
 </div>
 
-<h3>Lutin 8-Bit</h3>
+<div class="card-info">
 
-<div class="type">🎁 TYPE : ARTISAN</div>
+<div class="card-number">
+CARTE #002
+</div>
 
-<p>
-Inventeur du Nord capable de créer des jouets.
+<div class="card-name">
+Lutin 8-Bit
+</div>
+
+<div class="card-type">
+🎁 TYPE : ARTISAN
+</div>
+
+<p class="card-description">
+Un inventeur capable de transformer les pixels
+en jouets extraordinaires.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>40</strong></div>
-<div class="stat">DEF<strong>35</strong></div>
 </div>
 
 </article>
 
 
-<!-- RUDOLPH -->
+<!-- 003 -->
 
 <article class="card">
 
-<span class="card-number">#003</span>
-<span class="rarity">PEU COMMUNE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#10223b"/>
-
-<circle cx="70" cy="48" r="20" fill="#f8fafc" opacity=".65"/>
-
-<rect x="0" y="160" width="300" height="45" fill="#dff7ff"/>
-
-<!-- corps -->
-<rect x="92" y="104" width="116" height="55" rx="25" fill="#9a633f"/>
-
-<!-- cou -->
-<rect x="120" y="70" width="48" height="55" rx="20" fill="#9a633f"/>
-
-<!-- tête -->
-<rect x="135" y="52" width="66" height="48" rx="22" fill="#a96d45"/>
-
-<!-- oreilles -->
-<polygon points="139,61 119,42 126,73" fill="#9a633f"/>
-<polygon points="192,61 216,42 205,75" fill="#9a633f"/>
-
-<!-- bois -->
-<rect x="130" y="43" width="5" height="30" fill="#8b5a35"/>
-<rect x="123" y="48" width="18" height="5" fill="#8b5a35"/>
-<rect x="201" y="43" width="5" height="30" fill="#8b5a35"/>
-<rect x="196" y="48" width="18" height="5" fill="#8b5a35"/>
-
-<!-- yeux -->
-<rect x="153" y="67" width="7" height="7" fill="#172033"/>
-<rect x="181" y="67" width="7" height="7" fill="#172033"/>
-
-<!-- nez lumineux -->
-<rect x="164" y="84" width="18" height="13" rx="5" fill="#ff4d67"/>
-
-<!-- pattes -->
-<rect x="105" y="145" width="13" height="35" fill="#70452e"/>
-<rect x="180" y="145" width="13" height="35" fill="#70452e"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-3"></div>
 </div>
 
-<h3>Rudolph Pixel</h3>
+<div class="card-info">
 
-<div class="type">✨ TYPE : LUMIÈRE</div>
+<div class="card-number">
+CARTE #003
+</div>
 
-<p>
-Un renne rapide qui éclaire les chemins enneigés.
+<div class="card-name">
+Rudolph Pixel
+</div>
+
+<div class="card-type">
+✨ TYPE : LUMIÈRE
+</div>
+
+<p class="card-description">
+Un renne rapide dont le nez illumine
+les chemins perdus dans la neige.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>48</strong></div>
-<div class="stat">DEF<strong>42</strong></div>
 </div>
 
 </article>
 
 
-<!-- GOLEM -->
+<!-- 004 -->
 
 <article class="card">
 
-<span class="card-number">#004</span>
-<span class="rarity">RARE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#122a46"/>
-
-<polygon points="0,170 65,105 130,170" fill="#203e5e"/>
-<polygon points="130,170 210,85 300,170" fill="#284b6c"/>
-
-<!-- golem -->
-<rect x="93" y="73" width="114" height="94" rx="10" fill="#7dd3fc"/>
-<rect x="108" y="52" width="84" height="65" rx="10" fill="#bae6fd"/>
-
-<!-- fissures -->
-<rect x="130" y="56" width="6" height="40" fill="#2563eb"/>
-<rect x="137" y="90" width="32" height="6" fill="#2563eb"/>
-<rect x="176" y="104" width="7" height="34" fill="#2563eb"/>
-
-<!-- yeux -->
-<rect x="126" y="74" width="15" height="10" fill="#0f172a"/>
-<rect x="164" y="74" width="15" height="10" fill="#0f172a"/>
-
-<!-- bras -->
-<rect x="61" y="92" width="33" height="55" rx="8" fill="#60a5fa"/>
-<rect x="206" y="92" width="33" height="55" rx="8" fill="#60a5fa"/>
-
-<!-- jambes -->
-<rect x="111" y="157" width="29" height="35" fill="#60a5fa"/>
-<rect x="160" y="157" width="29" height="35" fill="#60a5fa"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-4"></div>
 </div>
 
-<h3>Golem de Glace</h3>
+<div class="card-info">
 
-<div class="type">🧊 TYPE : GLACE</div>
+<div class="card-number">
+CARTE #004
+</div>
 
-<p>
-Un protecteur créé dans les montagnes gelées.
+<div class="card-name">
+Golem de Glace
+</div>
+
+<div class="card-type">
+🧊 TYPE : GLACE
+</div>
+
+<p class="card-description">
+Un immense protecteur créé dans les montagnes
+gelées du Nord.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>65</strong></div>
-<div class="stat">DEF<strong>82</strong></div>
 </div>
 
 </article>
 
 
-<!-- MAGE -->
+<!-- 005 -->
 
 <article class="card">
 
-<span class="card-number">#005</span>
-<span class="rarity">RARE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#17213e"/>
-
-<circle cx="220" cy="55" r="42" fill="#7c3aed" opacity=".18"/>
-
-<!-- cape -->
-<polygon points="104,188 150,92 196,188" fill="#312e81"/>
-
-<!-- corps -->
-<rect x="124" y="102" width="52" height="70" fill="#4338ca"/>
-
-<!-- tête -->
-<rect x="126" y="62" width="48" height="47" rx="15" fill="#f3c6a8"/>
-
-<!-- hood -->
-<polygon points="120,72 150,35 180,72" fill="#4f46e5"/>
-<rect x="126" y="68" width="48" height="11" fill="#4f46e5"/>
-
-<!-- yeux -->
-<rect x="136" y="80" width="6" height="6" fill="#111827"/>
-<rect x="158" y="80" width="6" height="6" fill="#111827"/>
-
-<!-- staff -->
-<rect x="205" y="57" width="6" height="120" fill="#8b5a35"/>
-<circle cx="208" cy="51" r="13" fill="#67e8f9"/>
-<circle cx="208" cy="51" r="7" fill="#ffffff"/>
-
-<!-- snow -->
-<rect x="55" y="35" width="5" height="5" fill="#ffffff"/>
-<rect x="73" y="82" width="5" height="5" fill="#ffffff"/>
-<rect x="235" y="110" width="5" height="5" fill="#ffffff"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-5"></div>
 </div>
 
-<h3>Mage Boréal</h3>
+<div class="card-info">
 
-<div class="type">🔮 TYPE : MAGIE</div>
+<div class="card-number">
+CARTE #005
+</div>
 
-<p>
-Un mage maîtrisant les cristaux du ciel hivernal.
+<div class="card-name">
+Mage Boréal
+</div>
+
+<div class="card-type">
+🔮 TYPE : MAGIE
+</div>
+
+<p class="card-description">
+Un ancien mage maîtrisant les cristaux
+du ciel hivernal.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>72</strong></div>
-<div class="stat">DEF<strong>55</strong></div>
 </div>
 
 </article>
 
 
-<!-- LOUP -->
+<!-- 006 -->
 
 <article class="card">
 
-<span class="card-number">#006</span>
-<span class="rarity">ÉPIQUE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#0d1b31"/>
-
-<circle cx="235" cy="45" r="28" fill="#e0f2fe" opacity=".8"/>
-
-<rect x="0" y="170" width="300" height="35" fill="#e5f7ff"/>
-
-<!-- corps -->
-<polygon points="92,153 112,98 174,85 218,130 202,164 115,168" fill="#94a3b8"/>
-
-<!-- tête -->
-<polygon points="105,96 115,50 143,73 171,52 187,101 157,125" fill="#cbd5e1"/>
-
-<!-- oreilles -->
-<polygon points="114,62 120,35 140,70" fill="#94a3b8"/>
-<polygon points="164,70 181,35 185,77" fill="#94a3b8"/>
-
-<!-- yeux -->
-<rect x="128" y="80" width="8" height="8" fill="#67e8f9"/>
-<rect x="159" y="80" width="8" height="8" fill="#67e8f9"/>
-
-<!-- museau -->
-<polygon points="137,96 158,96 149,111" fill="#64748b"/>
-<rect x="145" y="99" width="9" height="6" fill="#111827"/>
-
-<!-- pattes -->
-<rect x="110" y="143" width="15" height="35" fill="#64748b"/>
-<rect x="182" y="140" width="15" height="38" fill="#64748b"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-6"></div>
 </div>
 
-<h3>Loup Polaire</h3>
+<div class="card-info">
 
-<div class="type">🌙 TYPE : NATURE</div>
+<div class="card-number">
+CARTE #006
+</div>
 
-<p>
-Prédateur silencieux des forêts enneigées.
+<div class="card-name">
+Loup Polaire
+</div>
+
+<div class="card-type">
+🌙 TYPE : NATURE
+</div>
+
+<p class="card-description">
+Prédateur silencieux qui traverse les forêts
+enneigées sans laisser de traces.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>88</strong></div>
-<div class="stat">DEF<strong>70</strong></div>
 </div>
 
 </article>
 
 
-<!-- DRAGON -->
+<!-- 007 -->
 
 <article class="card">
 
-<span class="card-number">#007</span>
-<span class="rarity">ÉPIQUE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#101d3b"/>
-
-<circle cx="225" cy="42" r="31" fill="#dbeafe"/>
-
-<!-- ailes -->
-<polygon points="135,100 68,52 92,119" fill="#60a5fa"/>
-<polygon points="168,98 237,48 215,122" fill="#818cf8"/>
-
-<!-- corps -->
-<polygon points="105,145 124,91 177,84 203,136 177,168 123,166" fill="#38bdf8"/>
-
-<!-- tête -->
-<polygon points="128,95 140,58 178,62 191,98 164,119" fill="#7dd3fc"/>
-
-<!-- cornes -->
-<polygon points="143,66 133,43 154,62" fill="#e0f2fe"/>
-<polygon points="171,64 184,42 182,73" fill="#e0f2fe"/>
-
-<!-- yeux -->
-<rect x="145" y="76" width="7" height="7" fill="#fef08a"/>
-<rect x="169" y="76" width="7" height="7" fill="#fef08a"/>
-
-<!-- souffle -->
-<rect x="188" y="96" width="35" height="7" fill="#67e8f9"/>
-<rect x="214" y="91" width="17" height="17" fill="#bae6fd"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-7"></div>
 </div>
 
-<h3>Draco Givré</h3>
+<div class="card-info">
 
-<div class="type">🐉 TYPE : DRAGON</div>
+<div class="card-number">
+CARTE #007
+</div>
 
-<p>
-Une créature ancienne dormant dans la montagne.
+<div class="card-name">
+Draco Givré
+</div>
+
+<div class="card-type">
+🐉 TYPE : DRAGON
+</div>
+
+<p class="card-description">
+Une créature ancienne dormant au sommet
+de la montagne gelée.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>95</strong></div>
-<div class="stat">DEF<strong>86</strong></div>
 </div>
 
 </article>
 
 
-<!-- REINE -->
+<!-- 008 -->
 
 <article class="card">
 
-<span class="card-number">#008</span>
-<span class="rarity">LÉGENDAIRE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#171b43"/>
-
-<!-- aurore -->
-<path d="M0 75 Q75 20 150 75 T300 75" fill="none" stroke="#67e8f9" stroke-width="14" opacity=".4"/>
-<path d="M0 95 Q75 40 150 95 T300 95" fill="none" stroke="#a78bfa" stroke-width="9" opacity=".4"/>
-
-<!-- robe -->
-<polygon points="100,190 150,96 200,190" fill="#4338ca"/>
-
-<!-- tête -->
-<rect x="130" y="60" width="40" height="48" rx="16" fill="#f3c6a8"/>
-
-<!-- cheveux -->
-<rect x="122" y="58" width="56" height="55" rx="20" fill="#dbeafe"/>
-
-<!-- couronne -->
-<polygon points="128,59 136,38 149,52 160,35 168,55 176,42 179,64" fill="#facc15"/>
-
-<!-- yeux -->
-<rect x="139" y="76" width="6" height="6" fill="#312e81"/>
-<rect x="158" y="76" width="6" height="6" fill="#312e81"/>
-
-<!-- cristal -->
-<polygon points="150,120 160,136 150,151 140,136" fill="#67e8f9"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-8"></div>
 </div>
 
-<h3>Reine Boréale</h3>
+<div class="card-info">
 
-<div class="type">🌌 TYPE : COSMIQUE</div>
+<div class="card-number">
+CARTE #008
+</div>
 
-<p>
-Gardienne des aurores et du royaume hivernal.
+<div class="card-name">
+Reine Boréale
+</div>
+
+<div class="card-type">
+🌌 TYPE : COSMIQUE
+</div>
+
+<p class="card-description">
+Gardienne du royaume hivernal et maîtresse
+des aurores polaires.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>110</strong></div>
-<div class="stat">DEF<strong>105</strong></div>
 </div>
 
 </article>
 
 
-<!-- GARDIEN -->
+<!-- 009 -->
 
 <article class="card">
 
-<span class="card-number">#009</span>
-<span class="rarity">LÉGENDAIRE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#18243a"/>
-
-<!-- atelier -->
-<rect x="38" y="55" width="224" height="115" rx="8" fill="#334155"/>
-<polygon points="30,60 150,20 270,60" fill="#475569"/>
-
-<!-- gardien -->
-<rect x="104" y="83" width="92" height="82" rx="12" fill="#64748b"/>
-<rect x="119" y="57" width="62" height="48" rx="14" fill="#94a3b8"/>
-
-<!-- casque -->
-<rect x="112" y="50" width="76" height="12" fill="#fbbf24"/>
-<rect x="128" y="38" width="44" height="13" fill="#fbbf24"/>
-
-<!-- yeux -->
-<rect x="130" y="72" width="9" height="9" fill="#67e8f9"/>
-<rect x="161" y="72" width="9" height="9" fill="#67e8f9"/>
-
-<!-- coffre -->
-<rect x="54" y="125" width="38" height="32" fill="#92400e"/>
-<rect x="208" y="125" width="38" height="32" fill="#92400e"/>
-
-<!-- bras -->
-<rect x="77" y="102" width="27" height="12" fill="#94a3b8"/>
-<rect x="196" y="102" width="27" height="12" fill="#94a3b8"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-9"></div>
 </div>
 
-<h3>Gardien du Grand Atelier</h3>
+<div class="card-info">
 
-<div class="type">⚙️ TYPE : MÉCANIQUE</div>
+<div class="card-number">
+CARTE #009
+</div>
 
-<p>
-Le protecteur mystérieux du grand atelier.
+<div class="card-name">
+Gardien du Grand Atelier
+</div>
+
+<div class="card-type">
+⚙️ TYPE : MÉCANIQUE
+</div>
+
+<p class="card-description">
+Le mystérieux gardien de l'atelier où sont créés
+les cadeaux du royaume.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>102</strong></div>
-<div class="stat">DEF<strong>118</strong></div>
 </div>
 
 </article>
 
 
-<!-- WINTER CORE -->
+<!-- 010 -->
 
 <article class="card">
 
-<span class="card-number">#010</span>
-<span class="rarity">SECRÈTE</span>
-
-<div class="card-art">
-
-<svg viewBox="0 0 300 205" xmlns="http://www.w3.org/2000/svg">
-
-<rect width="300" height="205" fill="#080d22"/>
-
-<!-- halo -->
-<circle cx="150" cy="102" r="72" fill="#312e81" opacity=".35"/>
-<circle cx="150" cy="102" r="55" fill="#1d4ed8" opacity=".4"/>
-
-<!-- fragments -->
-<rect x="60" y="62" width="9" height="9" fill="#67e8f9"/>
-<rect x="224" y="73" width="7" height="7" fill="#a78bfa"/>
-<rect x="82" y="142" width="7" height="7" fill="#60a5fa"/>
-<rect x="215" y="148" width="10" height="10" fill="#67e8f9"/>
-
-<!-- core -->
-<polygon
-points="150,42 195,75 184,133 150,166 116,133 105,75"
-fill="#67e8f9"
-opacity=".9"/>
-
-<polygon
-points="150,55 181,78 173,124 150,148 127,124 119,78"
-fill="#e0f2fe"/>
-
-<polygon
-points="150,68 166,82 162,111 150,127 138,111 134,82"
-fill="#a78bfa"/>
-
-<!-- énergie -->
-<rect x="145" y="88" width="10" height="28" fill="#ffffff"/>
-
-</svg>
-
+<div class="card-image">
+<div class="sprite card-10"></div>
 </div>
 
-<h3>Winter Core</h3>
+<div class="card-info">
 
-<div class="type">💠 TYPE : MYSTÈRE</div>
+<div class="card-number">
+CARTE #010
+</div>
 
-<p>
-La source d'énergie secrète du royaume.
+<div class="card-name">
+Winter Core
+</div>
+
+<div class="card-type">
+💠 TYPE : MYSTÈRE
+</div>
+
+<p class="card-description">
+Une mystérieuse source d'énergie cachée
+au cœur du royaume Winter Pixels.
 </p>
 
-<div class="stats">
-<div class="stat">ATK<strong>150</strong></div>
-<div class="stat">DEF<strong>150</strong></div>
 </div>
 
 </article>
@@ -1179,7 +978,9 @@ La source d'énergie secrète du royaume.
 </section>
 
 
-<!-- RARETÉS -->
+<!-- =========================
+     RARETES
+========================= -->
 
 <section id="raretes">
 
@@ -1190,10 +991,11 @@ La source d'énergie secrète du royaume.
 <h2>⭐ Les raretés</h2>
 
 <p>
-Chaque carte possède un niveau de rareté.
+Chaque carte possède son propre niveau de rareté.
 </p>
 
 </div>
+
 
 <div class="rarity-list">
 
@@ -1229,7 +1031,9 @@ Chaque carte possède un niveau de rareté.
 </section>
 
 
-<!-- AVENIR -->
+<!-- =========================
+     AVENIR
+========================= -->
 
 <section id="avenir">
 
@@ -1240,22 +1044,28 @@ Chaque carte possède un niveau de rareté.
 <h2>🚀 La suite de Pixel Cards</h2>
 
 <p>
-Le jeu va évoluer progressivement.
+Le projet va évoluer progressivement.
 </p>
 
 </div>
+
 
 <div class="future">
 
+
 <div class="panel">
 
-<div class="number">01</div>
+<div class="number">
+01
+</div>
 
-<h3>Collection</h3>
+<h3>
+Collection
+</h3>
 
 <p>
-Une page pour voir les cartes obtenues
-et celles qu'il te manque.
+Une collection personnelle permettant
+de voir les cartes obtenues et manquantes.
 </p>
 
 </div>
@@ -1263,13 +1073,17 @@ et celles qu'il te manque.
 
 <div class="panel">
 
-<div class="number">02</div>
+<div class="number">
+02
+</div>
 
-<h3>Boosters</h3>
+<h3>
+Boosters
+</h3>
 
 <p>
-Ouverture de boosters avec plusieurs cartes
-et différentes probabilités de rareté.
+Des boosters contenant plusieurs cartes
+avec différentes probabilités de rareté.
 </p>
 
 </div>
@@ -1277,22 +1091,28 @@ et différentes probabilités de rareté.
 
 <div class="panel">
 
-<div class="number">03</div>
+<div class="number">
+03
+</div>
 
-<h3>Saisons</h3>
+<h3>
+Saisons
+</h3>
 
 <p>
 De nouvelles saisons avec de nouveaux
-univers et de nouvelles cartes.
+univers et de nouvelles cartes originales.
 </p>
 
 </div>
+
 
 </div>
 
 </div>
 
 </section>
+
 
 </main>
 
@@ -1303,6 +1123,7 @@ univers et de nouvelles cartes.
 Saison 01 : Winter Pixels
 
 </footer>
+
 
 </body>
 </html>
