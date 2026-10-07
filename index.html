@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Cards</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: #080b16;
+  color: white;
+  min-height: 100vh;
+}
+
+header {
+  padding: 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #151b38, #24124d);
+  border-bottom: 1px solid #30375c;
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.logo span {
+  color: #7c5cff;
+}
+
+.coins {
+  margin-top: 10px;
+  font-size: 17px;
+  color: #ffd84d;
+}
+
+nav {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+  background: #0d1120;
+  overflow-x: auto;
+}
+
+nav button {
+  flex: 1;
+  min-width: 100px;
+  padding: 13px 8px;
+  border: 0;
+  border-radius: 12px;
+  background: #191f35;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+nav button.active {
+  background: #7057ff;
+}
+
+main {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+section {
+  display: none;
+}
+
+section.active {
+  display: block;
+}
+
+.hero {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.hero h1 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #aeb5d1;
+  line-height: 1.5;
+}
+
+.panel {
+  background: #11172a;
+  border: 1px solid #292f4b;
+  border-radius: 20px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.booster {
+  margin: 20px auto;
+  width: 190px;
+  height: 270px;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #7c5cff, #e343ff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 15px 45px rgba(124,92,255,.35);
+  transform: rotate(-2deg);
+}
+
+.booster-content {
+  transform: rotate(2deg);
+}
+
+.booster h2 {
+  font-size: 28px;
+}
+
+.booster p {
+  margin-top: 15px;
+  opacity: .85;
+}
+
+.primary {
+  width: 100%;
+  border: 0;
+  border-radius: 14px;
+  padding: 16px;
+  background: linear-gradient(135deg, #7658ff, #a14cff);
+  color: white;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.primary:active {
+  transform: scale(.98);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.card {
+  min-height: 220px;
+  border-radius: 18px;
+  padding: 12px;
+  background: #171d32;
+  border: 2px solid #383f5e;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image {
+  height: 125px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 52px;
+  background: linear-gradient(135deg, #252c4a, #11162a);
+}
+
+.card-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.rarity {
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: bold;
+}
+
+.Commun { border-color: #72798e; }
+.Rare { border-color: #42a5ff; }
+.Epique { border-color: #b45cff; }
+.Legendaire { border-color: #ffc52e; }
+.Mythique {
+  border-color: #ff4d6d;
+  box-shadow: 0 0 18px rgba(255,77,109,.35);
+}
+
+.Commun .rarity { color: #aeb5c7; }
+.Rare .rarity { color: #42a5ff; }
+.Epique .rarity { color: #b45cff; }
+.Legendaire .rarity { color: #ffc52e; }
+.Mythique .rarity { color: #ff4d6d; }
+
+.collection-empty {
+  text-align: center;
+  color: #9299b3;
+  padding: 40px 10px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.stat {
+  background: #171d32;
+  padding: 15px 8px;
+  text-align: center;
+  border-radius: 14px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 22px;
+}
+
+.stat span {
+  color: #9098b5;
+  font-size: 12px;
+}
+
+.message {
+  text-align: center;
+  margin: 15px 0;
+  color: #ffd84d;
+  min-height: 20px;
+}
+
+@media (max-width: 420px) {
+  main {
+    padding: 15px;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .cards {
+    gap: 10px;
+  }
+
+  .card {
+    min-height: 205px;
+  }
+
+  .card-image {
+    height: 110px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="logo">PIXEL <span>CARDS</span></div>
+  <div class="coins">🪙 <span id="coins">1000</span> pièces</div>
+</header>
+
+<nav>
+  <button class="active" onclick="showSection('accueil', this)">🏠 Accueil</button>
+  <button onclick="showSection('boosters', this)">🎁 Boosters</button>
+  <button onclick="showSection('collection', this)">🃏 Collection</button>
+</nav>
+
+<main>
+
+<section id="accueil" class="active">
+  <div class="hero">
+    <h1>🎮 Pixel Cards</h1>
+    <p>
+      Collectionne des cartes inspirées de l'univers du jeu vidéo.
+      Ouvre des boosters, découvre des cartes rares et complète ta collection !
+    </p>
+  </div>
+
+  <div class="panel">
+    <h2>🔥 Bienvenue !</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <strong id="totalCards">0</strong>
+        <span>Cartes</span>
+      </div>
+
+      <div class="stat">
+        <strong>20</strong>
+        <span>Disponibles</span>
+      </div>
+
+      <div class="stat">
+        <strong id="boostersOpened">0</strong>
+        <span>Boosters</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="boosters">
+
+  <div class="hero">
+    <h1>🎁 Boosters</h1>
+    <p>Chaque booster contient 5 cartes aléatoires.</p>
+  </div>
+
+  <div class="panel">
+
+    <div class="booster">
+      <div class="booster-content">
+        <h2>PIXEL</h2>
+        <h2>CARDS</h2>
+        <p>BOOSTER #1</p>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-bottom:15px;">
+      Prix : <strong style="color:#ffd84d;">100 🪙</strong>
+    </p>
+
+    <button class="primary" onclick="openBooster()">
+      OUVRIR LE BOOSTER
+    </button>
+
+    <div class="message" id="message"></div>
+
+    <div id="newCards" class="cards"></div>
+
+  </div>
+</section>
+
+<section id="collection">
+
+  <div class="hero">
+    <h1>🃏 Collection</h1>
+    <p>Voici toutes les cartes que tu as découvertes.</p>
+  </div>
+
+  <div id="collectionCards" class="cards"></div>
+
+</section>
+
+</main>
+
+<script>
+
+const cards = [
+  {name:"Cyber Ninja", rarity:"Commun", icon:"🥷"},
+  {name:"Pixel Knight", rarity:"Commun", icon:"🛡️"},
+  {name:"Space Pilot", rarity:"Commun", icon:"🚀"},
+  {name:"Dungeon Hero", rarity:"Commun", icon:"⚔️"},
+  {name:"Speed Racer", rarity:"Commun", icon:"🏎️"},
+
+  {name:"Shadow Hunter", rarity:"Rare", icon:"🏹"},
+  {name:"Mecha Warrior", rarity:"Rare", icon:"🤖"},
+  {name:"Fire Mage", rarity:"Rare", icon:"🔥"},
+  {name:"Ice Guardian", rarity:"Rare", icon:"❄️"},
+  {name:"Cyber Hacker", rarity:"Rare", icon:"💻"},
+
+  {name:"Dragon Rider", rarity:"Epique", icon:"🐉"},
+  {name:"Galaxy Warrior", rarity:"Epique", icon:"🌌"},
+  {name:"Demon Slayer", rarity:"Epique", icon:"👹"},
+  {name:"Storm Master", rarity:"Epique", icon:"⚡"},
+
+  {name:"Ultimate Boss", rarity:"Legendaire", icon:"👑"},
+  {name:"Quantum Hero", rarity:"Legendaire", icon:"💠"},
+  {name:"Cosmic Dragon", rarity:"Legendaire", icon:"🐲"},
+
+  {name:"Pixel God", rarity:"Mythique", icon:"🌟"},
+  {name:"Infinity Player", rarity:"Mythique", icon:"♾️"},
+  {name:"The Glitch", rarity:"Mythique", icon:"👾"}
+];
+
+let coins = Number(localStorage.getItem("pixelCoins")) || 1000;
+let collection = JSON.parse(localStorage.getItem("pixelCollection") || "[]");
+let boosters = Number(localStorage.getItem("pixelBoosters")) || 0;
+
+function save() {
+  localStorage.setItem("pixelCoins", coins);
+  localStorage.setItem("pixelCollection", JSON.stringify(collection));
+  localStorage.setItem("pixelBoosters", boosters);
+}
+
+function updateCoins() {
+  document.getElementById("coins").textContent = coins;
+  document.getElementById("totalCards").textContent = collection.length;
+  document.getElementById("boostersOpened").textContent = boosters;
+}
+
+function showSection(id, button) {
+
+  document.querySelectorAll("section").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  document.getElementById(id).classList.add("active");
+
+  document.querySelectorAll("nav button").forEach(btn => {
+    btn.classList.remove("active");
+  });
+
+  button.classList.add("active");
+
+  if (id === "collection") {
+    displayCollection();
+  }
+
+  window.scrollTo(0,0);
+}
+
+function randomCard() {
+
+  const random = Math.random() * 100;
+
+  let rarity;
+
+  if (random < 0.5) {
+    rarity = "Mythique";
+  } else if (random < 3) {
+    rarity = "Legendaire";
+  } else if (random < 12) {
+    rarity = "Epique";
+  } else if (random < 35) {
+    rarity = "Rare";
+  } else {
+    rarity = "Commun";
+  }
+
+  const possible = cards.filter(card => card.rarity === rarity);
+
+  return possible[Math.floor(Math.random() * possible.length)];
+}
+
+function createCard(card) {
+
+  const div = document.createElement("div");
+
+  div.className = "card " + card.rarity;
+
+  div.innerHTML = `
+    <div class="card-image">${card.icon}</div>
+    <div class="card-name">${card.name}</div>
+    <div class="rarity">${card.rarity}</div>
+  `;
+
+  return div;
+}
+
+function openBooster() {
+
+  if (coins < 100) {
+
+    document.getElementById("message").textContent =
+      "❌ Tu n'as pas assez de pièces.";
+
+    return;
+  }
+
+  coins -= 100;
+  boosters++;
+
+  const newCards = [];
+
+  for (let i = 0; i < 5; i++) {
+
+    const card = randomCard();
+
+    newCards.push(card);
+    collection.push(card);
+  }
+
+  save();
+  updateCoins();
+
+  const container = document.getElementById("newCards");
+
+  container.innerHTML = "";
+
+  newCards.forEach(card => {
+    container.appendChild(createCard(card));
+  });
+
+  document.getElementById("message").textContent =
+    "🎉 Booster ouvert ! Voici tes 5 cartes !";
+
+}
+
+function displayCollection() {
+
+  const container = document.getElementById("collectionCards");
+
+  container.innerHTML = "";
+
+  if (collection.length === 0) {
+
+    container.innerHTML =
+      '<div class="collection-empty">Tu n’as encore aucune carte.<br>Ouvre ton premier booster ! 🎁</div>';
+
+    return;
+  }
+
+  collection.forEach(card => {
+    container.appendChild(createCard(card));
+  });
+}
+
+updateCoins();
+
+</script>
+
+</body>
+</html>
