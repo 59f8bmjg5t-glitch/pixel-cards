@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pixel Cards — Booster</title>
+<meta name="description" content="Ouvre un booster Pixel Cards et découvre une carte Winter Pixels.">
+<style>
+:root{
+  --bg:#0b0f1d;
+  --header:#0a0d16;
+  --panel:#101a2d;
+  --panel2:#15233b;
+  --text:#f5f7ff;
+  --muted:#aeb8cc;
+  --accent:#61e6f5;
+  --line:rgba(255,255,255,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 50% 10%,rgba(97,230,245,.14),transparent 30%),
+    radial-gradient(circle at 10% 80%,rgba(90,70,180,.12),transparent 30%),
+    var(--bg);
+}
+a{color:inherit;text-decoration:none}
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(8,11,19,.96);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  min-height:76px;
+  width:min(1180px,92%);
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.logo{font-size:22px;font-weight:1000;letter-spacing:1px}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:18px;flex-wrap:wrap}
+nav a{color:var(--muted);font-weight:800;font-size:14px}
+nav a:hover{color:var(--text)}
+.container{width:min(1100px,92%);margin:auto}
+.booster-page{text-align:center;padding:55px 0 70px}
+.badge{
+  display:inline-flex;padding:9px 15px;border:1px solid rgba(97,230,245,.32);
+  border-radius:999px;background:rgba(97,230,245,.07);
+  color:var(--accent);font-size:13px;font-weight:950;
+}
+h1{font-size:clamp(42px,9vw,76px);margin:20px 0 12px;letter-spacing:-3px}
+.lead{max-width:680px;margin:0 auto;color:var(--muted);line-height:1.6;font-size:17px}
+.booster-stage{
+  min-height:430px;
+  margin:35px auto 25px;
+  display:flex;align-items:center;justify-content:center;
+}
+.booster-pack{
+  width:min(290px,78vw);
+  aspect-ratio:2/3;
+  border-radius:24px;
+  border:2px solid rgba(97,230,245,.35);
+  background:
+    radial-gradient(circle at 50% 35%,rgba(97,230,245,.22),transparent 34%),
+    linear-gradient(145deg,#182a48,#090e1c);
+  box-shadow:0 25px 80px rgba(0,0,0,.4);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:25px;
+  transition:transform .25s ease;
+}
+.booster-pack.shake{animation:shake .65s ease}
+.pack-symbol{font-size:85px}
+.pack-title{font-weight:1000;font-size:28px;margin-top:15px}
+.pack-season{color:var(--accent);font-size:12px;font-weight:900;letter-spacing:1px;margin-top:8px}
+@keyframes shake{
+  0%,100%{transform:rotate(0) scale(1)}
+  20%{transform:rotate(-5deg) scale(1.03)}
+  40%{transform:rotate(5deg) scale(1.05)}
+  60%{transform:rotate(-4deg) scale(1.04)}
+  80%{transform:rotate(3deg) scale(1.02)}
+}
+.result{display:none}
+.result.show{display:block}
+.result-card{
+  width:min(430px,92vw);
+  margin:auto;
+  padding:15px;
+  border-radius:25px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(97,230,245,.25);
+}
+.result-card .card{
+  margin:0;
+}
+.result-card img{max-width:100%;border-radius:15px}
+.button{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:210px;padding:15px 22px;border-radius:15px;
+  border:1px solid rgba(97,230,245,.3);
+  background:var(--accent);color:#06121a;font-weight:1000;
+  cursor:pointer;font-size:16px;
+}
+.secondary{
+  background:rgba(255,255,255,.05);color:var(--text);margin-top:12px;
+}
+.status{min-height:24px;margin-top:15px;color:var(--muted)}
+footer{text-align:center;padding:30px;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media(max-width:800px){
+  .nav{align-items:flex-start;padding:16px 0;flex-direction:column}
+  nav{gap:12px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="index.html">PIXEL <span>CARDS</span></a>
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="saison.html">Saison 1</a>
+      <a href="booster.html">🎁 Booster</a>
+      <a href="collection.html">Collection</a>
+    </nav>
+  </div>
+</header>
+
+<main class="booster-page">
+  <div class="container">
+    <div class="badge">❄️ SAISON 01 — WINTER PIXELS</div>
+    <h1>Ouvre ton booster</h1>
+    <p class="lead">
+      Une carte mystérieuse t'attend. Ouvre le booster pour découvrir
+      une nouvelle carte de ta collection.
+    </p>
+
+    <div class="booster-stage" id="boosterStage">
+      <div class="booster-pack" id="boosterPack">
+        <div class="pack-symbol">🎁</div>
+        <div class="pack-title">PIXEL CARDS</div>
+        <div class="pack-season">WINTER PIXELS</div>
+      </div>
+    </div>
+
+    <button class="button" id="openBooster" type="button">🎁 Ouvrir le booster</button>
+    <div class="status" id="status" aria-live="polite"></div>
+
+    <section class="result" id="result">
+      <div class="result-card" id="resultCard"></div>
+      <div style="margin-top:18px;">
+        <button class="button" id="openAgain" type="button">🎁 Ouvrir un autre booster</button>
+      </div>
+      <a class="button secondary" href="collection.html">📚 Voir ma collection</a>
+    </section>
+  </div>
+</main>
+
+<footer>© 2026 Pixel Cards — Saison 01 : Winter Pixels.</footer>
+
+<script>
+(function(){
+  const STORAGE_KEY = "pixelCardsUnlocked";
+  const pack = document.getElementById("boosterPack");
+  const openButton = document.getElementById("openBooster");
+  const againButton = document.getElementById("openAgain");
+  const result = document.getElementById("result");
+  const resultCard = document.getElementById("resultCard");
+  const status = document.getElementById("status");
+
+  let cards = [];
+
+  async function loadCards(){
+    try{
+      const response = await fetch("collection.html", {cache:"no-store"});
+      if(!response.ok) throw new Error("collection");
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      cards = Array.from(doc.querySelectorAll(".card[data-card-id]"));
+
+      // Fallback if data-card-id was not parsed in an older copy.
+      cards.forEach((card,index)=>{
+        if(!card.dataset.cardId){
+          const n = card.querySelector(".card-number");
+          const m = n ? n.textContent.match(/\d+/) : null;
+          card.dataset.cardId = m ? String(parseInt(m[0],10)) : String(index+1);
+        }
+      });
+
+      if(!cards.length) throw new Error("no cards");
+      status.textContent = cards.length + " cartes prêtes à être découvertes.";
+      openButton.disabled = false;
+    }catch(e){
+      status.textContent = "Impossible de charger les cartes. Vérifie que collection.html est bien dans le dépôt.";
+      openButton.disabled = true;
+    }
+  }
+
+  function getUnlocked(){
+    try{
+      const data = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      return Array.isArray(data) ? [...new Set(data.map(String))] : [];
+    }catch(e){
+      return [];
+    }
+  }
+
+  function saveUnlocked(ids){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...new Set(ids.map(String))]));
+  }
+
+  function reveal(){
+    if(!cards.length) return;
+
+    result.classList.remove("show");
+    pack.classList.remove("shake");
+    void pack.offsetWidth;
+    pack.classList.add("shake");
+
+    openButton.disabled = true;
+    againButton.disabled = true;
+    status.textContent = "Ouverture du booster…";
+
+    setTimeout(()=>{
+      const unlocked = getUnlocked();
+
+      // Prefer an undiscovered card so each booster progresses the collection.
+      const undiscovered = cards.filter(card => !unlocked.includes(String(card.dataset.cardId)));
+      const pool = undiscovered.length ? undiscovered : cards;
+      const selected = pool[Math.floor(Math.random() * pool.length)];
+      const id = String(selected.dataset.cardId);
+      const wasAlreadyOwned = unlocked.includes(id);
+
+      if(!wasAlreadyOwned){
+        unlocked.push(id);
+        saveUnlocked(unlocked);
+      }
+
+      resultCard.innerHTML = "";
+      const clone = selected.cloneNode(true);
+      clone.classList.remove("locked");
+      const overlay = clone.querySelector(".card-lock-overlay");
+      if(overlay) overlay.remove();
+      resultCard.appendChild(clone);
+
+      result.classList.add("show");
+      status.textContent = wasAlreadyOwned
+        ? "Tu as obtenu une carte que tu possédais déjà !"
+        : "✨ Nouvelle carte découverte !";
+      openButton.disabled = false;
+      againButton.disabled = false;
+    },700);
+  }
+
+  openButton.addEventListener("click", reveal);
+  againButton.addEventListener("click", reveal);
+  loadCards();
+})();
+</script>
+</body>
+</html>
