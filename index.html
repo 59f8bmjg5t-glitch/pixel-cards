@@ -6,18 +6,19 @@
 
 <title>Pixel Cards — Winter Pixels</title>
 
+<meta name="description" content="Pixel Cards — jeu de cartes à collectionner. Saison 1 : Winter Pixels.">
+
 <style>
 
 :root{
-  --bg:#070b14;
+  --bg:#080b14;
   --panel:#111827;
-  --panel2:#18243a;
-  --text:#f8fafc;
+  --panel2:#172033;
+  --text:#f7f9ff;
   --muted:#aeb8cc;
-  --cyan:#67e8f9;
-  --blue:#60a5fa;
-  --purple:#a78bfa;
-  --border:rgba(255,255,255,.12);
+  --accent:#67e8f9;
+  --accent2:#a78bfa;
+  --line:rgba(255,255,255,.10);
 }
 
 *{
@@ -30,11 +31,19 @@ html{
 
 body{
   margin:0;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--text);
   background:
-    radial-gradient(circle at 10% 0%,rgba(103,232,249,.12),transparent 30%),
-    radial-gradient(circle at 90% 10%,rgba(167,139,250,.13),transparent 30%),
+    radial-gradient(
+      circle at 20% 0%,
+      rgba(103,232,249,.13),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 90% 15%,
+      rgba(167,139,250,.16),
+      transparent 30%
+    ),
     var(--bg);
 }
 
@@ -44,7 +53,7 @@ a{
 }
 
 .container{
-  width:min(1100px,92%);
+  width:min(1080px,92%);
   margin:auto;
 }
 
@@ -55,39 +64,39 @@ a{
 header{
   position:sticky;
   top:0;
-  z-index:100;
-  background:rgba(7,11,20,.86);
+  z-index:20;
   backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--border);
+  background:rgba(8,11,20,.82);
+  border-bottom:1px solid var(--line);
 }
 
 .nav{
-  height:68px;
+  min-height:68px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  gap:20px;
 }
 
 .logo{
-  font-size:21px;
   font-weight:900;
-  letter-spacing:.5px;
+  font-size:20px;
+  letter-spacing:.4px;
 }
 
 .logo span{
-  color:var(--cyan);
+  color:var(--accent);
 }
 
 nav{
   display:flex;
-  gap:24px;
+  gap:20px;
   color:var(--muted);
   font-size:14px;
-  font-weight:700;
 }
 
 nav a:hover{
-  color:white;
+  color:var(--text);
 }
 
 /* =========================
@@ -95,34 +104,33 @@ nav a:hover{
 ========================= */
 
 .hero{
+  padding:82px 0 65px;
   text-align:center;
-  padding:90px 0 80px;
 }
 
 .badge{
-  display:inline-block;
-  padding:10px 16px;
-  border-radius:999px;
-  border:1px solid rgba(103,232,249,.35);
+  display:inline-flex;
+  padding:8px 13px;
+  border:1px solid rgba(103,232,249,.3);
   background:rgba(103,232,249,.08);
-  color:var(--cyan);
+  border-radius:999px;
+  color:var(--accent);
   font-size:13px;
-  font-weight:900;
+  font-weight:800;
 }
 
-.hero h1{
-  font-size:clamp(45px,10vw,82px);
+h1{
+  font-size:clamp(42px,10vw,76px);
   line-height:.95;
-  letter-spacing:-4px;
-  margin:25px 0;
+  margin:20px 0 18px;
+  letter-spacing:-3px;
 }
 
-.gradient{
+.hero h1 span{
   background:linear-gradient(
     90deg,
-    var(--cyan),
-    var(--blue),
-    var(--purple)
+    var(--accent),
+    var(--accent2)
   );
   -webkit-background-clip:text;
   background-clip:text;
@@ -130,11 +138,11 @@ nav a:hover{
 }
 
 .hero p{
-  max-width:700px;
-  margin:auto;
+  max-width:650px;
+  margin:0 auto;
   color:var(--muted);
   font-size:18px;
-  line-height:1.7;
+  line-height:1.6;
 }
 
 .buttons{
@@ -142,20 +150,26 @@ nav a:hover{
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:32px;
+  margin-top:28px;
 }
 
 .btn{
-  padding:14px 22px;
-  border-radius:14px;
-  background:var(--panel);
-  border:1px solid var(--border);
+  padding:13px 20px;
+  border-radius:13px;
   font-weight:800;
+  border:1px solid var(--line);
+  background:var(--panel);
+  display:inline-block;
+  transition:.2s;
+}
+
+.btn:hover{
+  transform:translateY(-2px);
 }
 
 .btn.primary{
-  background:#fff;
-  color:#070b14;
+  background:var(--text);
+  color:#080b14;
 }
 
 /* =========================
@@ -163,20 +177,20 @@ nav a:hover{
 ========================= */
 
 section{
-  padding:65px 0;
+  padding:60px 0;
 }
 
-.title{
+.section-title{
   text-align:center;
-  margin-bottom:38px;
+  margin-bottom:30px;
 }
 
-.title h2{
-  font-size:35px;
-  margin:0 0 10px;
+.section-title h2{
+  font-size:32px;
+  margin:0 0 8px;
 }
 
-.title p{
+.section-title p{
   color:var(--muted);
   margin:0;
 }
@@ -187,57 +201,71 @@ section{
 
 .season{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
+  grid-template-columns:1.1fr .9fr;
+  gap:24px;
 }
 
 .panel{
-  padding:30px;
-  border-radius:24px;
-  border:1px solid var(--border);
   background:
     linear-gradient(
       145deg,
-      rgba(24,36,58,.96),
-      rgba(10,15,27,.96)
+      rgba(23,32,51,.94),
+      rgba(12,17,29,.94)
     );
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 18px 60px rgba(0,0,0,.2);
 }
 
 .panel h3{
   margin-top:0;
-  font-size:28px;
+  font-size:26px;
 }
 
 .panel p{
   color:var(--muted);
-  line-height:1.7;
+  line-height:1.65;
 }
 
 .season-art{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
   min-height:300px;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  background:
+    radial-gradient(
+      circle at 50% 30%,
+      rgba(103,232,249,.18),
+      transparent 30%
+    ),
+    linear-gradient(
+      145deg,
+      #17233b,
+      #0d1321
+    );
 }
 
-.snow{
-  font-size:95px;
-  filter:drop-shadow(0 0 35px rgba(103,232,249,.55));
+.snowflake{
+  font-size:100px;
+  filter:drop-shadow(
+    0 0 25px rgba(103,232,249,.5)
+  );
 }
 
 .tags{
   display:flex;
-  flex-wrap:wrap;
   gap:8px;
-  margin-top:22px;
+  flex-wrap:wrap;
+  margin-top:18px;
 }
 
 .tag{
-  padding:8px 12px;
+  font-size:12px;
+  padding:7px 10px;
   border-radius:999px;
   background:rgba(255,255,255,.06);
-  font-size:12px;
+  color:#d9e2f2;
 }
 
 /* =========================
@@ -247,67 +275,52 @@ section{
 .cards{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:22px;
+  gap:18px;
 }
 
 .card{
-  position:relative;
+  border-radius:22px;
   padding:12px;
-  border-radius:24px;
-  border:1px solid var(--border);
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
   background:
     linear-gradient(
-      145deg,
-      #17243a,
-      #0b1220
+      160deg,
+      #1a2942,
+      #0c1321
     );
+  box-shadow:0 18px 50px rgba(0,0,0,.20);
   transition:.25s;
-  box-shadow:0 18px 50px rgba(0,0,0,.18);
 }
 
 .card:hover{
-  transform:translateY(-7px);
+  transform:translateY(-6px);
   border-color:rgba(103,232,249,.45);
 }
+
+/*
+  La planche contient 10 illustrations.
+  Elle est découpée en 5 colonnes x 2 lignes.
+*/
 
 .card-image{
   width:100%;
   aspect-ratio:3 / 2;
-  border-radius:17px;
+  border-radius:16px;
   overflow:hidden;
   background:#08111f;
-}
-
-.card-image img{
-  width:100%;
-  height:100%;
-  display:block;
-  object-fit:cover;
-  object-position:center;
-}
-
-/*
-Chaque carte correspond à une zone de la
-planche Winter Pixels.
-
-La planche contient :
-5 cartes sur la première ligne
-5 cartes sur la deuxième ligne.
-*/
-
-.card-image{
-  position:relative;
 }
 
 .sprite{
   width:100%;
   height:100%;
-  background-image:url("winter_pixels_cards.jpg");
+  background-image:url("hiver_pixels_cards image.jpg");
   background-repeat:no-repeat;
   background-size:500% 200%;
 }
 
-/* ligne 1 */
+/* Première ligne */
 
 .card-1{
   background-position:0% 0%;
@@ -329,7 +342,7 @@ La planche contient :
   background-position:100% 0%;
 }
 
-/* ligne 2 */
+/* Deuxième ligne */
 
 .card-6{
   background-position:0% 100%;
@@ -351,16 +364,15 @@ La planche contient :
   background-position:100% 100%;
 }
 
-/* informations sous les illustrations */
-
 .card-info{
-  padding:12px 5px 5px;
+  padding:14px 6px 6px;
 }
 
 .card-number{
-  color:var(--muted);
   font-size:11px;
+  color:var(--muted);
   font-weight:800;
+  letter-spacing:.5px;
 }
 
 .card-name{
@@ -370,9 +382,10 @@ La planche contient :
 }
 
 .card-type{
-  color:var(--cyan);
-  font-size:12px;
+  color:var(--accent);
+  font-size:11px;
   font-weight:900;
+  letter-spacing:.4px;
 }
 
 .card-description{
@@ -397,7 +410,7 @@ La planche contient :
   text-align:center;
   border-radius:16px;
   background:var(--panel);
-  border:1px solid var(--border);
+  border:1px solid var(--line);
 }
 
 .rarity-box strong{
@@ -414,20 +427,20 @@ La planche contient :
    FUTUR
 ========================= */
 
-.future{
+.roadmap{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:20px;
+  gap:16px;
 }
 
-.future .panel{
+.step{
   text-align:center;
 }
 
-.number{
-  font-size:32px;
+.step .num{
+  font-size:30px;
   font-weight:900;
-  color:var(--cyan);
+  color:var(--accent);
 }
 
 /* =========================
@@ -435,18 +448,18 @@ La planche contient :
 ========================= */
 
 footer{
-  padding:35px 0;
-  text-align:center;
+  border-top:1px solid var(--line);
+  padding:30px 0;
   color:var(--muted);
   font-size:13px;
-  border-top:1px solid var(--border);
+  text-align:center;
 }
 
 /* =========================
    MOBILE
 ========================= */
 
-@media(max-width:800px){
+@media(max-width:760px){
 
   nav{
     display:none;
@@ -464,7 +477,7 @@ footer{
     grid-template-columns:repeat(2,1fr);
   }
 
-  .future{
+  .roadmap{
     grid-template-columns:1fr;
   }
 
@@ -473,11 +486,7 @@ footer{
   }
 
   section{
-    padding:48px 0;
-  }
-
-  .card{
-    padding:10px;
+    padding:45px 0;
   }
 
 }
@@ -488,11 +497,16 @@ footer{
 
 <body>
 
+
+<!-- =========================
+     HEADER
+========================= -->
+
 <header>
 
 <div class="container nav">
 
-<a href="#" class="logo">
+<a class="logo" href="#">
 PIXEL <span>CARDS</span>
 </a>
 
@@ -525,12 +539,12 @@ PIXEL <span>CARDS</span>
 
 <h1>
 Bienvenue dans
-<span class="gradient">Pixel Cards</span>
+<span>Pixel Cards</span>
 </h1>
 
 <p>
 Un jeu de cartes à collectionner dans un univers
-pixel entièrement original. Collectionne les cartes,
+pixel entièrement original. Collectionne tes cartes,
 découvre de nouvelles saisons et construis ta collection.
 </p>
 
@@ -559,9 +573,11 @@ Découvrir la saison
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>🎄 Saison 1 — Winter Pixels</h2>
+<h2>
+🎄 Saison 1 — Winter Pixels
+</h2>
 
 <p>
 Une première saison placée sous le signe de l'hiver.
@@ -585,16 +601,36 @@ de Pixel Cards.
 </p>
 
 <p>
-Explore un monde enneigé rempli de créatures,
+Découvre un monde enneigé rempli de créatures,
 de héros, de magie et de mystères.
+</p>
+
+<p>
+<strong>
+Objectif :
+</strong>
+
+Construire ta première collection
+Pixel Cards.
 </p>
 
 <div class="tags">
 
-<span class="tag">❄️ Hiver</span>
-<span class="tag">🎄 Noël</span>
-<span class="tag">🧊 Glace</span>
-<span class="tag">✨ Magie</span>
+<span class="tag">
+❄️ Hiver
+</span>
+
+<span class="tag">
+🎁 Noël
+</span>
+
+<span class="tag">
+🧊 Glace
+</span>
+
+<span class="tag">
+✨ Magie
+</span>
 
 </div>
 
@@ -605,17 +641,17 @@ de héros, de magie et de mystères.
 
 <div>
 
-<div class="snow">
+<div class="snowflake">
 ❄️
 </div>
 
-<h3>
+<strong>
 WINTER PIXELS
-</h3>
+</strong>
 
-<p>
-SAISON 01
-</p>
+<div style="color:var(--muted);margin-top:7px">
+Saison 01
+</div>
 
 </div>
 
@@ -637,9 +673,11 @@ SAISON 01
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>🃏 Les cartes Winter Pixels</h2>
+<h2>
+🃏 Les cartes Winter Pixels
+</h2>
 
 <p>
 Les 10 premières cartes de la collection.
@@ -651,12 +689,14 @@ Les 10 premières cartes de la collection.
 <div class="cards">
 
 
-<!-- 001 -->
+<!-- CARTE 001 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-1"></div>
+
 </div>
 
 <div class="card-info">
@@ -683,12 +723,14 @@ pendant les nuits glacées.
 </article>
 
 
-<!-- 002 -->
+<!-- CARTE 002 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-2"></div>
+
 </div>
 
 <div class="card-info">
@@ -715,12 +757,14 @@ en jouets extraordinaires.
 </article>
 
 
-<!-- 003 -->
+<!-- CARTE 003 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-3"></div>
+
 </div>
 
 <div class="card-info">
@@ -747,12 +791,14 @@ les chemins perdus dans la neige.
 </article>
 
 
-<!-- 004 -->
+<!-- CARTE 004 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-4"></div>
+
 </div>
 
 <div class="card-info">
@@ -779,12 +825,14 @@ gelées du Nord.
 </article>
 
 
-<!-- 005 -->
+<!-- CARTE 005 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-5"></div>
+
 </div>
 
 <div class="card-info">
@@ -811,12 +859,14 @@ du ciel hivernal.
 </article>
 
 
-<!-- 006 -->
+<!-- CARTE 006 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-6"></div>
+
 </div>
 
 <div class="card-info">
@@ -834,7 +884,7 @@ Loup Polaire
 </div>
 
 <p class="card-description">
-Prédateur silencieux qui traverse les forêts
+Prédateur silencieux traversant les forêts
 enneigées sans laisser de traces.
 </p>
 
@@ -843,12 +893,14 @@ enneigées sans laisser de traces.
 </article>
 
 
-<!-- 007 -->
+<!-- CARTE 007 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-7"></div>
+
 </div>
 
 <div class="card-info">
@@ -875,12 +927,14 @@ de la montagne gelée.
 </article>
 
 
-<!-- 008 -->
+<!-- CARTE 008 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-8"></div>
+
 </div>
 
 <div class="card-info">
@@ -907,12 +961,14 @@ des aurores polaires.
 </article>
 
 
-<!-- 009 -->
+<!-- CARTE 009 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-9"></div>
+
 </div>
 
 <div class="card-info">
@@ -939,12 +995,14 @@ les cadeaux du royaume.
 </article>
 
 
-<!-- 010 -->
+<!-- CARTE 010 -->
 
 <article class="card">
 
 <div class="card-image">
+
 <div class="sprite card-10"></div>
+
 </div>
 
 <div class="card-info">
@@ -962,7 +1020,7 @@ Winter Core
 </div>
 
 <p class="card-description">
-Une mystérieuse source d'énergie cachée
+La mystérieuse source d'énergie cachée
 au cœur du royaume Winter Pixels.
 </p>
 
@@ -986,9 +1044,11 @@ au cœur du royaume Winter Pixels.
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>⭐ Les raretés</h2>
+<h2>
+⭐ Les raretés
+</h2>
 
 <p>
 Chaque carte possède son propre niveau de rareté.
@@ -999,30 +1059,71 @@ Chaque carte possède son propre niveau de rareté.
 
 <div class="rarity-list">
 
-<div class="rarity-box">
-<strong>Commune</strong>
-<span>Fréquente</span>
-</div>
 
 <div class="rarity-box">
-<strong>Peu commune</strong>
-<span>Moins fréquente</span>
+
+<strong>
+Commune
+</strong>
+
+<span>
+Fréquente
+</span>
+
 </div>
 
-<div class="rarity-box">
-<strong>Rare</strong>
-<span>Difficile à obtenir</span>
-</div>
 
 <div class="rarity-box">
-<strong>Épique</strong>
-<span>Très rare</span>
+
+<strong>
+Peu commune
+</strong>
+
+<span>
+Moins fréquente
+</span>
+
 </div>
 
+
 <div class="rarity-box">
-<strong>Légendaire</strong>
-<span>Exceptionnelle</span>
+
+<strong>
+Rare
+</strong>
+
+<span>
+Difficile à obtenir
+</span>
+
 </div>
+
+
+<div class="rarity-box">
+
+<strong>
+Épique
+</strong>
+
+<span>
+Très rare
+</span>
+
+</div>
+
+
+<div class="rarity-box">
+
+<strong>
+Légendaire
+</strong>
+
+<span>
+Exceptionnelle
+</span>
+
+</div>
+
 
 </div>
 
@@ -1032,16 +1133,18 @@ Chaque carte possède son propre niveau de rareté.
 
 
 <!-- =========================
-     AVENIR
+     ROADMAP
 ========================= -->
 
 <section id="avenir">
 
 <div class="container">
 
-<div class="title">
+<div class="section-title">
 
-<h2>🚀 La suite de Pixel Cards</h2>
+<h2>
+🚀 La suite de Pixel Cards
+</h2>
 
 <p>
 Le projet va évoluer progressivement.
@@ -1050,12 +1153,12 @@ Le projet va évoluer progressivement.
 </div>
 
 
-<div class="future">
+<div class="roadmap">
 
 
-<div class="panel">
+<div class="panel step">
 
-<div class="number">
+<div class="num">
 01
 </div>
 
@@ -1065,15 +1168,15 @@ Collection
 
 <p>
 Une collection personnelle permettant
-de voir les cartes obtenues et manquantes.
+de voir les cartes obtenues et les cartes manquantes.
 </p>
 
 </div>
 
 
-<div class="panel">
+<div class="panel step">
 
-<div class="number">
+<div class="num">
 02
 </div>
 
@@ -1089,9 +1192,9 @@ avec différentes probabilités de rareté.
 </div>
 
 
-<div class="panel">
+<div class="panel step">
 
-<div class="number">
+<div class="num">
 03
 </div>
 
@@ -1119,8 +1222,13 @@ univers et de nouvelles cartes originales.
 
 <footer>
 
-© 2026 Pixel Cards — Univers original<br>
-Saison 01 : Winter Pixels
+<div class="container">
+
+© 2026 Pixel Cards — Univers original.
+<br>
+Saison 01 : Winter Pixels.
+
+</div>
 
 </footer>
 
