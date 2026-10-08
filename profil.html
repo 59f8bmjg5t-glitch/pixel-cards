@@ -376,7 +376,56 @@ function updateProfile(){
 }
 
 updateProfile();
+function checkAchievements(){
 
+  const boosters =
+    Number(localStorage.getItem("pixelBoostersOpened")) || 0;
+
+  const coins =
+    Number(localStorage.getItem("pixelCoins")) || 0;
+
+  const cards =
+    JSON.parse(localStorage.getItem("pixelCardsUnlocked") || "[]")
+      .map(String);
+
+  // 🎁 Premier booster
+  if(boosters >= 1){
+    document.getElementById("achievement-booster")
+      .classList.remove("locked");
+  }
+
+  // 🃏 Première carte
+  if(cards.length >= 1){
+    document.getElementById("achievement-card")
+      .classList.remove("locked");
+  }
+
+  // 💎 5 cartes
+  if(cards.length >= 5){
+    document.getElementById("achievement-rare")
+      .classList.remove("locked");
+  }
+
+  // 👑 Carte Légendaire
+  if(cards.includes("8") || cards.includes("9")){
+    document.getElementById("achievement-legendary")
+      .classList.remove("locked");
+  }
+
+  // 🌌 Carte Secrète
+  if(cards.includes("10")){
+    document.getElementById("achievement-secret")
+      .classList.remove("locked");
+  }
+
+  // 🪙 1 000 Pixel Coins
+  if(coins >= 1000){
+    document.getElementById("achievement-coins")
+      .classList.remove("locked");
+  }
+}
+
+checkAchievements();
 </script>
 
 </body>
