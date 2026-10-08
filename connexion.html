@@ -160,6 +160,7 @@ input{
     <div id="loginForm" class="form active">
 
       <label for="loginEmail">Adresse e-mail</label>
+
       <input
         type="email"
         id="loginEmail"
@@ -167,6 +168,7 @@ input{
       >
 
       <label for="loginPassword">Mot de passe</label>
+
       <input
         type="password"
         id="loginPassword"
@@ -179,10 +181,12 @@ input{
 
     </div>
 
+
     <!-- INSCRIPTION -->
     <div id="signupForm" class="form">
 
       <label for="signupUsername">Pseudo</label>
+
       <input
         type="text"
         id="signupUsername"
@@ -191,6 +195,7 @@ input{
       >
 
       <label for="signupEmail">Adresse e-mail</label>
+
       <input
         type="email"
         id="signupEmail"
@@ -198,6 +203,7 @@ input{
       >
 
       <label for="signupPassword">Mot de passe</label>
+
       <input
         type="password"
         id="signupPassword"
@@ -220,6 +226,7 @@ input{
 
 </div>
 
+
 <script>
 
 const SUPABASE_URL =
@@ -233,6 +240,7 @@ const supabaseClient =
     SUPABASE_URL,
     SUPABASE_PUBLISHABLE_KEY
   );
+
 
 const loginTab =
   document.getElementById("loginTab");
@@ -249,48 +257,181 @@ const signupForm =
 const message =
   document.getElementById("message");
 
+
 function showMessage(text, type){
 
   message.textContent = text;
 
   message.className =
     "message " + type;
+
 }
+
+
+/* =========================
+   CHANGEMENT DE FORMULAIRE
+========================= */
 
 loginTab.addEventListener("click", () => {
 
   loginTab.classList.add("active");
+
   signupTab.classList.remove("active");
 
   loginForm.classList.add("active");
+
   signupForm.classList.remove("active");
 
   message.className = "message";
+
 });
+
 
 signupTab.addEventListener("click", () => {
 
   signupTab.classList.add("active");
+
   loginTab.classList.remove("active");
 
   signupForm.classList.add("active");
+
   loginForm.classList.remove("active");
 
   message.className = "message";
+
 });
 
 
-/* CONNEXION */
+/* =========================
+   CREATION DU PROFIL
+========================= */
+
+async function createPlayerProfile(user){
+
+  if(!user){
+    return;
+  }
+
+  const { data: existingPlayer, error: searchError } =
+    await supabaseClient
+      .from("players")
+      .select("id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+  if(searchError){
+
+    console.error(
+      "Erreur recherche profil :",
+      searchError
+    );
+
+    return;
+  }
+
+
+  if(existingPlayer){
+
+    return;
+  }
+
+
+  const username =
+    user.user_metadata?.username ||
+    user.email?.split("@")[0] ||
+    "Joueur";
+
+
+  const { error: insertError } =
+    await supabaseClient
+      .from("players")
+      .insert({
+
+        user_id: user.id,
+
+        username: username,
+
+        coins: 500,
+
+        xp: 0,
+
+        level: 1,
+
+        cards: [],
+
+        boosters: 0,
+
+        achievements: []
+
+      });
+
+
+  if(insertError){
+
+    console.error(
+      "Erreur création profil :",
+      insertError
+    );
+
+    showMessage(
+      "Le compte est connecté, mais le profil n'a pas pu être créé.",
+      "error"
+    );
+
+    return;
+  }
+
+}
+
+
+/* =========================
+   VERIFICATION SESSION
+========================= */
+
+async function checkSession(){
+
+  const {
+    data: {
+      session
+    }
+  } = await supabaseClient.auth.getSession();
+
+
+  if(session && session.user){
+
+    await createPlayerProfile(
+      session.user
+    );
+
+  }
+
+}
+
+
+checkSession();
+
+
+/* =========================
+   CONNEXION
+========================= */
 
 document
   .getElementById("loginButton")
   .addEventListener("click", async () => {
 
+
     const email =
-      document.getElementById("loginEmail").value.trim();
+      document
+        .getElementById("loginEmail")
+        .value
+        .trim();
+
 
     const password =
-      document.getElementById("loginPassword").value;
+      document
+        .getElementById("loginPassword")
+        .value;
+
 
     if(!email || !password){
 
@@ -302,11 +443,19 @@ document
       return;
     }
 
-    const { error } =
+
+    const {
+      data,
+      error
+    } =
       await supabaseClient.auth.signInWithPassword({
+
         email: email,
+
         password: password
+
       });
+
 
     if(error){
 
@@ -318,23 +467,36 @@ document
       return;
     }
 
+
+    await createPlayerProfile(
+      data.user
+    );
+
+
     showMessage(
       "Connexion réussie ! Redirection...",
       "success"
     );
 
+
     setTimeout(() => {
-      window.location.href = "profil.html";
+
+      window.location.href =
+        "profil.html";
+
     }, 1000);
 
 });
 
 
-/* INSCRIPTION */
+/* =========================
+   INSCRIPTION
+========================= */
 
 document
   .getElementById("signupButton")
   .addEventListener("click", async () => {
+
 
     const username =
       document
@@ -342,16 +504,19 @@ document
         .value
         .trim();
 
+
     const email =
       document
         .getElementById("signupEmail")
         .value
         .trim();
 
+
     const password =
       document
         .getElementById("signupPassword")
         .value;
+
 
     if(!username || !email || !password){
 
@@ -363,6 +528,7 @@ document
       return;
     }
 
+
     if(password.length < 6){
 
       showMessage(
@@ -373,7 +539,11 @@ document
       return;
     }
 
-    const { data, error } =
+
+    const {
+      data,
+      error
+    } =
       await supabaseClient.auth.signUp({
 
         email: email,
@@ -381,12 +551,20 @@ document
         password: password,
 
         options: {
+
+          emailRedirectTo:
+            "https://59f8bmjg5t-glitch.github.io/pixel-cards/connexion.html",
+
           data: {
+
             username: username
+
           }
+
         }
 
       });
+
 
     if(error){
 
@@ -398,6 +576,7 @@ document
       return;
     }
 
+
     if(!data.user){
 
       showMessage(
@@ -408,39 +587,37 @@ document
       return;
     }
 
-    const { error: profileError } =
-      await supabaseClient
-        .from("players")
-        .insert({
 
-          user_id: data.user.id,
+    /*
+      Avec la confirmation e-mail activée,
+      le joueur doit confirmer son adresse
+      avant d'être connecté.
 
-          username: username,
+      Le profil sera créé automatiquement
+      lorsqu'il reviendra sur cette page.
+    */
 
-          coins: 500,
 
-          xp: 0,
-
-          level: 1,
-
-          cards: [],
-
-          boosters: 0,
-
-          achievements: []
-
-        });
-
-    if(profileError){
+    if(!data.session){
 
       showMessage(
-        "Compte créé, mais le profil n'a pas pu être créé : "
-        + profileError.message,
-        "error"
+        "Compte créé ! Vérifie ton e-mail pour confirmer ton compte.",
+        "success"
       );
 
       return;
     }
+
+
+    /*
+      Si la confirmation e-mail n'est pas
+      nécessaire, le profil est créé immédiatement.
+    */
+
+    await createPlayerProfile(
+      data.user
+    );
+
 
     showMessage(
       "Compte créé avec succès !",
