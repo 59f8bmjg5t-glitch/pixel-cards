@@ -300,19 +300,34 @@ function playMachine(){
 
       clearInterval(animation);
 
-      const a = randomSymbol();
-      const b = randomSymbol();
-      const c = randomSymbol();
+    let reward = 0;
 
-      slot1.textContent = a.icon;
-      slot2.textContent = b.icon;
-      slot3.textContent = c.icon;
+if(Math.random() < 0.10){
 
-      let reward = 0;
+  const winningSymbol = randomSymbol();
 
-      if(a.icon === b.icon && b.icon === c.icon){
-        reward = a.reward;
-      }
+  slot1.textContent = winningSymbol.icon;
+  slot2.textContent = winningSymbol.icon;
+  slot3.textContent = winningSymbol.icon;
+
+  reward = winningSymbol.reward;
+
+}else{
+
+  let a = randomSymbol();
+  let b = randomSymbol();
+  let c = randomSymbol();
+
+  while(a.icon === b.icon && b.icon === c.icon){
+    a = randomSymbol();
+    b = randomSymbol();
+    c = randomSymbol();
+  }
+
+  slot1.textContent = a.icon;
+  slot2.textContent = b.icon;
+  slot3.textContent = c.icon;
+}
 
       if(reward > 0){
 
