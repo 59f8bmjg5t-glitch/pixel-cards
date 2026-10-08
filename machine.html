@@ -223,7 +223,7 @@ footer{
 <script>
 
 const COINS_KEY = "pixelCoins";
-
+const MACHINE_STREAK_KEY = "pixelMachineStreak";
 const symbols = [
   {
     icon:"🍒",
@@ -299,10 +299,13 @@ function playMachine(){
     if(counter >= 15){
 
       clearInterval(animation);
-
+let streak = Number(localStorage.getItem(MACHINE_STREAK_KEY)) || 0;
+streak++;
+      localStorage.setItem(MACHINE_STREAK_KEY, streak);
     let reward = 0;
-
-if(Math.random() < 0.10){
+streak = 0;
+localStorage.setItem(MACHINE_STREAK_KEY, streak);
+if(Math.random() < 0.10 || streak >= 10){
 
   const winningSymbol = randomSymbol();
 
