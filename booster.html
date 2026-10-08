@@ -673,6 +673,13 @@ function addXP(amount){
       currentCoins - BOOSTER_PRICE
     );
 addXP(10);
+    const boostersOpened =
+  Number(localStorage.getItem("pixelBoostersOpened")) || 0;
+
+localStorage.setItem(
+  "pixelBoostersOpened",
+  boostersOpened + 1
+);
     result.classList.remove("show");
 
     rewardElement.textContent = "";
