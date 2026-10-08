@@ -614,6 +614,7 @@ footer{
 
     <div>
       <strong id="homeLevel">Niveau 1</strong>
+      <span id="homeCoins">🪙 0 Pixel Coins</span>
       <span id="homeXP">0 / 100 XP</span>
     </div>
 
@@ -641,7 +642,10 @@ while(remainingXP >= xpMax){
 
 document.getElementById("homeLevel").textContent =
   "Niveau " + level;
+const coins = Number(localStorage.getItem("pixelCoins")) || 0;
 
+document.getElementById("homeCoins").textContent =
+  "🪙 " + coins + " Pixel Coins";
 document.getElementById("homeXP").textContent =
   remainingXP + " / " + xpMax + " XP";
 
