@@ -131,6 +131,86 @@ main{
   color:#b9c0e8;
 }
 
+.rewards{
+  margin-top:30px;
+  padding:25px;
+  background:linear-gradient(145deg,#18213d,#0d1327);
+  border:1px solid rgba(97,230,245,.25);
+  border-radius:22px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.rewards h2{
+  margin:0 0 10px;
+  font-size:26px;
+}
+
+.rewards-subtitle{
+  color:#aeb8cc;
+  margin-bottom:20px;
+}
+
+.rewards-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.reward{
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  text-align:left;
+  transition:.2s;
+}
+
+.reward:hover{
+  transform:translateY(-2px);
+}
+
+.reward-icon{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.reward strong{
+  display:block;
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.reward span{
+  display:block;
+  color:#aeb8cc;
+  font-size:14px;
+}
+
+.reward-status{
+  display:block;
+  margin-top:12px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.reward.unlocked{
+  border:1px solid rgba(97,230,245,.45);
+  background:rgba(97,230,245,.08);
+}
+
+.reward.unlocked .reward-status{
+  color:#61e6f5;
+}
+
+.reward.locked{
+  opacity:.4;
+  filter:grayscale(1);
+}
+
+.reward.locked .reward-status{
+  color:#8b93aa;
+}
+
 .achievements{
   margin-top:30px;
   padding:25px;
@@ -209,10 +289,8 @@ footer{
 
 @media(max-width:600px){
 
-  .stats{
-    grid-template-columns:1fr;
-  }
-
+  .stats,
+  .rewards-grid,
   .achievements-grid{
     grid-template-columns:1fr;
   }
@@ -281,6 +359,68 @@ footer{
 
   </div>
 
+
+  <!-- RÉCOMPENSES DE NIVEAU -->
+
+  <section class="rewards">
+
+    <h2>🎁 Récompenses de niveau</h2>
+
+    <div class="rewards-subtitle">
+      Monte de niveau pour débloquer des récompenses !
+    </div>
+
+    <div class="rewards-grid">
+
+      <div class="reward unlocked" id="reward-level-1">
+        <div class="reward-icon">🎮</div>
+        <strong>Niveau 1</strong>
+        <span>Bienvenue dans Pixel Cards</span>
+        <small class="reward-status">🔓 Débloqué</small>
+      </div>
+
+      <div class="reward locked" id="reward-level-2">
+        <div class="reward-icon">🪙</div>
+        <strong>Niveau 2</strong>
+        <span>+100 Pixel Coins</span>
+        <small class="reward-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="reward locked" id="reward-level-3">
+        <div class="reward-icon">🪙</div>
+        <strong>Niveau 3</strong>
+        <span>+150 Pixel Coins</span>
+        <small class="reward-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="reward locked" id="reward-level-5">
+        <div class="reward-icon">🎁</div>
+        <strong>Niveau 5</strong>
+        <span>+1 Booster gratuit</span>
+        <small class="reward-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="reward locked" id="reward-level-10">
+        <div class="reward-icon">💎</div>
+        <strong>Niveau 10</strong>
+        <span>+500 Pixel Coins</span>
+        <small class="reward-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="reward locked" id="reward-level-20">
+        <div class="reward-icon">👑</div>
+        <strong>Niveau 20</strong>
+        <span>Récompense légendaire</span>
+        <small class="reward-status">🔒 Verrouillé</small>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- SUCCÈS -->
+
   <section class="achievements">
 
     <h2>🏆 Succès</h2>
@@ -344,6 +484,34 @@ footer{
 const COINS_KEY = "pixelCoins";
 const CARDS_KEY = "pixelCardsUnlocked";
 const BEST_TIME_KEY = "pixelRapiditeBest";
+const XP_KEY = "pixelXP";
+const REWARDS_KEY = "pixelLevelRewards";
+
+const LEVEL_REWARDS = {
+
+  2: {
+    coins:100
+  },
+
+  3: {
+    coins:150
+  },
+
+  5: {
+    coins:0,
+    booster:1
+  },
+
+  10: {
+    coins:500
+  },
+
+  20: {
+    coins:1000
+  }
+
+};
+
 
 function getCoins(){
 
@@ -352,6 +520,17 @@ function getCoins(){
   ) || 0;
 
 }
+
+
+function setCoins(amount){
+
+  localStorage.setItem(
+    COINS_KEY,
+    Math.max(0, amount)
+  );
+
+}
+
 
 function getCards(){
 
@@ -374,11 +553,12 @@ function getCards(){
 
 }
 
+
 function getLevelData(){
 
   const xp =
     Number(
-      localStorage.getItem("pixelXP")
+      localStorage.getItem(XP_KEY)
     ) || 0;
 
   let level = 1;
@@ -401,43 +581,218 @@ function getLevelData(){
 
 }
 
+
+/*
+  Donne les récompenses correspondant
+  aux niveaux déjà atteints.
+*/
+
+function giveLevelRewards(level){
+
+  let rewardsGiven = [];
+
+  try{
+
+    rewardsGiven =
+      JSON.parse(
+        localStorage.getItem(REWARDS_KEY) || "[]"
+      );
+
+  }catch(e){
+
+    rewardsGiven = [];
+
+  }
+
+  if(!Array.isArray(rewardsGiven)){
+    rewardsGiven = [];
+  }
+
+
+  Object.keys(LEVEL_REWARDS).forEach(levelKey => {
+
+    const rewardLevel =
+      Number(levelKey);
+
+    if(level < rewardLevel){
+      return;
+    }
+
+    if(rewardsGiven.includes(rewardLevel)){
+      return;
+    }
+
+
+    const reward =
+      LEVEL_REWARDS[rewardLevel];
+
+
+    if(reward.coins > 0){
+
+      setCoins(
+        getCoins() + reward.coins
+      );
+
+    }
+
+
+    if(reward.booster){
+
+      const currentBoosters =
+        Number(
+          localStorage.getItem(
+            "pixelBoostersOpened"
+          )
+        ) || 0;
+
+      /*
+        On utilise ici un compteur de boosters
+        bonus disponibles séparément.
+      */
+
+      const bonusBoosters =
+        Number(
+          localStorage.getItem(
+            "pixelBonusBoosters"
+          )
+        ) || 0;
+
+      localStorage.setItem(
+        "pixelBonusBoosters",
+        bonusBoosters + reward.booster
+      );
+
+    }
+
+
+    rewardsGiven.push(rewardLevel);
+
+  });
+
+
+  localStorage.setItem(
+    REWARDS_KEY,
+    JSON.stringify(rewardsGiven)
+  );
+
+}
+
+
+function updateRewardDisplay(level){
+
+  const rewardLevels = [
+    1,
+    2,
+    3,
+    5,
+    10,
+    20
+  ];
+
+
+  rewardLevels.forEach(rewardLevel => {
+
+    const element =
+      document.getElementById(
+        "reward-level-" + rewardLevel
+      );
+
+    if(!element){
+      return;
+    }
+
+
+    const status =
+      element.querySelector(
+        ".reward-status"
+      );
+
+
+    if(level >= rewardLevel){
+
+      element.classList.remove("locked");
+      element.classList.add("unlocked");
+
+      if(status){
+
+        status.textContent =
+          "🔓 Débloqué";
+
+      }
+
+    }else{
+
+      element.classList.remove("unlocked");
+      element.classList.add("locked");
+
+      if(status){
+
+        status.textContent =
+          "🔒 Verrouillé";
+
+      }
+
+    }
+
+  });
+
+}
+
+
 function updateProfile(){
 
   const data =
     getLevelData();
 
+
   document.getElementById("level").textContent =
     "Niveau " + data.level;
+
 
   document.getElementById("xp").textContent =
     data.xp;
 
+
   document.getElementById("xpMax").textContent =
     data.xpMax;
+
 
   document.getElementById("xpProgress").style.width =
     ((data.xp / data.xpMax) * 100) + "%";
 
+
   document.getElementById("coins").textContent =
     getCoins();
+
 
   document.getElementById("cards").textContent =
     getCards().length;
 
+
   const bestTime =
     localStorage.getItem(BEST_TIME_KEY);
+
 
   document.getElementById("bestTime").textContent =
     bestTime
       ? bestTime + " ms"
       : "—";
 
+
   document.getElementById("boosters").textContent =
     Number(
-      localStorage.getItem("pixelBoostersOpened")
+      localStorage.getItem(
+        "pixelBoostersOpened"
+      )
     ) || 0;
 
+
+  updateRewardDisplay(
+    data.level
+  );
+
 }
+
 
 function unlockAchievement(id){
 
@@ -447,11 +802,17 @@ function unlockAchievement(id){
   if(!element)
     return;
 
+
   element.classList.remove("locked");
+
   element.classList.add("unlocked");
 
+
   const status =
-    element.querySelector(".achievement-status");
+    element.querySelector(
+      ".achievement-status"
+    );
+
 
   if(status){
 
@@ -462,22 +823,31 @@ function unlockAchievement(id){
 
 }
 
+
 function checkAchievements(){
 
   const boosters =
     Number(
-      localStorage.getItem("pixelBoostersOpened")
+      localStorage.getItem(
+        "pixelBoostersOpened"
+      )
     ) || 0;
+
 
   const coins =
     Number(
-      localStorage.getItem("pixelCoins")
+      localStorage.getItem(
+        COINS_KEY
+      )
     ) || 0;
+
 
   const cards =
     getCards();
 
+
   // 🎁 Premier booster
+
   if(boosters >= 1){
 
     unlockAchievement(
@@ -486,7 +856,9 @@ function checkAchievements(){
 
   }
 
+
   // 🃏 Première carte
+
   if(cards.length >= 1){
 
     unlockAchievement(
@@ -495,7 +867,9 @@ function checkAchievements(){
 
   }
 
+
   // 💎 5 cartes
+
   if(cards.length >= 5){
 
     unlockAchievement(
@@ -504,7 +878,9 @@ function checkAchievements(){
 
   }
 
+
   // 👑 Carte Légendaire
+
   if(
     cards.includes("8") ||
     cards.includes("9")
@@ -516,7 +892,9 @@ function checkAchievements(){
 
   }
 
+
   // 🌌 Carte Secrète
+
   if(cards.includes("10")){
 
     unlockAchievement(
@@ -525,7 +903,9 @@ function checkAchievements(){
 
   }
 
+
   // 🪙 1 000 Pixel Coins
+
   if(coins >= 1000){
 
     unlockAchievement(
@@ -535,6 +915,19 @@ function checkAchievements(){
   }
 
 }
+
+
+/*
+  Vérifie et distribue les récompenses
+  des niveaux déjà atteints.
+*/
+
+const levelData =
+  getLevelData();
+
+giveLevelRewards(
+  levelData.level
+);
 
 updateProfile();
 checkAchievements();
