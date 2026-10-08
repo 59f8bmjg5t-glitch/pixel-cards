@@ -223,6 +223,12 @@ footer{
 <script>
 
 const COINS_KEY = "pixelCoins";
+  const XP_KEY = "pixelXP";
+
+function addXP(amount){
+  const currentXP = Number(localStorage.getItem(XP_KEY)) || 0;
+  localStorage.setItem(XP_KEY, currentXP + amount);
+}
 const MACHINE_STREAK_KEY = "pixelMachineStreak";
 const symbols = [
   {
@@ -303,6 +309,7 @@ let streak = Number(localStorage.getItem(MACHINE_STREAK_KEY)) || 0;
 streak++;
       localStorage.setItem(MACHINE_STREAK_KEY, streak);
     let reward = 0;
+      addXP(2);
 streak = 0;
 localStorage.setItem(MACHINE_STREAK_KEY, streak);
 if(Math.random() < 0.10 || streak >= 10){
