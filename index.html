@@ -530,6 +530,47 @@ footer{
 
   </div>
 </section>
+  <section class="home-profile">
+  <h2>👤 Ta progression</h2>
+
+  <div class="profile-preview">
+
+    <div>
+      <strong id="homeLevel">Niveau 1</strong>
+      <span id="homeXP">0 / 100 XP</span>
+    </div>
+
+    <div class="home-xp-bar">
+      <div id="homeXPProgress"></div>
+    </div>
+
+    <a href="profil.html">Voir mon profil →</a>
+
+  </div>
+</section>
+
+<script>
+const xp = Number(localStorage.getItem("pixelXP")) || 0;
+
+let level = 1;
+let remainingXP = xp;
+let xpMax = 100;
+
+while(remainingXP >= xpMax){
+  remainingXP -= xpMax;
+  level++;
+  xpMax = level * 100;
+}
+
+document.getElementById("homeLevel").textContent =
+  "Niveau " + level;
+
+document.getElementById("homeXP").textContent =
+  remainingXP + " / " + xpMax + " XP";
+
+document.getElementById("homeXPProgress").style.width =
+  ((remainingXP / xpMax) * 100) + "%";
+</script>
 </main>
 
 <footer>
