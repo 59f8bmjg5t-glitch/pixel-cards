@@ -372,19 +372,19 @@ button.addEventListener("click", () => {
     gameStarted = false;
     ready = false;
 
-    let reward = 0;
+  let reward = 0;
 
-    if(reactionTime < 200){
-      reward = 100;
-    }else if(reactionTime < 300){
-      reward = 75;
-    }else if(reactionTime < 400){
-      reward = 50;
-    }else if(reactionTime < 600){
-      reward = 25;
-    }else{
-      reward = 10;
-    }
+if(reactionTime < 200){
+  reward = 5;
+}else if(reactionTime < 300){
+  reward = 4;
+}else if(reactionTime < 400){
+  reward = 3;
+}else if(reactionTime < 600){
+  reward = 2;
+}else{
+  reward = 1;
+}
 
     setCoins(getCoins() + reward);
 
