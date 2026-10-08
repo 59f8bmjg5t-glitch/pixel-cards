@@ -142,6 +142,60 @@ footer{
     grid-template-columns:1fr;
   }
 }
+  .achievements{
+  margin-top:30px;
+  padding:25px;
+  background:linear-gradient(145deg,#18213d,#0d1327);
+  border:1px solid rgba(97,230,245,.25);
+  border-radius:22px;
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+}
+
+.achievements h2{
+  margin:0 0 20px;
+  font-size:26px;
+}
+
+.achievements-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.achievement{
+  padding:18px;
+  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.1);
+  text-align:left;
+}
+
+.achievement-icon{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.achievement strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:6px;
+}
+
+.achievement span{
+  color:#aeb8cc;
+  font-size:14px;
+}
+
+.achievement.locked{
+  opacity:.4;
+  filter:grayscale(1);
+}
+
+@media(max-width:600px){
+  .achievements-grid{
+    grid-template-columns:1fr;
+  }
+}
 </style>
 </head>
 
@@ -204,7 +258,49 @@ footer{
     </div>
 
   </div>
+<section class="achievements">
+  <h2>🏆 Succès</h2>
 
+  <div class="achievements-grid">
+
+    <div class="achievement" id="achievement-booster">
+      <div class="achievement-icon">🎁</div>
+      <strong>Premier booster</strong>
+      <span>Ouvre ton premier booster</span>
+    </div>
+
+    <div class="achievement" id="achievement-card">
+      <div class="achievement-icon">🃏</div>
+      <strong>Première carte</strong>
+      <span>Obtiens ta première carte</span>
+    </div>
+
+    <div class="achievement locked" id="achievement-rare">
+      <div class="achievement-icon">💎</div>
+      <strong>Collectionneur</strong>
+      <span>Obtiens 5 cartes</span>
+    </div>
+
+    <div class="achievement locked" id="achievement-legendary">
+      <div class="achievement-icon">👑</div>
+      <strong>Légendaire</strong>
+      <span>Obtiens une carte Légendaire</span>
+    </div>
+
+    <div class="achievement locked" id="achievement-secret">
+      <div class="achievement-icon">🌌</div>
+      <strong>Secret de Winter Pixels</strong>
+      <span>Obtiens la carte Secrète</span>
+    </div>
+
+    <div class="achievement locked" id="achievement-coins">
+      <div class="achievement-icon">🪙</div>
+      <strong>Petit trésor</strong>
+      <span>Possède 1 000 Pixel Coins</span>
+    </div>
+
+  </div>
+</section>
 </main>
 
 <footer>
