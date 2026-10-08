@@ -281,6 +281,12 @@
 <script>
 
 const COINS_KEY = "pixelCoins";
+  const XP_KEY = "pixelXP";
+
+function addXP(amount){
+  const currentXP = Number(localStorage.getItem(XP_KEY)) || 0;
+  localStorage.setItem(XP_KEY, currentXP + amount);
+}
 const BEST_TIME_KEY = "pixelRapiditeBest";
 
 const button = document.getElementById("gameButton");
@@ -385,7 +391,7 @@ if(reactionTime < 200){
 }else{
   reward = 1;
 }
-
+addXP(5);
     setCoins(getCoins() + reward);
 
     const best = Number(localStorage.getItem(BEST_TIME_KEY) || 999999);
