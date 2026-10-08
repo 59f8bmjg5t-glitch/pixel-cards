@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pixel Cards — Défi de rapidité</title>
+
+  <style>
+    :root{
+      --bg:#0b0f1d;
+      --text:#f5f7ff;
+      --muted:#aeb8cc;
+      --accent:#61e6f5;
+      --line:rgba(255,255,255,.12);
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 5%,rgba(64,105,180,.16),transparent 28%),
+        radial-gradient(circle at 90% 30%,rgba(80,70,170,.10),transparent 32%),
+        var(--bg);
+      min-height:100vh;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    header{
+      background:rgba(8,11,19,.96);
+      border-bottom:1px solid var(--line);
+    }
+
+    .nav{
+      min-height:76px;
+      width:min(1180px,92%);
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+
+    .logo{
+      font-size:25px;
+      font-weight:950;
+    }
+
+    .logo span{
+      color:var(--accent);
+    }
+
+    nav{
+      display:flex;
+      gap:25px;
+      color:var(--muted);
+      font-size:15px;
+      font-weight:700;
+    }
+
+    nav a:hover{
+      color:#fff;
+    }
+
+    .container{
+      width:min(800px,92%);
+      margin:auto;
+    }
+
+    main{
+      padding:70px 0;
+    }
+
+    .game{
+      padding:45px 30px;
+      text-align:center;
+      border:1px solid var(--line);
+      border-radius:30px;
+      background:
+        linear-gradient(145deg,rgba(21,35,59,.95),rgba(10,17,31,.98));
+      box-shadow:0 20px 70px rgba(0,0,0,.25);
+    }
+
+    .icon{
+      font-size:70px;
+      margin-bottom:15px;
+    }
+
+    h1{
+      margin:0 0 15px;
+      font-size:clamp(40px,8vw,65px);
+    }
+
+    .description{
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.6;
+    }
+
+    .stats{
+      display:flex;
+      justify-content:center;
+      gap:15px;
+      flex-wrap:wrap;
+      margin:30px 0;
+    }
+
+    .stat{
+      padding:15px 25px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.035);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:25px;
+    }
+
+    .stat span{
+      color:var(--muted);
+      font-size:13px;
+    }
+
+    #gameButton{
+      width:220px;
+      height:220px;
+      margin:25px auto;
+      border:0;
+      border-radius:50%;
+      background:var(--accent);
+      color:#06121a;
+      font-size:25px;
+      font-weight:950;
+      cursor:pointer;
+      transition:transform .15s ease;
+    }
+
+    #gameButton:hover{
+      transform:scale(1.04);
+    }
+
+    #gameButton.waiting{
+      background:#f0b429;
+    }
+
+    #gameButton.ready{
+      background:#42e695;
+      transform:scale(1.06);
+    }
+
+    #gameButton.disabled{
+      background:#303b52;
+      color:var(--muted);
+      cursor:default;
+      transform:none;
+    }
+
+    #message{
+      min-height:30px;
+      margin-top:20px;
+      font-size:20px;
+      font-weight:900;
+    }
+
+    #result{
+      color:var(--accent);
+      font-size:28px;
+      font-weight:950;
+      margin-top:10px;
+    }
+
+    .back{
+      display:inline-block;
+      margin-top:30px;
+      padding:13px 20px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      color:var(--muted);
+    }
+
+    .back:hover{
+      color:#fff;
+    }
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:30px;
+      color:var(--muted);
+      text-align:center;
+      font-size:14px;
+    }
+
+    @media(max-width:800px){
+      nav{
+        display:none;
+      }
+
+      #gameButton{
+        width:180px;
+        height:180px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="index.html">
+      PIXEL <span>CARDS</span>
+    </a>
+
+    <nav>
+      <a href="index.html">Accueil</a>
+      <a href="saison.html">Saison 1</a>
+      <a href="booster.html">🎁 Booster</a>
+      <a href="collection.html">Collection</a>
+      <a href="economie.html">🪙 Économie</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+
+    <div class="game">
+
+      <div class="icon">🎯</div>
+
+      <h1>Défi de rapidité</h1>
+
+      <p class="description">
+        Attends que le bouton devienne vert puis clique dessus
+        le plus rapidement possible !
+      </p>
+
+      <div class="stats">
+        <div class="stat">
+          <strong id="bestTime">—</strong>
+          <span>meilleur temps</span>
+        </div>
+
+        <div class="stat">
+          <strong id="coins">0</strong>
+          <span>Pixel Coins</span>
+        </div>
+      </div>
+
+      <button id="gameButton">
+        COMMENCER
+      </button>
+
+      <div id="message">
+        Clique sur COMMENCER pour jouer.
+      </div>
+
+      <div id="result"></div>
+
+      <a class="back" href="index.html">
+        ← Retour à l'accueil
+      </a>
+
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
+</footer>
+
+<script>
+
+const COINS_KEY = "pixelCoins";
+const BEST_TIME_KEY = "pixelRapiditeBest";
+
+const button = document.getElementById("gameButton");
+const message = document.getElementById("message");
+const result = document.getElementById("result");
+const coinsDisplay = document.getElementById("coins");
+const bestTimeDisplay = document.getElementById("bestTime");
+
+let startTime = 0;
+let timeout = null;
+let gameStarted = false;
+let ready = false;
+
+function getCoins(){
+  return Number(localStorage.getItem(COINS_KEY) || 0);
+}
+
+function setCoins(value){
+  localStorage.setItem(COINS_KEY, String(value));
+}
+
+function updateCoins(){
+  coinsDisplay.textContent = getCoins();
+}
+
+function updateBestTime(){
+  const best = localStorage.getItem(BEST_TIME_KEY);
+
+  if(best){
+    bestTimeDisplay.textContent = best + " ms";
+  }else{
+    bestTimeDisplay.textContent = "—";
+  }
+}
+
+button.addEventListener("click", () => {
+
+  if(!gameStarted){
+
+    gameStarted = true;
+    ready = false;
+
+    button.className = "waiting";
+    button.textContent = "ATTENDS...";
+    message.textContent = "Attention... ne clique pas encore !";
+    result.textContent = "";
+
+    const delay = Math.floor(Math.random() * 3000) + 2000;
+
+    timeout = setTimeout(() => {
+
+      ready = true;
+      startTime = performance.now();
+
+      button.className = "ready";
+      button.textContent = "CLIQUE !";
+      message.textContent = "MAINTENANT !";
+
+    }, delay);
+
+    return;
+  }
+
+  if(gameStarted && !ready){
+
+    clearTimeout(timeout);
+
+    gameStarted = false;
+
+    button.className = "disabled";
+    button.textContent = "TROP TÔT !";
+
+    message.textContent = "Tu as cliqué trop tôt 😅";
+    result.textContent = "0 Pixel Coin";
+
+    setTimeout(() => {
+      button.className = "";
+      button.textContent = "REJOUER";
+      message.textContent = "Essaie encore !";
+    }, 1500);
+
+    return;
+  }
+
+  if(ready){
+
+    const reactionTime = Math.round(performance.now() - startTime);
+
+    gameStarted = false;
+    ready = false;
+
+    let reward = 0;
+
+    if(reactionTime < 200){
+      reward = 100;
+    }else if(reactionTime < 300){
+      reward = 75;
+    }else if(reactionTime < 400){
+      reward = 50;
+    }else if(reactionTime < 600){
+      reward = 25;
+    }else{
+      reward = 10;
+    }
+
+    setCoins(getCoins() + reward);
+
+    const best = Number(localStorage.getItem(BEST_TIME_KEY) || 999999);
+
+    if(reactionTime < best){
+      localStorage.setItem(BEST_TIME_KEY, String(reactionTime));
+      message.textContent = "🏆 Nouveau record !";
+    }else{
+      message.textContent = "Bien joué !";
+    }
+
+    result.textContent =
+      reactionTime + " ms — +" + reward + " 🪙";
+
+    button.className = "";
+    button.textContent = "REJOUER";
+
+    updateCoins();
+    updateBestTime();
+  }
+
+});
+
+updateCoins();
+updateBestTime();
+
+</script>
+
+</body>
+</html>
