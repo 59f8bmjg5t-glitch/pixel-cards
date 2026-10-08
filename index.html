@@ -392,6 +392,73 @@ footer{
     grid-template-columns:1fr;
   }
 }
+  .home-profile{
+  max-width:800px;
+  margin:35px auto;
+  padding:25px;
+  border-radius:22px;
+  background:linear-gradient(145deg,#18213d,#0d1327);
+  border:1px solid rgba(97,230,245,.25);
+  box-shadow:0 15px 40px rgba(0,0,0,.25);
+  text-align:left;
+}
+
+.home-profile h2{
+  margin:0 0 20px;
+  text-align:center;
+  font-size:26px;
+}
+
+.profile-preview{
+  padding:20px;
+  border-radius:16px;
+  background:rgba(255,255,255,.05);
+}
+
+.profile-preview > div:first-child{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:12px;
+}
+
+.profile-preview strong{
+  font-size:20px;
+}
+
+.profile-preview span{
+  color:#aeb8cc;
+}
+
+.home-xp-bar{
+  width:100%;
+  height:16px;
+  background:#080b18;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.12);
+}
+
+#homeXPProgress{
+  height:100%;
+  width:0%;
+  background:#61e6f5;
+  border-radius:20px;
+  transition:width .4s ease;
+}
+
+.profile-preview a{
+  display:inline-block;
+  margin-top:18px;
+  color:#61e6f5;
+  font-weight:800;
+  text-decoration:none;
+}
+
+.profile-preview a:hover{
+  text-decoration:underline;
+}
 </style>
 </head>
 
