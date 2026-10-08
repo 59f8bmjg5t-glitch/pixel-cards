@@ -131,18 +131,7 @@ main{
   color:#b9c0e8;
 }
 
-footer{
-  padding:25px;
-  color:#9da5cc;
-  font-size:14px;
-}
-
-@media(max-width:600px){
-  .stats{
-    grid-template-columns:1fr;
-  }
-}
-  .achievements{
+.achievements{
   margin-top:30px;
   padding:25px;
   background:linear-gradient(145deg,#18213d,#0d1327);
@@ -182,8 +171,25 @@ footer{
 }
 
 .achievement span{
+  display:block;
   color:#aeb8cc;
   font-size:14px;
+}
+
+.achievement-status{
+  display:block;
+  margin-top:12px;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.achievement.unlocked{
+  border:1px solid rgba(97,230,245,.45);
+  background:rgba(97,230,245,.08);
+}
+
+.achievement.unlocked .achievement-status{
+  color:#61e6f5;
 }
 
 .achievement.locked{
@@ -191,10 +197,26 @@ footer{
   filter:grayscale(1);
 }
 
+.achievement.locked .achievement-status{
+  color:#8b93aa;
+}
+
+footer{
+  padding:25px;
+  color:#9da5cc;
+  font-size:14px;
+}
+
 @media(max-width:600px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
   .achievements-grid{
     grid-template-columns:1fr;
   }
+
 }
 </style>
 </head>
@@ -258,49 +280,59 @@ footer{
     </div>
 
   </div>
-<section class="achievements">
-  <h2>🏆 Succès</h2>
 
-  <div class="achievements-grid">
+  <section class="achievements">
 
-    <div class="achievement" id="achievement-booster">
-      <div class="achievement-icon">🎁</div>
-      <strong>Premier booster</strong>
-      <span>Ouvre ton premier booster</span>
+    <h2>🏆 Succès</h2>
+
+    <div class="achievements-grid">
+
+      <div class="achievement locked" id="achievement-booster">
+        <div class="achievement-icon">🎁</div>
+        <strong>Premier booster</strong>
+        <span>Ouvre ton premier booster</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="achievement locked" id="achievement-card">
+        <div class="achievement-icon">🃏</div>
+        <strong>Première carte</strong>
+        <span>Obtiens ta première carte</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="achievement locked" id="achievement-rare">
+        <div class="achievement-icon">💎</div>
+        <strong>Collectionneur</strong>
+        <span>Obtiens 5 cartes</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="achievement locked" id="achievement-legendary">
+        <div class="achievement-icon">👑</div>
+        <strong>Légendaire</strong>
+        <span>Obtiens une carte Légendaire</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="achievement locked" id="achievement-secret">
+        <div class="achievement-icon">🌌</div>
+        <strong>Secret de Winter Pixels</strong>
+        <span>Obtiens la carte Secrète</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
+      <div class="achievement locked" id="achievement-coins">
+        <div class="achievement-icon">🪙</div>
+        <strong>Petit trésor</strong>
+        <span>Possède 1 000 Pixel Coins</span>
+        <small class="achievement-status">🔒 Verrouillé</small>
+      </div>
+
     </div>
 
-    <div class="achievement" id="achievement-card">
-      <div class="achievement-icon">🃏</div>
-      <strong>Première carte</strong>
-      <span>Obtiens ta première carte</span>
-    </div>
+  </section>
 
-    <div class="achievement locked" id="achievement-rare">
-      <div class="achievement-icon">💎</div>
-      <strong>Collectionneur</strong>
-      <span>Obtiens 5 cartes</span>
-    </div>
-
-    <div class="achievement locked" id="achievement-legendary">
-      <div class="achievement-icon">👑</div>
-      <strong>Légendaire</strong>
-      <span>Obtiens une carte Légendaire</span>
-    </div>
-
-    <div class="achievement locked" id="achievement-secret">
-      <div class="achievement-icon">🌌</div>
-      <strong>Secret de Winter Pixels</strong>
-      <span>Obtiens la carte Secrète</span>
-    </div>
-
-    <div class="achievement locked" id="achievement-coins">
-      <div class="achievement-icon">🪙</div>
-      <strong>Petit trésor</strong>
-      <span>Possède 1 000 Pixel Coins</span>
-    </div>
-
-  </div>
-</section>
 </main>
 
 <footer>
@@ -314,38 +346,65 @@ const CARDS_KEY = "pixelCardsUnlocked";
 const BEST_TIME_KEY = "pixelRapiditeBest";
 
 function getCoins(){
-  return Number(localStorage.getItem(COINS_KEY)) || 0;
+
+  return Number(
+    localStorage.getItem(COINS_KEY)
+  ) || 0;
+
 }
 
 function getCards(){
-  const cards = JSON.parse(localStorage.getItem(CARDS_KEY) || "[]");
-  return cards.length;
+
+  try{
+
+    const cards =
+      JSON.parse(
+        localStorage.getItem(CARDS_KEY) || "[]"
+      );
+
+    return Array.isArray(cards)
+      ? cards.map(String)
+      : [];
+
+  }catch(e){
+
+    return [];
+
+  }
+
 }
 
 function getLevelData(){
 
-  const xp = Number(localStorage.getItem("pixelXP")) || 0;
+  const xp =
+    Number(
+      localStorage.getItem("pixelXP")
+    ) || 0;
 
   let level = 1;
   let remainingXP = xp;
   let xpMax = 100;
 
   while(remainingXP >= xpMax){
+
     remainingXP -= xpMax;
     level++;
     xpMax = level * 100;
+
   }
 
   return {
-    level: level,
-    xp: remainingXP,
-    xpMax: xpMax
+    level:level,
+    xp:remainingXP,
+    xpMax:xpMax
   };
+
 }
 
 function updateProfile(){
 
-  const data = getLevelData();
+  const data =
+    getLevelData();
 
   document.getElementById("level").textContent =
     "Niveau " + data.level;
@@ -363,69 +422,123 @@ function updateProfile(){
     getCoins();
 
   document.getElementById("cards").textContent =
-    getCards();
+    getCards().length;
 
   const bestTime =
     localStorage.getItem(BEST_TIME_KEY);
 
   document.getElementById("bestTime").textContent =
-    bestTime ? bestTime + " ms" : "—";
+    bestTime
+      ? bestTime + " ms"
+      : "—";
 
   document.getElementById("boosters").textContent =
-    Number(localStorage.getItem("pixelBoostersOpened")) || 0;
+    Number(
+      localStorage.getItem("pixelBoostersOpened")
+    ) || 0;
+
 }
 
-updateProfile();
+function unlockAchievement(id){
+
+  const element =
+    document.getElementById(id);
+
+  if(!element)
+    return;
+
+  element.classList.remove("locked");
+  element.classList.add("unlocked");
+
+  const status =
+    element.querySelector(".achievement-status");
+
+  if(status){
+
+    status.textContent =
+      "🔓 Débloqué";
+
+  }
+
+}
+
 function checkAchievements(){
 
   const boosters =
-    Number(localStorage.getItem("pixelBoostersOpened")) || 0;
+    Number(
+      localStorage.getItem("pixelBoostersOpened")
+    ) || 0;
 
   const coins =
-    Number(localStorage.getItem("pixelCoins")) || 0;
+    Number(
+      localStorage.getItem("pixelCoins")
+    ) || 0;
 
   const cards =
-    JSON.parse(localStorage.getItem("pixelCardsUnlocked") || "[]")
-      .map(String);
+    getCards();
 
   // 🎁 Premier booster
   if(boosters >= 1){
-    document.getElementById("achievement-booster")
-      .classList.remove("locked");
+
+    unlockAchievement(
+      "achievement-booster"
+    );
+
   }
 
   // 🃏 Première carte
   if(cards.length >= 1){
-    document.getElementById("achievement-card")
-      .classList.remove("locked");
+
+    unlockAchievement(
+      "achievement-card"
+    );
+
   }
 
   // 💎 5 cartes
   if(cards.length >= 5){
-    document.getElementById("achievement-rare")
-      .classList.remove("locked");
+
+    unlockAchievement(
+      "achievement-rare"
+    );
+
   }
 
   // 👑 Carte Légendaire
-  if(cards.includes("8") || cards.includes("9")){
-    document.getElementById("achievement-legendary")
-      .classList.remove("locked");
+  if(
+    cards.includes("8") ||
+    cards.includes("9")
+  ){
+
+    unlockAchievement(
+      "achievement-legendary"
+    );
+
   }
 
   // 🌌 Carte Secrète
   if(cards.includes("10")){
-    document.getElementById("achievement-secret")
-      .classList.remove("locked");
+
+    unlockAchievement(
+      "achievement-secret"
+    );
+
   }
 
   // 🪙 1 000 Pixel Coins
   if(coins >= 1000){
-    document.getElementById("achievement-coins")
-      .classList.remove("locked");
+
+    unlockAchievement(
+      "achievement-coins"
+    );
+
   }
+
 }
 
+updateProfile();
 checkAchievements();
+
 </script>
 
 </body>
