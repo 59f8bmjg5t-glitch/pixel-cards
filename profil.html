@@ -107,7 +107,18 @@ main{
   background:#6878ff;
   transition:width .4s ease;
 }
+.xp-percentage{
+  margin-top:10px;
+  font-size:14px;
+  font-weight:bold;
+  color:#61e6f5;
+}
 
+.xp-next{
+  margin-top:6px;
+  color:#aeb8cc;
+  font-size:14px;
+}
 .stats{
   display:grid;
   grid-template-columns:repeat(2,1fr);
@@ -328,6 +339,12 @@ footer{
     <div class="xp-text">
       <span id="xp">0</span> / <span id="xpMax">100</span> XP
     </div>
+    <div class="xp-percentage" id="xpPercentage">
+  0%
+</div>
+    <div class="xp-next" id="xpNext">
+  100 XP avant le niveau suivant
+</div>
 
     <div class="xp-bar">
       <div class="xp-progress" id="xpProgress"></div>
@@ -759,8 +776,20 @@ function updateProfile(){
 
   document.getElementById("xpProgress").style.width =
     ((data.xp / data.xpMax) * 100) + "%";
+const xpPercentage =
+  Math.floor(
+    (data.xp / data.xpMax) * 100
+  );
 
+document.getElementById("xpPercentage").textContent =
+  xpPercentage + "%";
+const xpRemaining =
+  data.xpMax - data.xp;
 
+document.getElementById("xpNext").textContent =
+  xpRemaining +
+  " XP avant le niveau " +
+  (data.level + 1);
   document.getElementById("coins").textContent =
     getCoins();
 
