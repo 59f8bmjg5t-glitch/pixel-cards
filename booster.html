@@ -408,6 +408,12 @@ footer{
 (function(){
 
   const COINS_KEY = "pixelCoins";
+  const XP_KEY = "pixelXP";
+
+function addXP(amount){
+  const currentXP = Number(localStorage.getItem(XP_KEY)) || 0;
+  localStorage.setItem(XP_KEY, currentXP + amount);
+}
   const STORAGE_KEY = "pixelCardsUnlocked";
   const BOOSTER_PRICE = 100;
 
@@ -666,7 +672,7 @@ footer{
     setCoins(
       currentCoins - BOOSTER_PRICE
     );
-
+addXP(10);
     result.classList.remove("show");
 
     rewardElement.textContent = "";
