@@ -963,5 +963,9 @@ checkAchievements();
 
 </script>
 
+<script>
+supabaseClient.auth.getUser().then(({data})=>{if(data.user)document.querySelector("header p").textContent="Bienvenue, "+(data.user.user_metadata?.username||data.user.email)+" !";});
+</script>
+  
 </body>
 </html>
