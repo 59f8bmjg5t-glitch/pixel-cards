@@ -964,7 +964,21 @@ checkAchievements();
 </script>
 
 <script>
-supabaseClient.auth.getUser().then(({data})=>{if(data.user)document.querySelector("header p").textContent="Bienvenue, "+(data.user.user_metadata?.username||data.user.email)+" !";});
+(async function () {
+  const { data, error } = await supabaseClient.auth.getSession();
+
+  if (error || !data.session) {
+    document.querySelector("header p").textContent =
+      "Connecte-toi pour afficher ton profil.";
+    return;
+  }
+
+  const user = data.session.user;
+  const pseudo = user.user_metadata?.username || user.email;
+
+  document.querySelector("header p").textContent =
+    "Bienvenue, " + pseudo + " !";
+})();
 </script>
   
 </body>
