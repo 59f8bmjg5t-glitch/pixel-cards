@@ -965,21 +965,31 @@ checkAchievements();
 
 <script>
 (async function () {
-  const { data, error } = await supabaseClient.auth.getSession();
+  const SUPABASE_URL =
+    "https://nqeuvndxdgkyhgtizlwb.supabase.co";
 
-  if (error || !data.session) {
-    document.querySelector("header p").textContent =
-      "Connecte-toi pour afficher ton profil.";
+  const SUPABASE_PUBLISHABLE_KEY =
+    "sb_publishable_eiWdeN_r0EmFL8nhCoMH_w_WA82q10Z";
+
+  const client = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+  const { data, error } = await client.auth.getUser();
+
+  const headerText = document.querySelector("header p");
+
+  if (error || !data.user) {
+    headerText.textContent = "Connecte-toi pour afficher ton profil.";
     return;
   }
 
-  const user = data.session.user;
+  const user = data.user;
   const pseudo = user.user_metadata?.username || user.email;
 
-  document.querySelector("header p").textContent =
-    "Bienvenue, " + pseudo + " !";
+  headerText.textContent = "Bienvenue, " + pseudo + " !";
 })();
 </script>
-  
 </body>
 </html>
