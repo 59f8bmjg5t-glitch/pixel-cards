@@ -160,6 +160,7 @@ footer{
   }
 }
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -220,153 +221,217 @@ footer{
   © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
 </footer>
 
+
 <script>
+const SUPABASE_URL = "https://nqeuvndxdgkyhgtizlwb.supabase.co";
+const SUPABASE_KEY = "sb_publishable_eiWdeN_r0EmFL8nhCoMH_w_WA82q10Z";
 
-const COINS_KEY = "pixelCoins";
-  const XP_KEY = "pixelXP";
+const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function addXP(amount){
-  const currentXP = Number(localStorage.getItem(XP_KEY)) || 0;
-  localStorage.setItem(XP_KEY, currentXP + amount);
-}
-const MACHINE_STREAK_KEY = "pixelMachineStreak";
+const STREAK_KEY = "pixelMachineStreak";
 const symbols = [
-  {
-    icon:"🍒",
-    reward:15
-  },
-  {
-    icon:"⭐",
-    reward:30
-  },
-  {
-    icon:"💎",
-    reward:60
-  },
-  {
-    icon:"👑",
-    reward:150
-  },
-  {
-    icon:"🌌",
-    reward:500
-  }
+  { icon: "🍒", reward: 15 },
+  { icon: "⭐", reward: 30 },
+  { icon: "💎", reward: 60 },
+  { icon: "👑", reward: 150 },
+  { icon: "🌌", reward: 500 }
 ];
 
-function getCoins(){
-  return Number(localStorage.getItem(COINS_KEY)) || 0;
+let user = null;
+let player = null;
+let busy = false;
+
+const coinsElement = document.getElementById("coins");
+const button = document.getElementById("playButton");
+const resultElement = document.getElementById("result");
+const slot1 = document.getElementById("slot1");
+const slot2 = document.getElementById("slot2");
+const slot3 = document.getElementById("slot3");
+
+function updateCoins() {
+  coinsElement.textContent = player
+    ? Number(player.coins).toLocaleString("fr-FR")
+    : "—";
 }
 
-function setCoins(value){
-  localStorage.setItem(COINS_KEY, value);
-}
-
-function updateCoins(){
-  document.getElementById("coins").textContent = getCoins();
-}
-
-function randomSymbol(){
+function randomSymbol() {
   return symbols[Math.floor(Math.random() * symbols.length)];
 }
 
-function playMachine(){
+function setBusy(value) {
+  busy = value;
+  button.disabled = value || !player;
+}
 
-  const button = document.getElementById("playButton");
-  const result = document.getElementById("result");
+async function loadPlayer() {
+  button.disabled = true;
 
-  let coins = getCoins();
+  const { data, error } = await client.auth.getUser();
 
-  if(coins < 10){
-    result.textContent = "❌ Tu n'as pas assez de Pixel Coins.";
+  if (error || !data.user) {
+    resultElement.textContent =
+      "Connecte-toi pour jouer et sauvegarder tes gains.";
+    coinsElement.textContent = "—";
     return;
   }
 
-  coins -= 10;
-  setCoins(coins);
+  user = data.user;
+
+  const { data: row, error: readError } = await client
+    .from("players")
+    .select("user_id, username, coins, xp")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  if (readError) {
+    console.error(readError);
+    resultElement.textContent =
+      "Impossible de charger ton compte. Réessaie.";
+    return;
+  }
+
+  if (!row) {
+    resultElement.textContent =
+      "Ton profil joueur est introuvable. Reconnecte-toi à Pixel Cards.";
+    return;
+  }
+
+  player = {
+    ...row,
+    coins: Number(row.coins ?? 500),
+    xp: Number(row.xp ?? 0)
+  };
+
+  localStorage.setItem("pixelCoins", String(player.coins));
+  localStorage.setItem("pixelXP", String(player.xp));
+
   updateCoins();
+  button.disabled = false;
+  resultElement.textContent = "Bonne chance ! 🍀";
+}
 
-  button.disabled = true;
-  result.textContent = "🎰 La machine tourne...";
+async function playMachine() {
+  if (busy || !player || !user) return;
 
-  const slot1 = document.getElementById("slot1");
-  const slot2 = document.getElementById("slot2");
-  const slot3 = document.getElementById("slot3");
+  if (player.coins < 10) {
+    resultElement.textContent =
+      "❌ Tu n'as pas assez de Pixel Coins.";
+    return;
+  }
 
+  setBusy(true);
+  resultElement.textContent = "🎰 La machine tourne...";
+
+  // Animation des rouleaux
   let counter = 0;
 
   const animation = setInterval(() => {
-
     slot1.textContent = randomSymbol().icon;
     slot2.textContent = randomSymbol().icon;
     slot3.textContent = randomSymbol().icon;
-
     counter++;
 
-    if(counter >= 15){
-
+    if (counter >= 15) {
       clearInterval(animation);
-let streak = Number(localStorage.getItem(MACHINE_STREAK_KEY)) || 0;
-streak++;
-      localStorage.setItem(MACHINE_STREAK_KEY, streak);
-    let reward = 0;
-      addXP(2);
-streak = 0;
-localStorage.setItem(MACHINE_STREAK_KEY, streak);
-if(Math.random() < 0.10 || streak >= 10){
-
-  const winningSymbol = randomSymbol();
-
-  slot1.textContent = winningSymbol.icon;
-  slot2.textContent = winningSymbol.icon;
-  slot3.textContent = winningSymbol.icon;
-
-  reward = winningSymbol.reward;
-
-}else{
-
-  let a = randomSymbol();
-  let b = randomSymbol();
-  let c = randomSymbol();
-
-  while(a.icon === b.icon && b.icon === c.icon){
-    a = randomSymbol();
-    b = randomSymbol();
-    c = randomSymbol();
-  }
-
-  slot1.textContent = a.icon;
-  slot2.textContent = b.icon;
-  slot3.textContent = c.icon;
+      finishGame();
+    }
+  }, 100);
 }
 
-      if(reward > 0){
+async function finishGame() {
+  try {
+    // Ne garantit une victoire qu'après 9 défaites consécutives.
+    // La série est conservée dans ce navigateur.
+    let streak = Number(localStorage.getItem(STREAK_KEY)) || 0;
+    const guaranteedWin = streak >= 9;
+    const wins = guaranteedWin || Math.random() < 0.10;
 
-        setCoins(getCoins() + reward);
-        updateCoins();
+    let reward = 0;
 
-        result.textContent =
-          "🎉 JACKPOT ! Tu gagnes +" +
-          reward +
-          " 🪙 !";
+    if (wins) {
+      const winningSymbol = randomSymbol();
+      slot1.textContent = winningSymbol.icon;
+      slot2.textContent = winningSymbol.icon;
+      slot3.textContent = winningSymbol.icon;
+      reward = winningSymbol.reward;
+      streak = 0;
+    } else {
+      let a = randomSymbol();
+      let b = randomSymbol();
+      let c = randomSymbol();
 
-      }else{
-
-        result.textContent =
-          "😅 Pas de combinaison cette fois...";
-
+      // Évite les trois symboles identiques en cas de défaite.
+      while (a.icon === b.icon && b.icon === c.icon) {
+        c = randomSymbol();
       }
 
-      button.disabled = false;
-
+      slot1.textContent = a.icon;
+      slot2.textContent = b.icon;
+      slot3.textContent = c.icon;
+      streak++;
     }
 
-  },100);
+    const newCoins = player.coins - 10 + reward;
+    const newXP = player.xp + 2;
 
+    // La condition sur le solde évite d'écraser un solde
+    // modifié depuis une autre page ou un autre appareil.
+    const { data: updated, error } = await client
+      .from("players")
+      .update({
+        coins: newCoins,
+        xp: newXP
+      })
+      .eq("user_id", user.id)
+      .eq("coins", player.coins)
+      .select("user_id, username, coins, xp")
+      .maybeSingle();
+
+    if (error) {
+      console.error(error);
+      throw new Error("Supabase n'a pas pu enregistrer la partie.");
+    }
+
+    if (!updated) {
+      await loadPlayer();
+      throw new Error(
+        "Ton solde a changé ailleurs. Il a été actualisé : relance une partie."
+      );
+    }
+
+    player = {
+      ...updated,
+      coins: Number(updated.coins),
+      xp: Number(updated.xp)
+    };
+
+    localStorage.setItem("pixelCoins", String(player.coins));
+    localStorage.setItem("pixelXP", String(player.xp));
+    localStorage.setItem(STREAK_KEY, String(streak));
+
+    updateCoins();
+
+    if (reward > 0) {
+      resultElement.textContent =
+        "🎉 JACKPOT ! +" + reward + " 🪙 et +2 XP !";
+    } else {
+      resultElement.textContent =
+        "😅 Pas de combinaison ! -10 🪙, mais +2 XP.";
+    }
+
+  } catch (error) {
+    console.error(error);
+    resultElement.textContent =
+      error.message || "Erreur de sauvegarde. Recharge la page avant de rejouer.";
+  } finally {
+    setBusy(false);
+  }
 }
 
-updateCoins();
-
+button.addEventListener("click", playMachine);
+loadPlayer();
 </script>
+
 
 </body>
 </html>
