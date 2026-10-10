@@ -1,154 +1,191 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Cards — CGU</title>
-  <meta name="description" content="Conditions Générales d'Utilisation de Pixel Cards.">
+  <meta name="description" content="Conditions générales d'utilisation du jeu de cartes à collectionner Pixel Cards.">
+  <meta name="theme-color" content="#0b0f1d">
+  <title>Pixel Cards — Conditions générales d'utilisation</title>
 
   <style>
-    :root{
-      --bg:#0b0f1d;
-      --panel:#101a2d;
-      --text:#f5f7ff;
-      --muted:#aeb8cc;
-      --accent:#61e6f5;
-      --line:rgba(255,255,255,.12);
+    :root {
+      --bg: #0b0f1d;
+      --panel: #101a2d;
+      --text: #f5f7ff;
+      --muted: #aeb8cc;
+      --accent: #61e6f5;
+      --line: rgba(255,255,255,.12);
     }
 
-    *{
-      box-sizing:border-box;
+    * {
+      box-sizing: border-box;
     }
 
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at 15% 5%,rgba(64,105,180,.16),transparent 28%),
-        radial-gradient(circle at 90% 30%,rgba(80,70,170,.10),transparent 32%),
+        radial-gradient(circle at 15% 5%, rgba(64,105,180,.16), transparent 28%),
+        radial-gradient(circle at 90% 30%, rgba(80,70,170,.10), transparent 32%),
         var(--bg);
-      line-height:1.7;
+      line-height: 1.7;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
+    a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(8,11,19,.96);
-      border-bottom:1px solid var(--line);
+    a:hover {
+      text-decoration: underline;
     }
 
-    .nav{
-      min-height:76px;
-      width:min(1180px,92%);
-      margin:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    header {
+      background: rgba(8,11,19,.96);
+      border-bottom: 1px solid var(--line);
     }
 
-    .logo{
-      font-size:25px;
-      font-weight:950;
-      letter-spacing:.5px;
+    .nav {
+      min-height: 76px;
+      width: min(1180px, 92%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .logo span{
-      color:var(--accent);
+    .logo {
+      font-size: 25px;
+      font-weight: 950;
+      letter-spacing: .5px;
+      color: var(--text);
+      white-space: nowrap;
     }
 
-    nav{
-      display:flex;
-      gap:25px;
-      color:var(--muted);
-      font-size:15px;
-      font-weight:700;
+    .logo span {
+      color: var(--accent);
     }
 
-    nav a:hover{
-      color:#fff;
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .container{
-      width:min(900px,92%);
-      margin:auto;
+    .main-nav a {
+      color: var(--muted);
     }
 
-    main{
-      padding:70px 0;
+    .main-nav a:hover {
+      color: #fff;
     }
 
-    .page-title{
-      text-align:center;
-      margin-bottom:50px;
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
     }
 
-    .page-title h1{
-      margin:0 0 12px;
-      font-size:clamp(42px,8vw,68px);
+    main {
+      padding: 60px 0;
     }
 
-    .page-title p{
-      margin:0;
-      color:var(--muted);
-      font-size:17px;
+    .page-title {
+      text-align: center;
+      margin-bottom: 42px;
     }
 
-    .content{
-      padding:35px;
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:
-        linear-gradient(145deg,rgba(21,35,59,.95),rgba(10,17,31,.98));
+    .page-title h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 7vw, 58px);
+      line-height: 1.15;
     }
 
-    h2{
-      margin:35px 0 12px;
-      color:var(--accent);
-      font-size:25px;
+    .page-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    h2:first-child{
-      margin-top:0;
+    .content {
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(
+        145deg,
+        rgba(21,35,59,.95),
+        rgba(10,17,31,.98)
+      );
     }
 
-    p{
-      color:#d5dbea;
+    h2 {
+      margin: 35px 0 12px;
+      color: var(--accent);
+      font-size: 22px;
+      line-height: 1.4;
     }
 
-    footer{
-      border-top:1px solid var(--line);
-      padding:35px 0;
-      color:var(--muted);
-      text-align:center;
-      font-size:14px;
+    h2:first-child {
+      margin-top: 0;
     }
 
-    .footer-links{
-      margin-top:10px;
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      flex-wrap:wrap;
+    p, li {
+      color: #d5dbea;
     }
 
-    .footer-links a:hover{
-      color:var(--accent);
+    li {
+      margin-bottom: 8px;
     }
 
-    @media(max-width:800px){
-      nav{
-        display:none;
+    .notice {
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: rgba(97,230,245,.06);
+      border-radius: 6px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 16px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px 22px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        padding: 16px 0;
+        flex-direction: column;
       }
 
-      .content{
-        padding:24px;
+      .main-nav {
+        justify-content: center;
+      }
+
+      .content {
+        padding: 22px;
+      }
+
+      main {
+        padding: 38px 0;
       }
     }
   </style>
@@ -162,7 +199,7 @@
       PIXEL <span>CARDS</span>
     </a>
 
-    <nav>
+    <nav class="main-nav" aria-label="Navigation principale">
       <a href="index.html">Accueil</a>
       <a href="saison.html">Saison 1</a>
       <a href="booster.html">🎁 Booster</a>
@@ -176,123 +213,351 @@
   <div class="container">
 
     <div class="page-title">
-      <h1>Conditions Générales d'Utilisation</h1>
-      <p>Dernière mise à jour : 7 octobre 2026</p>
+      <h1>Conditions générales d'utilisation</h1>
+      <p>Dernière mise à jour : 10 octobre 2026</p>
     </div>
 
     <div class="content">
 
-      <h2>1. Présentation</h2>
-      <p>
-        Bienvenue sur Pixel Cards, un univers de cartes à collectionner
-        proposant différentes cartes, saisons, boosters et fonctionnalités
-        interactives.
+      <p class="notice">
+        Les présentes conditions décrivent les règles générales d'utilisation
+        de Pixel Cards. Elles devront être adaptées si le projet commence à
+        vendre des contenus numériques ou à proposer des services payants.
       </p>
 
-      <h2>2. Accès au site</h2>
-      <p>
-        L'accès au site Pixel Cards est actuellement gratuit. Certaines
-        fonctionnalités peuvent être ajoutées ou modifiées au cours du
-        développement du projet.
-      </p>
+      <h2>1. Présentation de Pixel Cards</h2>
 
-      <h2>3. Utilisation du site</h2>
       <p>
-        L'utilisateur s'engage à utiliser Pixel Cards de manière normale,
-        respectueuse et conforme aux lois applicables.
+        Pixel Cards est un projet indépendant de jeu de cartes à collectionner
+        numérique. Il propose notamment des cartes virtuelles, des saisons,
+        des boosters, une collection, des niveaux, des récompenses et des
+        fonctionnalités ludiques.
       </p>
 
       <p>
-        Il est notamment interdit de tenter de perturber le fonctionnement
-        du site, de contourner ses mécanismes de sécurité ou d'utiliser ses
-        fonctionnalités à des fins frauduleuses.
+        Dans sa version actuelle, l'accès au jeu est proposé gratuitement.
+        Les éventuelles évolutions de ce modèle seront annoncées et devront
+        faire l'objet des informations et conditions nécessaires.
       </p>
 
-      <h2>4. Pixel Cards et les cartes</h2>
-      <p>
-        Les cartes, personnages, illustrations, textes, noms et éléments
-        graphiques présents sur Pixel Cards appartiennent au projet Pixel
-        Cards ou sont utilisés avec les autorisations nécessaires.
-      </p>
+      <h2>2. Acceptation des conditions</h2>
 
       <p>
-        Toute reproduction, modification ou utilisation commerciale non
-        autorisée de ces éléments est interdite.
-      </p>
-
-      <h2>5. Pixel Coins</h2>
-      <p>
-        Les Pixel Coins sont une monnaie virtuelle utilisée dans l'univers
-        Pixel Cards. Ils n'ont aucune valeur monétaire réelle et ne peuvent
-        pas être convertis en argent.
+        L'utilisation du site implique de prendre connaissance des présentes
+        conditions. Si vous n'acceptez pas les règles applicables, vous devez
+        cesser d'utiliser les fonctionnalités concernées.
       </p>
 
       <p>
-        Les règles concernant l'obtention et l'utilisation des Pixel Coins
-        peuvent évoluer au cours du développement du site.
+        Lorsque la loi impose un consentement ou une acceptation expresse,
+        notamment pour certaines modifications contractuelles, une simple
+        poursuite de navigation ne remplace pas les formalités requises.
       </p>
 
-      <h2>6. Disponibilité du service</h2>
+      <h2>3. Accès au site et compte joueur</h2>
+
       <p>
-        Pixel Cards peut être temporairement indisponible en raison de
-        maintenance, de mises à jour ou de problèmes techniques.
+        Certaines fonctionnalités nécessitent la création d'un compte et
+        une authentification. L'utilisateur doit fournir des informations
+        exactes lorsqu'elles sont demandées et protéger les moyens d'accès
+        à son compte.
       </p>
 
-      <h2>7. Évolution du site</h2>
       <p>
-        Pixel Cards peut ajouter, modifier ou supprimer certaines
-        fonctionnalités, cartes, saisons ou mini-jeux afin de faire évoluer
-        le projet.
+        L'utilisateur doit signaler au projet toute utilisation non autorisée
+        de son compte dont il a connaissance. Il ne doit pas tenter d'accéder
+        au compte ou aux données d'un autre joueur.
       </p>
 
-      <h2>8. Responsabilité</h2>
       <p>
-        Pixel Cards est un projet en développement. Malgré les efforts
-        réalisés pour maintenir le site fonctionnel, aucune garantie
-        absolue de disponibilité ou d'absence d'erreur ne peut être donnée.
+        Les demandes relatives aux comptes peuvent être adressées à
+        <a href="mailto:pixelcardstcg@gmail.com">pixelcardstcg@gmail.com</a>.
       </p>
 
-      <h2>9. Modification des CGU</h2>
+      <h2>4. Règles de bonne conduite</h2>
+
+      <p>Il est notamment interdit de :</p>
+
+      <ul>
+        <li>
+          Perturber volontairement le fonctionnement ou la disponibilité
+          du site ;
+        </li>
+        <li>
+          Exploiter une faille ou contourner les mécanismes de sécurité ;
+        </li>
+        <li>
+          Manipuler frauduleusement les pièces, les cartes, l'expérience
+          ou les récompenses ;
+        </li>
+        <li>
+          Accéder sans autorisation aux comptes ou données d'autres joueurs ;
+        </li>
+        <li>
+          Utiliser le site pour une activité illégale ou porter atteinte
+          aux droits de tiers ;
+        </li>
+        <li>
+          Distribuer des logiciels malveillants ou tenter de compromettre
+          les systèmes utilisés par le jeu.
+        </li>
+      </ul>
+
+      <h2>5. Cartes, saisons et contenus virtuels</h2>
+
       <p>
-        Ces Conditions Générales d'Utilisation peuvent être mises à jour
-        lorsque le fonctionnement de Pixel Cards évolue.
+        Les cartes de Pixel Cards sont des éléments numériques destinés
+        au fonctionnement du jeu. Leur rareté, leur apparence, leur
+        disponibilité et leurs conditions d'obtention peuvent varier
+        selon les règles des saisons et des fonctionnalités proposées.
       </p>
 
-      <h2>10. Contact</h2>
+      <p>
+        Sauf indication expresse contraire, les cartes virtuelles ne
+        constituent pas des biens matériels, ne représentent pas une
+        participation financière et ne donnent aucun droit de propriété
+        sur une entreprise ou un actif financier.
+      </p>
 
-<p>
-  Pour toute question concernant Pixel Cards, ses fonctionnalités ou les
-  présentes Conditions Générales d'Utilisation, vous pouvez contacter
-  l'équipe du projet par e-mail :
-</p>
+      <p>
+        Les cartes ne peuvent pas être revendues, transférées contre de
+        l'argent ou échangées contre une valeur réelle par l'intermédiaire
+        du jeu, sauf si une fonctionnalité officielle le prévoit
+        ultérieurement avec des conditions adaptées.
+      </p>
 
-<p>
-  📧 <strong>pixelcardstcg@gmail.com</strong>
-</p>
+      <h2>6. Pixel Coins et monnaie virtuelle</h2>
 
-<p>
-  Vous pouvez également nous contacter via notre serveur communautaire
-  Discord <strong>KLR Network</strong> :
-</p>
+      <p>
+        Les Pixel Coins sont une monnaie virtuelle utilisée dans certaines
+        fonctionnalités du jeu, notamment pour ouvrir des boosters ou
+        utiliser des mécanismes de récompense.
+      </p>
 
-<p>
-  💬
-  <a href="https://discord.gg/c6SzNzzQ7b" target="_blank" rel="noopener">
-    Rejoindre KLR Network
-  </a>
-</p>
+      <ul>
+        <li>Les Pixel Coins ne sont pas de la monnaie ayant cours légal.</li>
+        <li>Ils ne constituent pas un dépôt d'argent ni un produit financier.</li>
+        <li>Ils ne sont pas convertibles en argent réel dans la version actuelle.</li>
+        <li>
+          Leur solde peut évoluer selon les règles du jeu, les gains,
+          les dépenses et les corrections nécessaires.
+        </li>
+      </ul>
+
+      <p>
+        Les pièces virtuelles ne doivent pas être considérées comme une
+        somme d'argent appartenant à l'utilisateur ou comme une promesse
+        de remboursement en argent réel.
+      </p>
+
+      <h2>7. Boosters, probabilités et récompenses</h2>
+
+      <p>
+        Les boosters permettent d'obtenir des cartes virtuelles selon
+        les règles de rareté et les mécanismes configurés dans le jeu.
+        Les probabilités et les règles d'obtention applicables doivent
+        être consultables lorsqu'elles sont présentées aux joueurs.
+      </p>
+
+      <p>
+        Les récompenses de progression, les bonus de connexion et les
+        gains des mini-jeux sont des mécanismes ludiques. Leur attribution
+        dépend des règles de la fonctionnalité concernée et du bon
+        fonctionnement du service.
+      </p>
+
+      <p>
+        Les anomalies manifestes, doublons techniques ou attributions
+        frauduleuses peuvent faire l'objet d'une vérification et d'une
+        correction proportionnée, dans le respect du droit applicable.
+      </p>
+
+      <h2>8. Absence actuelle d'achat en argent réel</h2>
+
+      <p>
+        À la date de mise à jour de ces conditions, les fonctionnalités
+        décrites dans ces CGU concernent le fonctionnement du jeu et sa
+        monnaie virtuelle gratuite. Aucun achat en argent réel n'est
+        prévu par les présentes conditions.
+      </p>
+
+      <p>
+        Si Pixel Cards propose ultérieurement des achats, abonnements ou
+        contenus payants, des conditions spécifiques seront préparées
+        avant leur mise en vente. Elles préciseront notamment le prix,
+        les modalités de paiement, les informations précontractuelles,
+        les droits des consommateurs et, le cas échéant, les règles
+        relatives à la rétractation.
+      </p>
+
+      <h2>9. Propriété intellectuelle</h2>
+
+      <p>
+        Les éléments originaux créés pour Pixel Cards, notamment les textes,
+        éléments graphiques, interfaces, logos et cartes, sont protégés
+        par les règles applicables de propriété intellectuelle, sous
+        réserve des droits de tiers.
+      </p>
+
+      <p>
+        Sauf autorisation ou exception prévue par la loi, leur reproduction,
+        distribution, modification ou exploitation commerciale n'est pas
+        autorisée sans l'accord du titulaire des droits concernés.
+      </p>
+
+      <p>
+        L'utilisation de Pixel Cards ne transfère pas à l'utilisateur
+        les droits de propriété intellectuelle sur les éléments du site.
+      </p>
+
+      <h2>10. Disponibilité et maintenance</h2>
+
+      <p>
+        Pixel Cards est un projet en évolution. Des opérations de maintenance,
+        des mises à jour ou des incidents techniques peuvent entraîner
+        une interruption temporaire de certaines fonctionnalités.
+      </p>
+
+      <p>
+        Le projet s'efforce de maintenir le service en fonctionnement,
+        sans garantir une disponibilité permanente ni l'absence totale
+        d'erreurs.
+      </p>
+
+      <h2>11. Sauvegarde et progression</h2>
+
+      <p>
+        Certaines données de jeu peuvent être enregistrées sur les serveurs
+        utilisés par Pixel Cards et certaines autres données dans le
+        navigateur de l'utilisateur.
+      </p>
+
+      <p>
+        L'utilisateur doit savoir que les données uniquement conservées
+        dans son navigateur peuvent être perdues lors d'un effacement du
+        stockage local, d'un changement d'appareil ou d'une réinitialisation
+        du navigateur.
+      </p>
+
+      <p>
+        Le projet s'efforce de préserver la progression sauvegardée sur
+        le serveur, mais des incidents techniques peuvent survenir.
+        Toute anomalie peut être signalée par e-mail.
+      </p>
+
+      <h2>12. Suspension et lutte contre les abus</h2>
+
+      <p>
+        En cas de fraude, d'attaque, d'accès non autorisé ou de violation
+        grave des présentes conditions, le projet peut prendre des mesures
+        proportionnées pour protéger le site et ses utilisateurs.
+      </p>
+
+      <p>
+        Selon la situation, ces mesures peuvent comprendre la correction
+        d'une anomalie, la limitation temporaire d'une fonctionnalité ou
+        la suspension d'un compte. Elles doivent tenir compte du contexte
+        et des règles légales applicables.
+      </p>
+
+      <h2>13. Données personnelles</h2>
+
+      <p>
+        Les données personnelles traitées dans le cadre de Pixel Cards
+        sont décrites dans la
+        <a href="confidentialite.html">politique de confidentialité</a>.
+        Cette politique présente notamment les finalités des traitements,
+        les services utilisés et les modalités d'exercice des droits
+        des utilisateurs.
+      </p>
+
+      <h2>14. Liens vers des services externes</h2>
+
+      <p>
+        Le site peut proposer des liens vers des services externes,
+        notamment Discord. Ces services sont soumis à leurs propres
+        conditions et politiques. Pixel Cards ne contrôle pas l'ensemble
+        de leurs contenus ni de leurs traitements.
+      </p>
+
+      <h2>15. Évolution des fonctionnalités et des CGU</h2>
+
+      <p>
+        Pixel Cards peut évoluer, notamment par l'ajout de cartes,
+        saisons, mini-jeux ou fonctionnalités. Les modifications
+        importantes des conditions seront présentées aux utilisateurs
+        selon les modalités appropriées et les obligations légales.
+      </p>
+
+      <p>
+        La date de mise à jour figurant en haut de cette page indique
+        la date de la dernière révision du document.
+      </p>
+
+      <h2>16. Responsabilité</h2>
+
+      <p>
+        Les présentes conditions ne limitent pas les droits dont les
+        utilisateurs bénéficient impérativement en vertu de la loi.
+        Aucune clause ne doit être interprétée comme excluant une
+        responsabilité lorsque cette exclusion est interdite.
+      </p>
+
+      <p>
+        L'utilisateur est invité à signaler toute anomalie ou difficulté
+        technique afin de permettre son examen.
+      </p>
+
+      <h2>17. Contact</h2>
+
+      <p>
+        Pour toute question concernant le jeu ou les présentes conditions,
+        vous pouvez contacter le projet Pixel Cards :
+      </p>
+
+      <p>
+        📧
+        <a href="mailto:pixelcardstcg@gmail.com">
+          pixelcardstcg@gmail.com
+        </a>
+      </p>
+
+      <p>
+        Vous pouvez également rejoindre le serveur communautaire KLR Network :
+      </p>
+
+      <p>
+        💬
+        <a href="https://discord.gg/c6SzNzzQ7b"
+           target="_blank" rel="noopener noreferrer">
+          Rejoindre KLR Network
+        </a>
+      </p>
+
+      <h2>18. Droit applicable</h2>
+
+      <p>
+        Les présentes conditions sont soumises aux règles de droit
+        applicables. Elles ne privent pas les utilisateurs des protections
+        impératives dont ils bénéficient, notamment en matière de
+        consommation lorsque ces règles s'appliquent.
+      </p>
 
     </div>
   </div>
 </main>
 
 <footer>
-  © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
+  <div>
+    © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
+  </div>
 
-  <div class="footer-links">
+  <nav class="footer-links" aria-label="Liens de pied de page">
+    <a href="index.html">Accueil</a>
     <a href="cgu.html">CGU</a>
     <a href="confidentialite.html">Confidentialité</a>
-  </div>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
 </footer>
 
 </body>
