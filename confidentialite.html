@@ -1,154 +1,192 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Cards — Confidentialité</title>
-  <meta name="description" content="Politique de confidentialité de Pixel Cards.">
+  <meta name="description" content="Politique de confidentialité et protection des données personnelles de Pixel Cards.">
+  <meta name="theme-color" content="#0b0f1d">
+  <title>Pixel Cards — Politique de confidentialité</title>
 
   <style>
-    :root{
-      --bg:#0b0f1d;
-      --panel:#101a2d;
-      --text:#f5f7ff;
-      --muted:#aeb8cc;
-      --accent:#61e6f5;
-      --line:rgba(255,255,255,.12);
+    :root {
+      --bg: #0b0f1d;
+      --panel: #101a2d;
+      --text: #f5f7ff;
+      --muted: #aeb8cc;
+      --accent: #61e6f5;
+      --line: rgba(255,255,255,.12);
     }
 
-    *{
-      box-sizing:border-box;
+    * {
+      box-sizing: border-box;
     }
 
-    body{
-      margin:0;
-      font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      color:var(--text);
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", sans-serif;
+      color: var(--text);
       background:
-        radial-gradient(circle at 15% 5%,rgba(64,105,180,.16),transparent 28%),
-        radial-gradient(circle at 90% 30%,rgba(80,70,170,.10),transparent 32%),
+        radial-gradient(circle at 15% 5%, rgba(64,105,180,.16), transparent 28%),
+        radial-gradient(circle at 90% 30%, rgba(80,70,170,.10), transparent 32%),
         var(--bg);
-      line-height:1.7;
+      line-height: 1.7;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
+    a {
+      color: var(--accent);
+      text-decoration: none;
     }
 
-    header{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(8,11,19,.96);
-      border-bottom:1px solid var(--line);
+    a:hover {
+      text-decoration: underline;
     }
 
-    .nav{
-      min-height:76px;
-      width:min(1180px,92%);
-      margin:auto;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
+    header {
+      background: rgba(8,11,19,.96);
+      border-bottom: 1px solid var(--line);
     }
 
-    .logo{
-      font-size:25px;
-      font-weight:950;
-      letter-spacing:.5px;
+    .nav {
+      min-height: 76px;
+      width: min(1180px, 92%);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
     }
 
-    .logo span{
-      color:var(--accent);
+    .logo {
+      font-size: 25px;
+      font-weight: 950;
+      letter-spacing: .5px;
+      color: var(--text);
+      white-space: nowrap;
     }
 
-    nav{
-      display:flex;
-      gap:25px;
-      color:var(--muted);
-      font-size:15px;
-      font-weight:700;
+    .logo span {
+      color: var(--accent);
     }
 
-    nav a:hover{
-      color:#fff;
+    .main-nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
     }
 
-    .container{
-      width:min(900px,92%);
-      margin:auto;
+    .main-nav a {
+      color: var(--muted);
     }
 
-    main{
-      padding:70px 0;
+    .main-nav a:hover {
+      color: #fff;
     }
 
-    .page-title{
-      text-align:center;
-      margin-bottom:50px;
+    .container {
+      width: min(900px, 92%);
+      margin: auto;
     }
 
-    .page-title h1{
-      margin:0 0 12px;
-      font-size:clamp(42px,8vw,68px);
+    main {
+      padding: 60px 0;
     }
 
-    .page-title p{
-      margin:0;
-      color:var(--muted);
-      font-size:17px;
+    .page-title {
+      text-align: center;
+      margin-bottom: 42px;
     }
 
-    .content{
-      padding:35px;
-      border:1px solid var(--line);
-      border-radius:28px;
-      background:
-        linear-gradient(145deg,rgba(21,35,59,.95),rgba(10,17,31,.98));
+    .page-title h1 {
+      margin: 0 0 12px;
+      font-size: clamp(34px, 7vw, 58px);
+      line-height: 1.15;
     }
 
-    h2{
-      margin:35px 0 12px;
-      color:var(--accent);
-      font-size:25px;
+    .page-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
     }
 
-    h2:first-child{
-      margin-top:0;
+    .content {
+      padding: 35px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: linear-gradient(
+        145deg,
+        rgba(21,35,59,.95),
+        rgba(10,17,31,.98)
+      );
     }
 
-    p{
-      color:#d5dbea;
+    h2 {
+      margin: 35px 0 12px;
+      color: var(--accent);
+      font-size: 22px;
+      line-height: 1.4;
     }
 
-    footer{
-      border-top:1px solid var(--line);
-      padding:35px 0;
-      color:var(--muted);
-      text-align:center;
-      font-size:14px;
+    h2:first-child {
+      margin-top: 0;
     }
 
-    .footer-links{
-      margin-top:10px;
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      flex-wrap:wrap;
+    p, li {
+      color: #d5dbea;
     }
 
-    .footer-links a:hover{
-      color:var(--accent);
+    li {
+      margin-bottom: 8px;
     }
 
-    @media(max-width:800px){
-      nav{
-        display:none;
+    .notice {
+      padding: 14px 16px;
+      border-left: 3px solid var(--accent);
+      background: rgba(97,230,245,.06);
+      border-radius: 6px;
+    }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 16px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-top: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px 22px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      color: var(--accent);
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        padding: 16px 0;
+        flex-direction: column;
       }
 
-      .content{
-        padding:24px;
+      .main-nav {
+        justify-content: center;
+      }
+
+      .content {
+        padding: 22px;
+      }
+
+      main {
+        padding: 38px 0;
       }
     }
   </style>
@@ -162,7 +200,7 @@
       PIXEL <span>CARDS</span>
     </a>
 
-    <nav>
+    <nav class="main-nav" aria-label="Navigation principale">
       <a href="index.html">Accueil</a>
       <a href="saison.html">Saison 1</a>
       <a href="booster.html">🎁 Booster</a>
@@ -177,131 +215,319 @@
 
     <div class="page-title">
       <h1>Politique de confidentialité</h1>
-      <p>Dernière mise à jour : 7 octobre 2026</p>
+      <p>Dernière mise à jour : 10 octobre 2026</p>
     </div>
 
     <div class="content">
 
-      <h2>1. Introduction</h2>
-      <p>
-        Pixel Cards accorde de l'importance à la protection des données
-        personnelles de ses utilisateurs. Cette page explique quelles
-        informations peuvent être utilisées lors de l'utilisation du site.
+      <p class="notice">
+        Cette politique explique comment les données personnelles peuvent
+        être traitées lors de l'utilisation de Pixel Cards. Elle doit être
+        complétée et vérifiée en fonction des traitements réellement mis
+        en œuvre avant de pouvoir être considérée comme définitive.
       </p>
 
-      <h2>2. Données actuellement utilisées</h2>
-      <p>
-        Dans la version actuelle du site, certaines informations liées au
-        fonctionnement du jeu peuvent être enregistrées directement dans le
-        navigateur de l'utilisateur.
-      </p>
+      <h2>1. Présentation et responsable du traitement</h2>
 
       <p>
-        Cela peut notamment concerner la collection de cartes débloquées et
-        le nombre de Pixel Coins disponibles.
-      </p>
-
-      <h2>3. Stockage local</h2>
-      <p>
-        Les données de jeu actuellement utilisées peuvent être stockées
-        localement dans le navigateur grâce aux fonctionnalités de stockage
-        local.
+        Pixel Cards est un projet indépendant de jeu de cartes à collectionner
+        numérique. Le site propose notamment des comptes joueurs, une
+        collection de cartes virtuelles et des fonctionnalités de progression.
       </p>
 
       <p>
-        Ces données ne constituent pas encore un compte utilisateur centralisé
-        sur un serveur.
-      </p>
-
-      <h2>4. Comptes utilisateurs</h2>
-      <p>
-        Si Pixel Cards met ultérieurement en place des comptes utilisateurs,
-        une nouvelle version de cette politique pourra préciser les données
-        collectées, leur utilisation, leur durée de conservation et les
-        droits des utilisateurs.
-      </p>
-
-      <h2>5. Cookies et technologies similaires</h2>
-      <p>
-        La version actuelle du site peut utiliser des mécanismes techniques
-        nécessaires au fonctionnement des fonctionnalités du jeu.
+        Pour toute question concernant les données personnelles, vous pouvez
+        contacter le projet à l'adresse suivante :
+        <a href="mailto:pixelcardstcg@gmail.com">
+          pixelcardstcg@gmail.com
+        </a>.
       </p>
 
       <p>
-        Pixel Cards n'utilise pas actuellement de système publicitaire
-        nécessitant la création d'un profil publicitaire à partir des données
-        du joueur.
+        L'identité légale du responsable du traitement doit être déterminée
+        en fonction du statut applicable au projet. Le nom Pixel Cards
+        constitue le nom du projet et ne remplace pas les informations
+        d'identification qui seraient légalement requises.
       </p>
 
-      <h2>6. Données personnelles</h2>
+      <h2>2. Données susceptibles d'être traitées</h2>
+
+      <p>Selon les fonctionnalités utilisées, les catégories de données peuvent comprendre :</p>
+
+      <ul>
+        <li>
+          <strong>Compte :</strong> adresse e-mail, identifiant technique
+          du compte et informations nécessaires à l'authentification.
+        </li>
+        <li>
+          <strong>Profil :</strong> pseudonyme et identifiant du joueur.
+        </li>
+        <li>
+          <strong>Progression :</strong> expérience, niveau, pièces virtuelles,
+          boosters ouverts et éventuels boosters bonus.
+        </li>
+        <li>
+          <strong>Collection :</strong> cartes obtenues et données liées
+          aux récompenses et aux succès.
+        </li>
+        <li>
+          <strong>Données locales :</strong> certaines statistiques ou
+          préférences enregistrées dans le navigateur.
+        </li>
+        <li>
+          <strong>Données techniques :</strong> informations nécessaires
+          au fonctionnement, au diagnostic et à la sécurité du service,
+          selon les données effectivement fournies par les prestataires.
+        </li>
+      </ul>
+
       <p>
-        Pixel Cards ne demande actuellement pas de données personnelles
-        particulières pour simplement consulter les pages publiques du site.
+        Les données effectivement collectées dépendent de la configuration
+        du site et des fonctionnalités activées.
       </p>
 
-      <h2>7. Sécurité</h2>
+      <h2>3. Finalités et bases légales</h2>
+
+      <p>Les données peuvent être utilisées pour :</p>
+
+      <ul>
+        <li>Créer et gérer les comptes joueurs ;</li>
+        <li>Authentifier les utilisateurs ;</li>
+        <li>Sauvegarder et synchroniser la progression du jeu ;</li>
+        <li>Gérer les cartes, pièces, boosters, niveaux et succès ;</li>
+        <li>Assurer le fonctionnement et la sécurité du site ;</li>
+        <li>Répondre aux demandes envoyées au support.</li>
+      </ul>
+
       <p>
-        Des mesures techniques sont mises en place afin de maintenir le bon
-        fonctionnement du site. Cependant, aucun système informatique ne peut
-        garantir une sécurité absolue.
+        La base légale doit être déterminée pour chaque finalité. Selon le
+        traitement concerné, elle peut notamment être l'exécution du service
+        demandé par l'utilisateur, l'intérêt légitime à assurer la sécurité
+        du site ou le consentement lorsqu'il est requis.
       </p>
 
-      <h2>8. Services externes</h2>
+      <h2>4. Stockage des données et services utilisés</h2>
+
       <p>
-        Le site est hébergé via GitHub Pages. Certaines informations
-        techniques peuvent donc être traitées par les services nécessaires
-        à l'hébergement et à la diffusion du site.
+        Pixel Cards utilise Supabase pour certaines fonctions d'authentification,
+        de gestion des comptes et de sauvegarde des données de jeu.
       </p>
 
-      <h2>9. Droits des utilisateurs</h2>
       <p>
-        Lorsque Pixel Cards mettra en place un système permettant de collecter
-        directement des données personnelles, les informations relatives aux
-        droits d'accès, de rectification, de suppression et aux autres droits
-        applicables seront précisées dans cette politique.
+        Les informations enregistrées dans la base de données peuvent inclure
+        l'identifiant du joueur, son pseudonyme, son solde de pièces, son
+        expérience, son niveau, sa collection, ses boosters, ses succès et
+        les informations relatives aux récompenses de niveau.
       </p>
 
-      <h2>10. Modification de cette politique</h2>
       <p>
-        Cette politique de confidentialité pourra être mise à jour lorsque
-        de nouvelles fonctionnalités ou de nouveaux traitements de données
-        seront ajoutés à Pixel Cards.
+        Le site est publié avec GitHub Pages. GitHub fournit le service
+        d'hébergement et de diffusion des pages du site.
       </p>
-<h2>11. Contact</h2>
 
-<p>
-  Pour toute question concernant la confidentialité ou les données
-  personnelles liées à Pixel Cards, vous pouvez contacter l'équipe du projet
-  par e-mail :
-</p>
+      <p>
+        Les prestataires peuvent traiter certaines informations techniques
+        nécessaires à la fourniture et à la sécurité de leurs services.
+        Leurs rôles respectifs, les lieux de traitement et les éventuels
+        transferts internationaux doivent être vérifiés dans la configuration
+        et la documentation des services utilisés.
+      </p>
 
-<p>
-  📧 <strong>pixelcardstcg@gmail.com</strong>
-</p>
+      <h2>5. Stockage local et technologies similaires</h2>
 
-<p>
-  Vous pouvez également nous contacter via notre serveur communautaire
-  Discord <strong>KLR Network</strong> :
-</p>
+      <p>
+        Pixel Cards peut utiliser le stockage local du navigateur
+        (localStorage) pour conserver certaines informations de jeu, par
+        exemple des statistiques de progression ou des données nécessaires
+        à l'affichage.
+      </p>
 
-<p>
-  💬
-  <a href="https://discord.gg/c6SzNzzQ7b" target="_blank" rel="noopener">
-    Rejoindre KLR Network
-  </a>
-</p>
+      <p>
+        Ces informations peuvent rester sur l'appareil après la fermeture
+        du navigateur. La suppression des données du site dans les paramètres
+        du navigateur peut effacer certaines informations locales et
+        entraîner la perte de données qui n'auraient pas été sauvegardées
+        sur le serveur.
+      </p>
+
+      <p>
+        Les cookies et autres traceurs effectivement utilisés doivent être
+        recensés. Lorsqu'un traceur nécessite le consentement de l'utilisateur,
+        celui-ci doit être recueilli avant son utilisation. Les traceurs
+        strictement nécessaires doivent être identifiés comme tels.
+      </p>
+
+      <h2>6. Caractère obligatoire des données</h2>
+
+      <p>
+        Certaines informations, comme l'adresse e-mail, peuvent être
+        nécessaires à la création et à l'utilisation d'un compte.
+        Les informations facultatives doivent être distinguées des
+        informations obligatoires au moment où elles sont demandées.
+      </p>
+
+      <p>
+        Lorsque la fourniture d'une donnée est obligatoire, les conséquences
+        de son absence doivent être expliquées à l'utilisateur.
+      </p>
+
+      <h2>7. Destinataires des données</h2>
+
+      <p>
+        Les données sont accessibles aux services techniques nécessaires au
+        fonctionnement de Pixel Cards, notamment les services d'authentification,
+        de base de données et d'hébergement utilisés par le projet.
+      </p>
+
+      <p>
+        Les données ne doivent être communiquées à d'autres destinataires
+        que lorsqu'une finalité légitime le justifie, lorsque l'utilisateur
+        y a consenti si nécessaire, ou lorsqu'une obligation légale l'impose.
+      </p>
+
+      <h2>8. Durée de conservation</h2>
+
+      <p>
+        Les données personnelles doivent être conservées pendant une durée
+        limitée et proportionnée aux finalités poursuivies, sous réserve
+        des obligations légales applicables.
+      </p>
+
+      <p>
+        Les durées exactes de conservation des comptes inactifs, des données
+        de jeu, des demandes adressées au support, des journaux techniques
+        et des éventuelles sauvegardes doivent être définies et documentées
+        avant la publication définitive de cette politique.
+      </p>
+
+      <h2>9. Sécurité</h2>
+
+      <p>
+        Des mesures techniques et organisationnelles adaptées doivent être
+        mises en œuvre pour protéger les données contre les accès non
+        autorisés, la perte, l'altération ou la divulgation.
+      </p>
+
+      <p>
+        Aucun système informatique ne peut garantir une sécurité absolue.
+        Les accès aux données doivent être limités et les paramètres de
+        sécurité des services utilisés doivent être vérifiés régulièrement.
+      </p>
+
+      <h2>10. Droits des utilisateurs</h2>
+
+      <p>
+        Dans les conditions prévues par la réglementation applicable,
+        vous pouvez notamment demander :
+      </p>
+
+      <ul>
+        <li>L'accès à vos données personnelles ;</li>
+        <li>La rectification des données inexactes ;</li>
+        <li>L'effacement de vos données ;</li>
+        <li>La limitation de certains traitements ;</li>
+        <li>La portabilité des données lorsque ce droit s'applique ;</li>
+        <li>
+          Vous opposer à certains traitements lorsque les conditions
+          légales sont réunies ;
+        </li>
+        <li>
+          Retirer votre consentement lorsqu'un traitement repose sur celui-ci.
+        </li>
+      </ul>
+
+      <p>
+        Pour exercer vos droits, contactez :
+        <a href="mailto:pixelcardstcg@gmail.com">
+          pixelcardstcg@gmail.com
+        </a>.
+        Décrivez votre demande et indiquez les informations nécessaires
+        pour permettre de retrouver votre compte. Des vérifications
+        proportionnées peuvent être nécessaires pour éviter de communiquer
+        des données à une personne non autorisée.
+      </p>
+
+      <p>
+        Vous pouvez également déposer une réclamation auprès de la CNIL :
+        <a href="https://www.cnil.fr/" target="_blank" rel="noopener noreferrer">
+          www.cnil.fr
+        </a>.
+      </p>
+
+      <h2>11. Protection des mineurs</h2>
+
+      <p>
+        Les règles applicables aux mineurs dépendent notamment du public
+        auquel le service est destiné et des traitements effectivement
+        réalisés. Les mesures nécessaires doivent être définies si le jeu
+        est utilisé par des enfants ou s'adresse directement à eux.
+      </p>
+
+      <h2>12. Liens vers des services externes</h2>
+
+      <p>
+        Pixel Cards peut proposer des liens vers des services externes,
+        notamment Discord. Lorsque vous utilisez ces services, vos données
+        sont traitées selon les conditions et politiques de confidentialité
+        de leurs fournisseurs respectifs.
+      </p>
+
+      <p>
+        Pixel Cards ne contrôle pas l'ensemble des traitements réalisés
+        par ces services externes.
+      </p>
+
+      <h2>13. Modifications de cette politique</h2>
+
+      <p>
+        Cette politique peut être mise à jour lorsque les fonctionnalités
+        du site, les services utilisés ou les traitements de données évoluent.
+        La date affichée en haut de page doit correspondre à la dernière
+        mise à jour effective du document.
+      </p>
+
+      <h2>14. Contact</h2>
+
+      <p>
+        Pour toute question relative à la confidentialité, à la protection
+        des données personnelles ou à l'exercice de vos droits, contactez
+        Pixel Cards par e-mail :
+      </p>
+
+      <p>
+        📧
+        <a href="mailto:pixelcardstcg@gmail.com">
+          pixelcardstcg@gmail.com
+        </a>
+      </p>
+
+      <p>
+        Vous pouvez également rejoindre le serveur communautaire KLR Network :
+      </p>
+
+      <p>
+        💬
+        <a href="https://discord.gg/c6SzNzzQ7b"
+           target="_blank" rel="noopener noreferrer">
+          Rejoindre KLR Network
+        </a>
+      </p>
 
     </div>
   </div>
 </main>
 
 <footer>
-  © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
+  <div>
+    © 2026 Pixel Cards — Univers original. Saison 01 : Winter Pixels.
+  </div>
 
-  <div class="footer-links">
+  <nav class="footer-links" aria-label="Liens de pied de page">
+    <a href="index.html">Accueil</a>
     <a href="cgu.html">CGU</a>
     <a href="confidentialite.html">Confidentialité</a>
-  </div>
+    <a href="mentions-legales.html">Mentions légales</a>
+  </nav>
 </footer>
 
 </body>
