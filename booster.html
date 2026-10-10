@@ -282,6 +282,7 @@ footer{
   }
 }
 </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
@@ -405,465 +406,351 @@ footer{
 
 <script>
 
-(function(){
 
-  const COINS_KEY = "pixelCoins";
-  const XP_KEY = "pixelXP";
+(async function () {
+  const SUPABASE_URL = "https://nqeuvndxdgkyhgtizlwb.supabase.co";
+  const SUPABASE_KEY = "sb_publishable_eiWdeN_r0EmFL8nhCoMH_w_WA82q10Z";
+  const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-function addXP(amount){
-  const currentXP = Number(localStorage.getItem(XP_KEY)) || 0;
-  localStorage.setItem(XP_KEY, currentXP + amount);
-}
-  const STORAGE_KEY = "pixelCardsUnlocked";
   const BOOSTER_PRICE = 100;
-
   const DUPLICATE_REWARDS = {
-    common:20,
-    uncommon:35,
-    rare:60,
-    epic:100,
-    legendary:200,
-    secret:500
+    common: 20,
+    uncommon: 35,
+    rare: 60,
+    epic: 100,
+    legendary: 200,
+    secret: 500
+  };
+
+  const RARITIES = {
+    common: { name: "Commune", emoji: "⚪", weight: 50 },
+    uncommon: { name: "Peu commune", emoji: "🟢", weight: 25 },
+    rare: { name: "Rare", emoji: "🔵", weight: 13 },
+    epic: { name: "Épique", emoji: "🟣", weight: 7 },
+    legendary: { name: "Légendaire", emoji: "🟡", weight: 4 },
+    secret: { name: "Secrète", emoji: "🌌", weight: 1 }
+  };
+
+  const CARD_RARITY = {
+    "1": "common", "2": "common",
+    "3": "uncommon",
+    "4": "rare", "5": "rare",
+    "6": "epic", "7": "epic",
+    "8": "legendary", "9": "legendary",
+    "10": "secret"
   };
 
   const pack = document.getElementById("boosterPack");
   const openButton = document.getElementById("openBooster");
   const againButton = document.getElementById("openAgain");
-
   const result = document.getElementById("result");
   const resultCard = document.getElementById("resultCard");
-
   const status = document.getElementById("status");
   const balanceElement = document.getElementById("balance");
   const rewardElement = document.getElementById("reward");
 
+  let user = null;
+  let player = null;
   let cards = [];
+  let busy = false;
 
-  const RARITIES = {
-
-    common:{
-      name:"Commune",
-      emoji:"⚪",
-      weight:50
-    },
-
-    uncommon:{
-      name:"Peu commune",
-      emoji:"🟢",
-      weight:25
-    },
-
-    rare:{
-      name:"Rare",
-      emoji:"🔵",
-      weight:13
-    },
-
-    epic:{
-      name:"Épique",
-      emoji:"🟣",
-      weight:7
-    },
-
-    legendary:{
-      name:"Légendaire",
-      emoji:"🟡",
-      weight:4
-    },
-
-    secret:{
-      name:"Secrète",
-      emoji:"🌌",
-      weight:1
-    }
-
-  };
-
-  const CARD_RARITY = {
-
-    "1":"common",
-    "2":"common",
-    "3":"uncommon",
-    "4":"rare",
-    "5":"rare",
-    "6":"epic",
-    "7":"epic",
-    "8":"legendary",
-    "9":"legendary",
-    "10":"secret"
-
-  };
-
-  function getCoins(){
-
-    const value = localStorage.getItem(COINS_KEY);
-
-    if(value === null){
-      localStorage.setItem(COINS_KEY,"500");
-      return 500;
-    }
-
-    const coins = parseInt(value,10);
-
-    return Number.isFinite(coins) ? coins : 500;
-  }
-
-  function setCoins(amount){
-
-    const value = Math.max(0,Math.floor(amount));
-
-    localStorage.setItem(COINS_KEY,String(value));
-
-    updateBalance();
-
-  }
-
-  function updateBalance(){
-
+  function showBalance() {
     balanceElement.textContent =
-      "🪙 " + getCoins();
-
+      "🪙 " + Number(player.coins).toLocaleString("fr-FR");
   }
 
-  function getUnlocked(){
+  function updateButtons() {
+    const canOpen = !!player && !busy &&
+      Number(player.coins) >= BOOSTER_PRICE &&
+      cards.length > 0;
 
-    try{
-
-      const data =
-        JSON.parse(
-          localStorage.getItem(STORAGE_KEY) || "[]"
-        );
-
-      return Array.isArray(data)
-        ? [...new Set(data.map(String))]
-        : [];
-
-    }catch(e){
-
-      return [];
-
-    }
-
+    openButton.disabled = !canOpen;
+    againButton.disabled = !canOpen;
   }
 
-  function saveUnlocked(ids){
-
-    localStorage.setItem(
-      STORAGE_KEY,
-      JSON.stringify([...new Set(ids.map(String))])
-    );
-
-  }
-
-  async function loadCards(){
-
-    try{
-
-      const response =
-        await fetch("collection.html",{cache:"no-store"});
-
-      if(!response.ok)
-        throw new Error("collection");
-
-      const html =
-        await response.text();
-
-      const doc =
-        new DOMParser().parseFromString(
-          html,
-          "text/html"
-        );
-
-      cards =
-        Array.from(
-          doc.querySelectorAll(".card[data-card-id]")
-        );
-
-      cards.forEach((card,index)=>{
-
-        if(!card.dataset.cardId){
-
-          const number =
-            card.querySelector(".card-number");
-
-          const match =
-            number
-              ? number.textContent.match(/\d+/)
-              : null;
-
-          card.dataset.cardId =
-            match
-              ? String(parseInt(match[0],10))
-              : String(index+1);
-
-        }
-
-        card.dataset.rarity =
-          CARD_RARITY[
-            String(card.dataset.cardId)
-          ] || "common";
-
-      });
-
-      if(!cards.length)
-        throw new Error("no cards");
-
-      status.textContent =
-        cards.length +
-        " cartes prêtes à être découvertes.";
-
-      openButton.disabled = false;
-
-    }catch(e){
-
-      status.textContent =
-        "Impossible de charger les cartes.";
-
-      openButton.disabled = true;
-
-    }
-
-  }
-
-  function getRandomRarity(){
-
-    let roll =
-      Math.random() * 100;
-
+  function getRandomRarity() {
+    const roll = Math.random() * 100;
     let total = 0;
 
-    for(const key of Object.keys(RARITIES)){
-
-      total +=
-        RARITIES[key].weight;
-
-      if(roll < total)
-        return key;
-
+    for (const [key, rarity] of Object.entries(RARITIES)) {
+      total += rarity.weight;
+      if (roll < total) return key;
     }
 
     return "common";
-
   }
 
-  function reveal(){
+  async function loadCards() {
+    try {
+      const response = await fetch("collection.html", {
+        cache: "no-store"
+      });
 
-    if(!cards.length)
+      if (!response.ok) throw new Error("Chargement des cartes impossible.");
+
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+
+      cards = Array.from(doc.querySelectorAll(".card[data-card-id]"));
+
+      cards.forEach((card, index) => {
+        if (!card.dataset.cardId) {
+          const number = card.querySelector(".card-number");
+          const match = number ? number.textContent.match(/\d+/) : null;
+          card.dataset.cardId = match
+            ? String(parseInt(match[0], 10))
+            : String(index + 1);
+        }
+
+        card.dataset.rarity =
+          CARD_RARITY[String(card.dataset.cardId)] || "common";
+      });
+
+      if (!cards.length) throw new Error("Aucune carte trouvée.");
+
+      status.textContent = cards.length + " cartes prêtes à être découvertes.";
+      updateButtons();
+    } catch (error) {
+      console.error(error);
+      status.textContent = "Impossible de charger les cartes. Réessaie plus tard.";
+    }
+  }
+
+  async function loadPlayer() {
+    const { data, error } = await client.auth.getUser();
+
+    if (error || !data.user) {
+      balanceElement.textContent = "—";
+      status.textContent = "Connecte-toi pour ouvrir un booster.";
+      openButton.disabled = true;
+      againButton.disabled = true;
       return;
-
-    const currentCoins =
-      getCoins();
-
-    if(currentCoins < BOOSTER_PRICE){
-
-      status.textContent =
-        "❌ Tu n'as pas assez de Pixel Coins.";
-
-      rewardElement.textContent =
-        "Il te faut 100 🪙 pour ouvrir un booster.";
-
-      result.classList.remove("show");
-
-      return;
-
     }
 
-    // Paiement du booster
-    setCoins(
-      currentCoins - BOOSTER_PRICE
-    );
-addXP(10);
-    const boostersOpened =
-  Number(localStorage.getItem("pixelBoostersOpened")) || 0;
+    user = data.user;
 
-localStorage.setItem(
-  "pixelBoostersOpened",
-  boostersOpened + 1
-);
-    result.classList.remove("show");
+    let { data: row, error: readError } = await client
+      .from("players")
+      .select("user_id, username, coins, xp, level, cards, boosters, achievements")
+      .eq("user_id", user.id)
+      .maybeSingle();
 
-    rewardElement.textContent = "";
+    if (readError) {
+      console.error(readError);
+      status.textContent = "Erreur lors du chargement du compte.";
+      return;
+    }
 
-    pack.classList.remove("shake");
+    if (!row) {
+      const username =
+        user.user_metadata?.username || user.email?.split("@")[0] || "Joueur";
 
-    void pack.offsetWidth;
+      const { data: created, error: createError } = await client
+        .from("players")
+        .insert({
+          user_id: user.id,
+          username,
+          coins: 500,
+          xp: 0,
+          level: 1,
+          cards: [],
+          boosters: 0,
+          achievements: []
+        })
+        .select("user_id, username, coins, xp, level, cards, boosters, achievements")
+        .single();
 
-    pack.classList.add("shake");
-
-    openButton.disabled = true;
-
-    againButton.disabled = true;
-
-    status.textContent =
-      "Ouverture du booster…";
-
-    setTimeout(()=>{
-
-      const unlocked =
-        getUnlocked();
-
-      const rarity =
-        getRandomRarity();
-
-      const rarityCards =
-        cards.filter(
-          card =>
-            card.dataset.rarity === rarity
-        );
-
-      const undiscovered =
-        rarityCards.filter(
-          card =>
-            !unlocked.includes(
-              String(card.dataset.cardId)
-            )
-        );
-
-      const pool =
-        undiscovered.length
-          ? undiscovered
-          : rarityCards;
-
-      const selected =
-        pool[
-          Math.floor(
-            Math.random() * pool.length
-          )
-        ];
-
-      if(!selected){
-
-        // Sécurité : remboursement si aucun résultat
-        setCoins(getCoins() + BOOSTER_PRICE);
-
-        status.textContent =
-          "Une erreur est survenue. Ton booster a été remboursé.";
-
-        openButton.disabled = false;
-        againButton.disabled = false;
-
+      if (createError) {
+        console.error(createError);
+        status.textContent = "Impossible de créer ton profil de joueur.";
         return;
-
       }
 
-      const id =
-        String(selected.dataset.cardId);
+      row = created;
+    }
 
-      const wasAlreadyOwned =
-        unlocked.includes(id);
+    player = {
+      ...row,
+      coins: Number(row.coins ?? 500),
+      xp: Number(row.xp ?? 0),
+      boosters: Number(row.boosters ?? 0),
+      cards: Array.isArray(row.cards) ? row.cards.map(String) : []
+    };
 
-      let reward = 0;
+    // Récupère aussi les cartes déjà enregistrées localement.
+    // On fusionne les collections au lieu d'effacer des cartes existantes.
+    try {
+      const localCards = JSON.parse(
+        localStorage.getItem("pixelCardsUnlocked") || "[]"
+      );
 
-      if(wasAlreadyOwned){
+      if (Array.isArray(localCards)) {
+        player.cards = [...new Set([
+          ...player.cards,
+          ...localCards.map(String)
+        ])];
+      }
+    } catch (error) {
+      console.warn("Ancienne collection locale illisible.", error);
+    }
 
-        reward =
-          DUPLICATE_REWARDS[rarity] || 0;
+    const { error: syncError } = await client
+      .from("players")
+      .update({ cards: player.cards })
+      .eq("user_id", user.id);
 
-        setCoins(
-          getCoins() + reward
+    if (syncError) {
+      console.error(syncError);
+      status.textContent =
+        "Attention : impossible de synchroniser la collection.";
+    }
+
+    localStorage.setItem("pixelCoins", String(player.coins));
+    localStorage.setItem("pixelXP", String(player.xp));
+    localStorage.setItem("pixelBoostersOpened", String(player.boosters));
+    localStorage.setItem("pixelCardsUnlocked", JSON.stringify(player.cards));
+
+    showBalance();
+    updateButtons();
+  }
+
+  async function openBooster() {
+    if (busy || !player || !cards.length) return;
+
+    if (player.coins < BOOSTER_PRICE) {
+      status.textContent = "❌ Tu n'as pas assez de Pixel Coins.";
+      rewardElement.textContent = "Il te faut 100 🪙 pour ouvrir un booster.";
+      return;
+    }
+
+    busy = true;
+    updateButtons();
+    result.classList.remove("show");
+    rewardElement.textContent = "";
+    pack.classList.remove("shake");
+    void pack.offsetWidth;
+    pack.classList.add("shake");
+    status.textContent = "Ouverture du booster…";
+
+    try {
+      await new Promise(resolve => setTimeout(resolve, 700));
+
+      const rarity = getRandomRarity();
+      const rarityCards = cards.filter(card => card.dataset.rarity === rarity);
+
+      if (!rarityCards.length) {
+        throw new Error("Aucune carte disponible pour cette rareté.");
+      }
+
+      const owned = player.cards.map(String);
+      const undiscovered = rarityCards.filter(
+        card => !owned.includes(String(card.dataset.cardId))
+      );
+
+      const pool = undiscovered.length ? undiscovered : rarityCards;
+      const selected = pool[Math.floor(Math.random() * pool.length)];
+
+      if (!selected) throw new Error("Aucune carte sélectionnée.");
+
+      const id = String(selected.dataset.cardId);
+      const duplicate = owned.includes(id);
+      const reward = duplicate ? (DUPLICATE_REWARDS[rarity] || 0) : 0;
+
+      // Toutes les modifications sont enregistrées sur le compte.
+      const newCoins = player.coins - BOOSTER_PRICE + reward;
+      const newXP = player.xp + 10;
+      const newBoosters = player.boosters + 1;
+      const newCards = duplicate
+        ? player.cards
+        : [...new Set([...player.cards, id])];
+
+      const { data: updated, error } = await client
+        .from("players")
+        .update({
+          coins: newCoins,
+          xp: newXP,
+          boosters: newBoosters,
+          cards: newCards
+        })
+        .eq("user_id", user.id)
+        .eq("coins", player.coins)
+        .select("user_id, username, coins, xp, level, cards, boosters, achievements")
+        .maybeSingle();
+
+      if (error) throw error;
+
+      if (!updated) {
+        await loadPlayer();
+        throw new Error(
+          "Ton solde a changé depuis le chargement. Vérifie ton solde et réessaie."
         );
-
-      }else{
-
-        unlocked.push(id);
-
-        saveUnlocked(unlocked);
-
       }
+
+      player = {
+        ...updated,
+        coins: Number(updated.coins),
+        xp: Number(updated.xp),
+        boosters: Number(updated.boosters),
+        cards: Array.isArray(updated.cards) ? updated.cards.map(String) : []
+      };
+
+      localStorage.setItem("pixelCoins", String(player.coins));
+      localStorage.setItem("pixelXP", String(player.xp));
+      localStorage.setItem("pixelBoostersOpened", String(player.boosters));
+      localStorage.setItem("pixelCardsUnlocked", JSON.stringify(player.cards));
 
       resultCard.innerHTML = "";
-
-      const clone =
-        selected.cloneNode(true);
-
+      const clone = selected.cloneNode(true);
       clone.classList.remove("locked");
 
-      const overlay =
-        clone.querySelector(
-          ".card-lock-overlay"
-        );
+      const overlay = clone.querySelector(".card-lock-overlay");
+      if (overlay) overlay.remove();
 
-      if(overlay)
-        overlay.remove();
+      const info = clone.querySelector(".card-info");
 
-      const info =
-        clone.querySelector(".card-info");
-
-      if(info){
-
-        const badge =
-          document.createElement("div");
-
-        badge.className =
-          "rarity booster-rarity rarity-" +
-          rarity;
-
-        badge.style.marginTop =
-          "10px";
-
-        badge.style.fontWeight =
-          "1000";
-
-        badge.textContent =
-          RARITIES[rarity].emoji +
-          " " +
+      if (info) {
+        const badge = document.createElement("div");
+        badge.className = "rarity booster-rarity rarity-" + rarity;
+        badge.style.marginTop = "10px";
+        badge.style.fontWeight = "1000";
+        badge.textContent = RARITIES[rarity].emoji + " " +
           RARITIES[rarity].name.toUpperCase();
-
         info.appendChild(badge);
-
       }
 
       resultCard.appendChild(clone);
 
-      if(wasAlreadyOwned){
-
-        rewardElement.textContent =
-          "🔁 Doublon ! +" +
-          reward +
-          " 🪙";
-
-        status.textContent =
-          "Tu as obtenu une carte que tu possédais déjà.";
-
-      }else{
-
-        rewardElement.textContent =
-          "✨ Nouvelle carte ! Aucun Pixel Coin gagné.";
-
-        status.textContent =
-          "✨ Nouvelle carte découverte !";
-
+      if (duplicate) {
+        rewardElement.textContent = "🔁 Doublon ! +" + reward + " 🪙";
+        status.textContent = "Doublon enregistré sur ton compte.";
+      } else {
+        rewardElement.textContent = "✨ Nouvelle carte ! Aucun Pixel Coin gagné.";
+        status.textContent = "✨ Nouvelle carte découverte et enregistrée !";
       }
 
+      showBalance();
       result.classList.add("show");
-
-      updateBalance();
-
-      openButton.disabled =
-        getCoins() < BOOSTER_PRICE;
-
-      againButton.disabled =
-        getCoins() < BOOSTER_PRICE;
-
-    },700);
-
+    } catch (error) {
+      console.error(error);
+      status.textContent = error.message ||
+        "Une erreur est survenue. Vérifie ta connexion et réessaie.";
+    } finally {
+      busy = false;
+      updateButtons();
+    }
   }
 
-  openButton.addEventListener(
-    "click",
-    reveal
-  );
+  openButton.addEventListener("click", openBooster);
+  againButton.addEventListener("click", openBooster);
 
-  againButton.addEventListener(
-    "click",
-    reveal
-  );
+  openButton.disabled = true;
+  againButton.disabled = true;
 
-  updateBalance();
-
-  loadCards();
-
+  await loadPlayer();
+  await loadCards();
+  updateButtons();
 })();
+
 
 </script>
 
