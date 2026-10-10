@@ -706,87 +706,38 @@ async function loadPlayerProfile() {
   ));
   localStorage.setItem("pixelBoostersOpened", String(Number(data.boosters) || 0));
 
-  let rewards = Array.isArray(data.level_rewards)
-    ? data.level_rewards
-    : [];
+  
+  // Synchroniser les récompenses de niveau avec Supabase.
+  const { data: syncedPlayers, error: syncError } =
+    await supabaseClient.rpc("sync_level_rewards");
 
-  const alreadyInitialized = rewards.includes("__initialized__");
-  const currentLevel = getLevelData().level;
-
-  if (!alreadyInitialized) {
-    // Première synchronisation : ne pas payer une deuxième fois
-    // les récompenses des niveaux déjà atteints.
-    rewards = [
-      ...rewards,
-      ...Object.keys(LEVEL_REWARDS)
-        .map(Number)
-        .filter(level => currentLevel >= level),
-      "__initialized__"
-    ];
-
-    rewards = [...new Set(rewards)];
-
-    const { error: initError } = await supabaseClient
-      .from("players")
-      .update({ level_rewards: rewards, level: currentLevel })
-      .eq("user_id", currentUser.id);
-
-    if (initError) {
-      console.error("Erreur d'initialisation des récompenses :", initError);
-      showProfileMessage("Impossible d'enregistrer les récompenses du profil.");
-      return;
-    }
-
-    playerData.level_rewards = rewards;
-    playerData.level = currentLevel;
-  } else {
-    // Distribuer les récompenses des nouveaux niveaux atteints.
-    let coins = getCoins();
-    let bonusBoosters = Number(localStorage.getItem("pixelBonusBoosters")) || 0;
-    let changed = false;
-
-    for (const [levelKey, reward] of Object.entries(LEVEL_REWARDS)) {
-      const rewardLevel = Number(levelKey);
-
-      if (currentLevel < rewardLevel || rewards.includes(rewardLevel)) {
-        continue;
-      }
-
-      coins += reward.coins || 0;
-
-      if (reward.booster) {
-        bonusBoosters += reward.booster;
-      }
-
-      rewards.push(rewardLevel);
-      changed = true;
-    }
-
-    if (changed) {
-      const { error: rewardError } = await supabaseClient
-        .from("players")
-        .update({
-          coins,
-          level: currentLevel,
-          level_rewards: rewards
-        })
-        .eq("user_id", currentUser.id);
-
-      if (rewardError) {
-        console.error("Erreur de sauvegarde des récompenses :", rewardError);
-        showProfileMessage(
-          "La sauvegarde des récompenses a échoué. Recharge le profil après vérification."
-        );
-        return;
-      }
-
-      playerData.coins = coins;
-      playerData.level = currentLevel;
-      playerData.level_rewards = rewards;
-      localStorage.setItem(COINS_KEY, String(coins));
-      localStorage.setItem("pixelBonusBoosters", String(bonusBoosters));
-    }
+  if (syncError || !Array.isArray(syncedPlayers) || !syncedPlayers.length) {
+    console.error("Erreur de synchronisation des récompenses :", syncError);
+    showProfileMessage(
+      "Impossible de synchroniser les récompenses. Recharge le profil après vérification."
+    );
+    return;
   }
+
+  // Charger les statistiques mises à jour.
+  playerData = syncedPlayers[0];
+
+  localStorage.setItem(COINS_KEY, String(Number(playerData.coins) || 0));
+  localStorage.setItem(XP_KEY, String(Number(playerData.xp) || 0));
+  localStorage.setItem(
+    CARDS_KEY,
+    JSON.stringify(
+      Array.isArray(playerData.cards) ? playerData.cards.map(String) : []
+    )
+  );
+  localStorage.setItem(
+    "pixelBoostersOpened",
+    String(Number(playerData.boosters) || 0)
+  );
+  localStorage.setItem(
+    "pixelBonusBoosters",
+    String(Number(playerData.bonus_boosters) || 0)
+  );
 
   updateProfile();
 
