@@ -1,519 +1,404 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pixel Cards — Booster</title>
-<meta name="description" content="Ouvre un booster Pixel Cards et découvre une carte Winter Pixels.">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pixel Cards — Boosters</title>
+<meta name="description" content="Ouvre les boosters Pixel Cards et collectionne tes cartes.">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cartes.js"></script>
 <style>
-:root{
+:root {
   --bg:#0b0f1d;
-  --header:#0a0d16;
   --panel:#101a2d;
   --text:#f5f7ff;
   --muted:#aeb8cc;
   --accent:#61e6f5;
-  --line:rgba(255,255,255,.12);
+  --line:rgba(255,255,255,.13);
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
+body {
   margin:0;
   min-height:100vh;
-  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   background:
-    radial-gradient(circle at 50% 10%,rgba(97,230,245,.14),transparent 30%),
-    radial-gradient(circle at 10% 80%,rgba(90,70,180,.12),transparent 30%),
+    radial-gradient(circle at 50% 5%,rgba(97,230,245,.14),transparent 35%),
+    radial-gradient(circle at 90% 80%,rgba(140,70,255,.12),transparent 35%),
     var(--bg);
 }
 a{color:inherit;text-decoration:none}
-
-header{
-  position:sticky;
-  top:0;
-  z-index:50;
+header {
   background:rgba(8,11,19,.96);
   border-bottom:1px solid var(--line);
 }
-
-.nav{
-  min-height:76px;
-  width:min(1180px,92%);
+.nav {
+  width:min(1100px,92%);
+  min-height:70px;
   margin:auto;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:20px;
-}
-
-.logo{
-  font-size:22px;
-  font-weight:1000;
-  letter-spacing:1px;
-}
-
-.logo span{color:var(--accent)}
-
-nav{
-  display:flex;
-  gap:18px;
+  gap:15px;
   flex-wrap:wrap;
+  padding:12px 0;
 }
-
-nav a{
-  color:var(--muted);
-  font-weight:800;
-  font-size:14px;
-}
-
-nav a:hover{color:var(--text)}
-
-.container{
-  width:min(1100px,92%);
-  margin:auto;
-}
-
-.booster-page{
-  text-align:center;
-  padding:55px 0 70px;
-}
-
-.badge{
-  display:inline-flex;
-  padding:9px 15px;
-  border:1px solid rgba(97,230,245,.32);
-  border-radius:999px;
-  background:rgba(97,230,245,.07);
-  color:var(--accent);
-  font-size:13px;
-  font-weight:950;
-}
-
-h1{
-  font-size:clamp(42px,9vw,76px);
-  margin:20px 0 12px;
-  letter-spacing:-3px;
-}
-
-.lead{
-  max-width:680px;
-  margin:0 auto;
-  color:var(--muted);
-  line-height:1.6;
-  font-size:17px;
-}
-
-.balance{
-  display:inline-block;
-  margin-top:22px;
+.logo{font-size:22px;font-weight:1000;letter-spacing:1px}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:15px;flex-wrap:wrap}
+nav a{color:var(--muted);font-size:14px;font-weight:800}
+nav a:hover{color:white}
+main{width:min(1050px,92%);margin:auto;padding:35px 0 65px}
+h1{font-size:clamp(35px,7vw,58px);text-align:center;margin:15px 0}
+.lead{text-align:center;color:var(--muted);line-height:1.6}
+.balance {
+  width:max-content;
+  max-width:100%;
+  margin:20px auto;
   padding:12px 20px;
   border:1px solid rgba(97,230,245,.3);
-  border-radius:15px;
+  border-radius:14px;
   background:rgba(255,255,255,.05);
-  font-size:20px;
+  font-size:21px;
   font-weight:1000;
 }
-
-.probabilities{
-  max-width:760px;
-  margin:28px auto 0;
+.boosters {
   display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:8px;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:20px;
+  margin:30px 0;
 }
-
-.prob{
-  padding:10px 5px;
+.booster {
+  padding:22px;
+  text-align:center;
   border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(255,255,255,.035);
-  font-size:12px;
-  font-weight:900;
+  border-radius:22px;
+  background:rgba(16,26,45,.88);
 }
-
-.prob strong{
-  display:block;
-  font-size:18px;
-  margin-bottom:3px;
-}
-
-.rarity-common{color:#d9e1ee}
-.rarity-uncommon{color:#63e6be}
-.rarity-rare{color:#61a8ff}
-.rarity-epic{color:#b982ff}
-.rarity-legendary{color:#ffd45a}
-.rarity-secret{
-  color:#ff7cff;
-  text-shadow:0 0 12px rgba(255,124,255,.7);
-}
-
-.booster-stage{
-  min-height:430px;
-  margin:35px auto 25px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-
-.booster-pack{
-  width:min(290px,78vw);
-  aspect-ratio:2/3;
-  border-radius:24px;
-  border:2px solid rgba(97,230,245,.35);
-  background:
-    radial-gradient(circle at 50% 35%,rgba(97,230,245,.22),transparent 34%),
-    linear-gradient(145deg,#182a48,#090e1c);
-  box-shadow:0 25px 80px rgba(0,0,0,.4);
+.booster.selected{border-color:var(--accent);box-shadow:0 0 25px rgba(97,230,245,.1)}
+.pack {
+  min-height:220px;
+  border-radius:17px;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:25px;
-  transition:transform .25s ease;
-}
-
-.booster-pack.shake{
-  animation:shake .65s ease;
-}
-
-.pack-symbol{font-size:85px}
-
-.pack-title{
-  font-weight:1000;
-  font-size:28px;
-  margin-top:15px;
-}
-
-.pack-season{
-  color:var(--accent);
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:1px;
-  margin-top:8px;
-}
-
-@keyframes shake{
-  0%,100%{transform:rotate(0) scale(1)}
-  20%{transform:rotate(-5deg) scale(1.03)}
-  40%{transform:rotate(5deg) scale(1.05)}
-  60%{transform:rotate(-4deg) scale(1.04)}
-  80%{transform:rotate(3deg) scale(1.02)}
-}
-
-.result{display:none}
-.result.show{display:block}
-
-.result-card{
-  width:min(430px,92vw);
-  margin:auto;
-  padding:15px;
-  border-radius:25px;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(97,230,245,.25);
-}
-
-.result-card img{
-  max-width:100%;
-  border-radius:15px;
-}
-
-.button{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:210px;
-  padding:15px 22px;
-  border-radius:15px;
+  gap:12px;
+  background:radial-gradient(circle at 50% 30%,rgba(97,230,245,.22),transparent 45%),linear-gradient(145deg,#182a48,#090e1c);
   border:1px solid rgba(97,230,245,.3);
-  background:var(--accent);
-  color:#06121a;
+}
+.pack.christmas {
+  background:radial-gradient(circle at 50% 30%,rgba(255,70,100,.22),transparent 45%),linear-gradient(145deg,#42203c,#101629);
+  border-color:rgba(255,100,120,.35);
+}
+.pack-icon{font-size:65px}
+.pack-name{font-size:24px;font-weight:1000}
+.pack-price{color:var(--accent);font-weight:900}
+.booster h2{margin:18px 0 8px}
+.booster p{color:var(--muted);line-height:1.5}
+.probabilities{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:15px 0}
+.prob{font-size:12px;font-weight:800;padding:7px 9px;border:1px solid var(--line);border-radius:9px}
+.common{color:#d9e1ee}
+.uncommon{color:#63e6be}
+.rare{color:#61a8ff}
+.epic{color:#b982ff}
+.legendary{color:#ffd45a}
+.secret,.mythic{color:#ff7cff}
+button {
+  border:0;
+  border-radius:12px;
+  padding:13px 18px;
+  font-size:15px;
   font-weight:1000;
   cursor:pointer;
-  font-size:16px;
 }
-
-.button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
+.primary{background:var(--accent);color:#06121a}
+.secondary{background:rgba(255,255,255,.08);color:white;border:1px solid var(--line)}
+button:disabled{opacity:.4;cursor:not-allowed}
+.status{text-align:center;min-height:28px;color:var(--muted);margin:15px 0}
+.result{display:none;text-align:center;margin-top:25px}
+.result.show{display:block}
+.result-card {
+  width:min(320px,100%);
+  min-height:300px;
+  margin:18px auto;
+  padding:22px;
+  border-radius:20px;
+  border:1px solid rgba(97,230,245,.3);
+  background:linear-gradient(145deg,#182a48,#090e1c);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:12px;
+  overflow-wrap:anywhere;
 }
-
-.secondary{
-  background:rgba(255,255,255,.05);
-  color:var(--text);
-  margin-top:12px;
-}
-
-.status{
-  min-height:24px;
-  margin-top:15px;
-  color:var(--muted);
-}
-
-.reward{
-  margin-top:15px;
-  padding:14px;
-  border-radius:14px;
-  background:rgba(97,230,245,.07);
-  border:1px solid rgba(97,230,245,.2);
-  font-weight:900;
-}
-
-footer{
-  text-align:center;
-  padding:30px;
-  color:var(--muted);
-  font-size:13px;
-  border-top:1px solid var(--line);
-}
-
-@media(max-width:800px){
-  .nav{
-    align-items:flex-start;
-    padding:16px 0;
-    flex-direction:column;
-  }
-
-  nav{gap:12px}
-
-  .probabilities{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
+.result-card img{max-width:100%;max-height:230px;object-fit:contain;border-radius:12px}
+.card-symbol{font-size:65px}
+.card-title{font-size:23px;font-weight:1000}
+.card-number{color:var(--muted)}
+.reward{font-weight:900;margin:15px 0}
+footer{text-align:center;color:var(--muted);padding:25px;border-top:1px solid var(--line);font-size:13px}
+@media(max-width:700px){.boosters{grid-template-columns:1fr}.nav{align-items:flex-start;flex-direction:column}}
 </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="cartes.js"></script>
 </head>
-
 <body>
-
 <header>
   <div class="nav">
     <a class="logo" href="index.html">PIXEL <span>CARDS</span></a>
-
     <nav>
       <a href="index.html">Accueil</a>
-      <a href="saison.html">Saison 1</a>
-      <a href="booster.html">🎁 Booster</a>
+      <a href="saison.html">Saison</a>
+      <a href="booster.html">🎁 Boosters</a>
       <a href="collection.html">Collection</a>
       <a href="economie.html">🪙 Économie</a>
     </nav>
   </div>
 </header>
 
-<main class="booster-page">
+<main>
+  <h1>Les boosters Pixel Cards</h1>
+  <p class="lead">Choisis ton booster, découvre des cartes et complète ta collection !</p>
+  <div class="balance" id="balance">🪙 Chargement...</div>
 
-  <div class="container">
-
-    <div class="badge">
-      ❄️ SAISON 01 — WINTER PIXELS
-    </div>
-
-    <h1>Ouvre ton booster</h1>
-
-    <p class="lead">
-      Chaque booster coûte 100 🪙.
-      Tente ta chance pour obtenir les cartes les plus rares de Winter Pixels.
-    </p>
-
-    <div class="balance" id="balance">
-      🪙 500
-    </div>
-
-    <div class="probabilities">
-
-      <div class="prob rarity-common">
-        <strong>50%</strong>
-        ⚪ Commune
+  <div class="boosters">
+    <section class="booster selected" id="permanentPanel">
+      <div class="pack">
+        <div class="pack-icon">🎴</div>
+        <div class="pack-name">PIXEL CARDS</div>
+        <div class="pack-price">BOOSTER PERMANENT</div>
       </div>
-
-      <div class="prob rarity-uncommon">
-        <strong>25%</strong>
-        🟢 Peu commune
+      <h2>Booster permanent</h2>
+      <p>Des cartes permanentes, disponibles toute l'année.</p>
+      <div class="probabilities">
+        <span class="prob common">Commune</span>
+        <span class="prob uncommon">Peu commune</span>
+        <span class="prob rare">Rare</span>
+        <span class="prob epic">Épique</span>
+        <span class="prob legendary">Légendaire</span>
+        <span class="prob secret">Secrète</span>
       </div>
-
-      <div class="prob rarity-rare">
-        <strong>13%</strong>
-        🔵 Rare
-      </div>
-
-      <div class="prob rarity-epic">
-        <strong>7%</strong>
-        🟣 Épique
-      </div>
-
-      <div class="prob rarity-legendary">
-        <strong>4%</strong>
-        🟡 Légendaire
-      </div>
-
-      <div class="prob rarity-secret">
-        <strong>1%</strong>
-        🌌 Secrète
-      </div>
-
-    </div>
-
-    <div class="booster-stage">
-
-      <div class="booster-pack" id="boosterPack">
-
-        <div class="pack-symbol">🎁</div>
-
-        <div class="pack-title">
-          PIXEL CARDS
-        </div>
-
-        <div class="pack-season">
-          WINTER PIXELS
-        </div>
-
-      </div>
-
-    </div>
-
-    <button class="button" id="openBooster" type="button">
-      🎁 Ouvrir le booster — 100 🪙
-    </button>
-
-    <div class="status" id="status" aria-live="polite"></div>
-
-    <section class="result" id="result">
-
-      <div class="result-card" id="resultCard"></div>
-
-      <div id="reward" class="reward"></div>
-
-      <div style="margin-top:18px;">
-        <button class="button" id="openAgain" type="button">
-          🎁 Ouvrir un autre booster
-        </button>
-      </div>
-
-      <a class="button secondary" href="collection.html">
-        📚 Voir ma collection
-      </a>
-
+      <button class="primary" id="permanentButton" type="button">
+        Ouvrir — 250 🪙
+      </button>
     </section>
 
+    <section class="booster" id="christmasPanel">
+      <div class="pack christmas">
+        <div class="pack-icon">🎄</div>
+        <div class="pack-name">WINTER PIXELS</div>
+        <div class="pack-price">BOOSTER DE NOËL</div>
+      </div>
+      <h2>Winter Pixels</h2>
+      <p>Des cartes exclusives de Noël, disponibles uniquement pendant l'événement.</p>
+      <div class="probabilities">
+        <span class="prob common">Commune 55%</span>
+        <span class="prob rare">Rare 25%</span>
+        <span class="prob epic">Épique 12%</span>
+        <span class="prob legendary">Légendaire 6%</span>
+        <span class="prob mythic">Mythique 2%</span>
+      </div>
+      <button class="primary" id="christmasButton" type="button">
+        Ouvrir — 400 🪙
+      </button>
+      <p id="christmasAvailability"></p>
+    </section>
   </div>
 
+  <div class="status" id="status" aria-live="polite">Chargement du compte...</div>
+
+  <section class="result" id="result">
+    <h2>🎉 Carte obtenue !</h2>
+    <div class="result-card" id="resultCard"></div>
+    <div class="reward" id="reward"></div>
+    <button class="secondary" id="againButton" type="button">Ouvrir un autre booster</button>
+    <p><a href="collection.html">📚 Voir ma collection</a></p>
+  </section>
 </main>
 
-<footer>
-  © 2026 Pixel Cards — Saison 01 : Winter Pixels.
-</footer>
+<footer>© 2026 Pixel Cards</footer>
 
 <script>
-
-
 (async function () {
+  "use strict";
+
   const SUPABASE_URL = "https://nqeuvndxdgkyhgtizlwb.supabase.co";
-  const SUPABASE_KEY = "sb_publishable_eiWdeN_r0EmFL8nhCoMH_w_WA82q10Z";
+  const SUPABASE_KEY = "sb_publishable_eiWdeN_r0EmFL8nhCoMH_w_WA82q10";
   const client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  const BOOSTER_PRICE = 100;
+  const PRICES = { permanent: 250, christmas: 400 };
+
   const DUPLICATE_REWARDS = {
     common: 20,
     uncommon: 35,
     rare: 60,
     epic: 100,
     legendary: 200,
-    secret: 500
+    secret: 500,
+    mythic: 500
   };
 
-  const RARITIES = {
-    common: { name: "Commune", emoji: "⚪", weight: 50 },
-    uncommon: { name: "Peu commune", emoji: "🟢", weight: 25 },
-    rare: { name: "Rare", emoji: "🔵", weight: 13 },
-    epic: { name: "Épique", emoji: "🟣", weight: 7 },
-    legendary: { name: "Légendaire", emoji: "🟡", weight: 4 },
-    secret: { name: "Secrète", emoji: "🌌", weight: 1 }
+  const RARITY_INFO = {
+    common: { name: "Commune", emoji: "⚪" },
+    uncommon: { name: "Peu commune", emoji: "🟢" },
+    rare: { name: "Rare", emoji: "🔵" },
+    epic: { name: "Épique", emoji: "🟣" },
+    legendary: { name: "Légendaire", emoji: "🟡" },
+    secret: { name: "Secrète", emoji: "🌌" },
+    mythic: { name: "Mythique", emoji: "✨" }
   };
 
-  const CARD_RARITY = {
-    "1": "common", "2": "common",
-    "3": "uncommon",
-    "4": "rare", "5": "rare",
-    "6": "epic", "7": "epic",
-    "8": "legendary", "9": "legendary",
-    "10": "secret"
-  };
+  const WINTER_WEIGHTS = [
+    { rarity: "common", weight: 55 },
+    { rarity: "rare", weight: 25 },
+    { rarity: "epic", weight: 12 },
+    { rarity: "legendary", weight: 6 },
+    { rarity: "mythic", weight: 2 }
+  ];
 
-  const pack = document.getElementById("boosterPack");
-  const openButton = document.getElementById("openBooster");
-  const againButton = document.getElementById("openAgain");
-  const result = document.getElementById("result");
-  const resultCard = document.getElementById("resultCard");
-  const status = document.getElementById("status");
-  const balanceElement = document.getElementById("balance");
-  const rewardElement = document.getElementById("reward");
+  const $ = id => document.getElementById(id);
+  const balanceElement = $("balance");
+  const status = $("status");
+  const result = $("result");
+  const resultCard = $("resultCard");
+  const rewardElement = $("reward");
+  const permanentButton = $("permanentButton");
+  const christmasButton = $("christmasButton");
+  const againButton = $("againButton");
 
   let user = null;
   let player = null;
-  let cards = [];
   let busy = false;
+  let selectedType = "permanent";
+  let permanentCards = [];
+  let christmasCards = [];
+  let collectionTemplates = new Map();
+
+  function normalizeRarity(value) {
+    const r = String(value || "common").toLowerCase();
+    if (r === "mythique" || r === "mythic") return "mythic";
+    if (r === "secrete" || r === "secret") return "secret";
+    if (r === "commune" || r === "common") return "common";
+    if (r === "peu commune" || r === "uncommon") return "uncommon";
+    if (r === "rare") return "rare";
+    if (r === "épique" || r === "epique" || r === "epic") return "epic";
+    if (r === "légendaire" || r === "legendaire" || r === "legendary") return "legendary";
+    return r;
+  }
 
   function showBalance() {
     balanceElement.textContent =
-      "🪙 " + Number(player.coins).toLocaleString("fr-FR");
+      "🪙 " + Number(player?.coins || 0).toLocaleString("fr-FR");
+  }
+
+  function isChristmasActive() {
+    return window.PIXEL_CARDS?.events?.noel?.active === true;
+  }
+
+  function cardsFor(type) {
+    return type === "christmas" ? christmasCards : permanentCards;
   }
 
   function updateButtons() {
-    const canOpen = !!player && !busy &&
-      Number(player.coins) >= BOOSTER_PRICE &&
-      cards.length > 0;
-
-    openButton.disabled = !canOpen;
-    againButton.disabled = !canOpen;
+    const signedIn = !!player && !!user;
+    permanentButton.disabled =
+      busy || !signedIn || player.coins < PRICES.permanent || !permanentCards.length;
+    christmasButton.disabled =
+      busy || !signedIn || player.coins < PRICES.christmas ||
+      !isChristmasActive() || !christmasCards.length;
+    againButton.disabled = busy || !signedIn ||
+      player.coins < PRICES[selectedType] || !cardsFor(selectedType).length ||
+      (selectedType === "christmas" && !isChristmasActive());
+    $("christmasAvailability").textContent = isChristmasActive()
+      ? "🟢 Événement actif : le booster est disponible."
+      : "🔒 Événement terminé : les cartes déjà obtenues restent dans ta collection, mais ne peuvent plus être gagnées.";
   }
 
-  function getRandomRarity() {
-    const roll = Math.random() * 100;
-    let total = 0;
-
-    for (const [key, rarity] of Object.entries(RARITIES)) {
-      total += rarity.weight;
-      if (roll < total) return key;
+  function weightedRarity(type, availableCards) {
+    if (type === "christmas") {
+      const available = WINTER_WEIGHTS.filter(item =>
+        availableCards.some(card => normalizeRarity(card.rarity) === item.rarity)
+      );
+      if (!available.length) throw new Error("Aucune carte Winter Pixels disponible.");
+      const total = available.reduce((sum, item) => sum + item.weight, 0);
+      let roll = Math.random() * total;
+      for (const item of available) {
+        roll -= item.weight;
+        if (roll < 0) return item.rarity;
+      }
+      return available[0].rarity;
     }
 
-    return "common";
+    const weights = [
+      { rarity: "common", weight: 50 },
+      { rarity: "uncommon", weight: 25 },
+      { rarity: "rare", weight: 13 },
+      { rarity: "epic", weight: 7 },
+      { rarity: "legendary", weight: 4 },
+      { rarity: "secret", weight: 1 }
+    ].filter(item =>
+      availableCards.some(card => normalizeRarity(card.rarity) === item.rarity)
+    );
+
+    if (!weights.length) throw new Error("Aucune carte permanente disponible.");
+    const total = weights.reduce((sum, item) => sum + item.weight, 0);
+    let roll = Math.random() * total;
+    for (const item of weights) {
+      roll -= item.weight;
+      if (roll < 0) return item.rarity;
+    }
+    return weights[0].rarity;
   }
 
-  async function loadCards() {
+  async function loadCollectionTemplates() {
     try {
-      const response = await fetch("collection.html", {
-        cache: "no-store"
-      });
-
-      if (!response.ok) throw new Error("Chargement des cartes impossible.");
-
+      const response = await fetch("collection.html", { cache: "no-store" });
+      if (!response.ok) return;
       const html = await response.text();
       const doc = new DOMParser().parseFromString(html, "text/html");
-
-      cards = Array.from(doc.querySelectorAll(".card[data-card-id]"));
-
-      cards.forEach((card, index) => {
-        if (!card.dataset.cardId) {
-          const number = card.querySelector(".card-number");
-          const match = number ? number.textContent.match(/\d+/) : null;
-          card.dataset.cardId = match
-            ? String(parseInt(match[0], 10))
-            : String(index + 1);
-        }
-
-        card.dataset.rarity =
-          CARD_RARITY[String(card.dataset.cardId)] || "common";
+      doc.querySelectorAll(".card[data-card-id]").forEach(card => {
+        collectionTemplates.set(String(card.dataset.cardId), card);
       });
-
-      if (!cards.length) throw new Error("Aucune carte trouvée.");
-
-      status.textContent = cards.length + " cartes prêtes à être découvertes.";
-      updateButtons();
     } catch (error) {
-      console.error(error);
-      status.textContent = "Impossible de charger les cartes. Réessaie plus tard.";
+      console.warn("Les modèles de cartes de la collection ne sont pas disponibles.", error);
+    }
+  }
+
+  function loadCardRegistry() {
+    const registry = window.PIXEL_CARDS;
+    if (!registry) throw new Error("Le fichier cartes.js ne contient pas PIXEL_CARDS.");
+
+    permanentCards = (registry.permanent || []).map(card => ({
+      ...card,
+      id: String(card.id),
+      rarity: normalizeRarity(card.rarity),
+      type: "permanent"
+    }));
+
+    const noel = registry.events?.noel;
+    christmasCards = (noel?.cards || []).map(card => {
+      const id = String(card.id);
+      // Raretés convenues pour Winter Pixels :
+      // #001-#002 Commune, #003-#004 Rare, #005-#006 Épique,
+      // #007-#008 Légendaire, #009-#010 Mythique.
+      const winterRarity = {
+        "1": "common", "2": "common",
+        "3": "rare", "4": "rare",
+        "5": "epic", "6": "epic",
+        "7": "legendary", "8": "legendary",
+        "9": "mythic", "10": "mythic"
+      };
+      return {
+        ...card,
+        id,
+        rarity: winterRarity[id] || normalizeRarity(card.rarity),
+        type: "christmas"
+      };
+    });
+
+    if (!permanentCards.length) {
+      throw new Error("Aucune carte permanente trouvée dans cartes.js.");
     }
   }
 
@@ -521,10 +406,11 @@ footer{
     const { data, error } = await client.auth.getUser();
 
     if (error || !data.user) {
+      user = null;
+      player = null;
       balanceElement.textContent = "—";
-      status.textContent = "Connecte-toi pour ouvrir un booster.";
-      openButton.disabled = true;
-      againButton.disabled = true;
+      status.textContent = "Connecte-toi à ton compte pour ouvrir un booster.";
+      updateButtons();
       return;
     }
 
@@ -536,11 +422,7 @@ footer{
       .eq("user_id", user.id)
       .maybeSingle();
 
-    if (readError) {
-      console.error(readError);
-      status.textContent = "Erreur lors du chargement du compte.";
-      return;
-    }
+    if (readError) throw readError;
 
     if (!row) {
       const username =
@@ -561,12 +443,7 @@ footer{
         .select("user_id, username, coins, xp, level, cards, boosters, achievements")
         .single();
 
-      if (createError) {
-        console.error(createError);
-        status.textContent = "Impossible de créer ton profil de joueur.";
-        return;
-      }
-
+      if (createError) throw createError;
       row = created;
     }
 
@@ -578,21 +455,14 @@ footer{
       cards: Array.isArray(row.cards) ? row.cards.map(String) : []
     };
 
-    // Récupère aussi les cartes déjà enregistrées localement.
-    // On fusionne les collections au lieu d'effacer des cartes existantes.
+    // Fusionne les cartes locales et celles du compte sans effacer la collection.
     try {
-      const localCards = JSON.parse(
-        localStorage.getItem("pixelCardsUnlocked") || "[]"
-      );
-
+      const localCards = JSON.parse(localStorage.getItem("pixelCardsUnlocked") || "[]");
       if (Array.isArray(localCards)) {
-        player.cards = [...new Set([
-          ...player.cards,
-          ...localCards.map(String)
-        ])];
+        player.cards = [...new Set([...player.cards, ...localCards.map(String)])];
       }
     } catch (error) {
-      console.warn("Ancienne collection locale illisible.", error);
+      console.warn("Collection locale illisible.", error);
     }
 
     const { error: syncError } = await client
@@ -600,65 +470,110 @@ footer{
       .update({ cards: player.cards })
       .eq("user_id", user.id);
 
-    if (syncError) {
-      console.error(syncError);
-      status.textContent =
-        "Attention : impossible de synchroniser la collection.";
-    }
+    if (syncError) console.warn("Synchronisation de collection impossible.", syncError);
 
     localStorage.setItem("pixelCoins", String(player.coins));
     localStorage.setItem("pixelXP", String(player.xp));
     localStorage.setItem("pixelBoostersOpened", String(player.boosters));
     localStorage.setItem("pixelCardsUnlocked", JSON.stringify(player.cards));
-
     showBalance();
     updateButtons();
   }
 
-  async function openBooster() {
-    if (busy || !player || !cards.length) return;
+  function drawCard(type) {
+    const source = cardsFor(type);
+    const owned = new Set(player.cards.map(String));
+    const rarity = weightedRarity(type, source);
+    const sameRarity = source.filter(card => normalizeRarity(card.rarity) === rarity);
 
-    if (player.coins < BOOSTER_PRICE) {
-      status.textContent = "❌ Tu n'as pas assez de Pixel Coins.";
-      rewardElement.textContent = "Il te faut 100 🪙 pour ouvrir un booster.";
+    if (!sameRarity.length) throw new Error("Aucune carte trouvée pour cette rareté.");
+
+    const newCards = sameRarity.filter(card => !owned.has(String(card.id)));
+    const pool = newCards.length ? newCards : sameRarity;
+    return pool[Math.floor(Math.random() * pool.length)];
+  }
+
+  function displayCard(card) {
+    resultCard.innerHTML = "";
+    const template = collectionTemplates.get(String(card.id));
+
+    if (template) {
+      const clone = template.cloneNode(true);
+      clone.classList.remove("locked");
+      clone.dataset.cardId = String(card.id);
+      const overlay = clone.querySelector(".card-lock-overlay");
+      if (overlay) overlay.remove();
+      resultCard.appendChild(clone);
+    } else {
+      const symbol = document.createElement("div");
+      symbol.className = "card-symbol";
+      symbol.textContent = card.type === "christmas" ? "🎄" : "🎴";
+      resultCard.appendChild(symbol);
+
+      const title = document.createElement("div");
+      title.className = "card-title";
+      title.textContent = card.name || ("Carte #" + card.id);
+      resultCard.appendChild(title);
+
+      const number = document.createElement("div");
+      number.className = "card-number";
+      number.textContent = "#" + (card.number || card.id);
+      resultCard.appendChild(number);
+
+      if (card.image || card.imageUrl || card.image_url) {
+        const img = document.createElement("img");
+        img.src = card.image || card.imageUrl || card.image_url;
+        img.alt = card.name || "Carte Pixel Cards";
+        resultCard.insertBefore(img, title);
+      }
+    }
+
+    const rarityInfo = RARITY_INFO[normalizeRarity(card.rarity)] || RARITY_INFO.common;
+    const badge = document.createElement("div");
+    badge.className = "prob " + normalizeRarity(card.rarity);
+    badge.textContent = rarityInfo.emoji + " " + rarityInfo.name;
+    resultCard.appendChild(badge);
+  }
+
+  async function openBooster(type) {
+    if (busy || !player || !user) return;
+    if (type === "christmas" && !isChristmasActive()) {
+      status.textContent = "🎄 L'événement Winter Pixels est terminé.";
+      updateButtons();
+      return;
+    }
+
+    const price = PRICES[type];
+    if (player.coins < price) {
+      status.textContent = "❌ Tu n'as pas assez de Pixel Coins. Il t'en faut " + price + ".";
+      return;
+    }
+
+    if (!cardsFor(type).length) {
+      status.textContent = "Aucune carte disponible dans ce booster.";
       return;
     }
 
     busy = true;
+    selectedType = type;
+    $("permanentPanel").classList.toggle("selected", type === "permanent");
+    $("christmasPanel").classList.toggle("selected", type === "christmas");
     updateButtons();
     result.classList.remove("show");
     rewardElement.textContent = "";
-    pack.classList.remove("shake");
-    void pack.offsetWidth;
-    pack.classList.add("shake");
     status.textContent = "Ouverture du booster…";
 
     try {
-      await new Promise(resolve => setTimeout(resolve, 700));
+      await new Promise(resolve => setTimeout(resolve, 450));
 
-      const rarity = getRandomRarity();
-      const rarityCards = cards.filter(card => card.dataset.rarity === rarity);
+      const selected = drawCard(type);
+      const id = String(selected.id);
+      const duplicate = player.cards.includes(id);
+      const rarity = normalizeRarity(selected.rarity);
+      const duplicateReward = duplicate ? (DUPLICATE_REWARDS[rarity] || 0) : 0;
 
-      if (!rarityCards.length) {
-        throw new Error("Aucune carte disponible pour cette rareté.");
-      }
-
-      const owned = player.cards.map(String);
-      const undiscovered = rarityCards.filter(
-        card => !owned.includes(String(card.dataset.cardId))
-      );
-
-      const pool = undiscovered.length ? undiscovered : rarityCards;
-      const selected = pool[Math.floor(Math.random() * pool.length)];
-
-      if (!selected) throw new Error("Aucune carte sélectionnée.");
-
-      const id = String(selected.dataset.cardId);
-      const duplicate = owned.includes(id);
-      const reward = duplicate ? (DUPLICATE_REWARDS[rarity] || 0) : 0;
-
-      // Toutes les modifications sont enregistrées sur le compte.
-      const newCoins = player.coins - BOOSTER_PRICE + reward;
+      const oldCoins = player.coins;
+      const newCoins = oldCoins - price + duplicateReward;
       const newXP = player.xp + 10;
       const newBoosters = player.boosters + 1;
       const newCards = duplicate
@@ -674,7 +589,7 @@ footer{
           cards: newCards
         })
         .eq("user_id", user.id)
-        .eq("coins", player.coins)
+        .eq("coins", oldCoins)
         .select("user_id, username, coins, xp, level, cards, boosters, achievements")
         .maybeSingle();
 
@@ -682,9 +597,7 @@ footer{
 
       if (!updated) {
         await loadPlayer();
-        throw new Error(
-          "Ton solde a changé depuis le chargement. Vérifie ton solde et réessaie."
-        );
+        throw new Error("Ton solde a changé. Vérifie ton solde puis réessaie.");
       }
 
       player = {
@@ -700,60 +613,52 @@ footer{
       localStorage.setItem("pixelBoostersOpened", String(player.boosters));
       localStorage.setItem("pixelCardsUnlocked", JSON.stringify(player.cards));
 
-      resultCard.innerHTML = "";
-      const clone = selected.cloneNode(true);
-      clone.classList.remove("locked");
-
-      const overlay = clone.querySelector(".card-lock-overlay");
-      if (overlay) overlay.remove();
-
-      const info = clone.querySelector(".card-info");
-
-      if (info) {
-        const badge = document.createElement("div");
-        badge.className = "rarity booster-rarity rarity-" + rarity;
-        badge.style.marginTop = "10px";
-        badge.style.fontWeight = "1000";
-        badge.textContent = RARITIES[rarity].emoji + " " +
-          RARITIES[rarity].name.toUpperCase();
-        info.appendChild(badge);
-      }
-
-      resultCard.appendChild(clone);
+      displayCard(selected);
 
       if (duplicate) {
-        rewardElement.textContent = "🔁 Doublon ! +" + reward + " 🪙";
-        status.textContent = "Doublon enregistré sur ton compte.";
+        rewardElement.textContent = "🔁 Doublon ! +" + duplicateReward + " Pixel Coins.";
+        status.textContent = "Doublon enregistré. Tu gagnes aussi 10 XP.";
       } else {
         rewardElement.textContent = "✨ Nouvelle carte ! Aucun Pixel Coin gagné.";
-        status.textContent = "✨ Nouvelle carte découverte et enregistrée !";
+        status.textContent = "Carte enregistrée sur ton compte. Tu gagnes 10 XP.";
       }
 
       showBalance();
       result.classList.add("show");
     } catch (error) {
       console.error(error);
-      status.textContent = error.message ||
-        "Une erreur est survenue. Vérifie ta connexion et réessaie.";
+      status.textContent = error.message || "Une erreur est survenue. Réessaie.";
     } finally {
       busy = false;
       updateButtons();
     }
   }
 
-  openButton.addEventListener("click", openBooster);
-  againButton.addEventListener("click", openBooster);
+  permanentButton.addEventListener("click", () => openBooster("permanent"));
+  christmasButton.addEventListener("click", () => openBooster("christmas"));
+  againButton.addEventListener("click", () => openBooster(selectedType));
 
-  openButton.disabled = true;
+  permanentButton.disabled = true;
+  christmasButton.disabled = true;
   againButton.disabled = true;
 
-  await loadPlayer();
-  await loadCards();
-  updateButtons();
+  try {
+    loadCardRegistry();
+    await loadCollectionTemplates();
+    await loadPlayer();
+
+    if (player) {
+      status.textContent = permanentCards.length +
+        " cartes permanentes chargées. " +
+        christmasCards.length + " cartes Winter Pixels enregistrées.";
+    }
+
+    updateButtons();
+  } catch (error) {
+    console.error(error);
+    status.textContent = error.message || "Impossible de charger les boosters.";
+  }
 })();
-
-
 </script>
-
 </body>
 </html>
